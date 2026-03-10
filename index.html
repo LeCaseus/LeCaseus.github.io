@@ -3,30 +3,815 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>my notes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css">
+  <title>your name</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Caveat:wght@400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
 
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f5f0e8;
+      --warm:      #ede5d8;
+      --paper:     #faf7f2;
+      --ink:       #2a2118;
+      --ink2:      #6b5d4f;
+      --faint:     #b8a898;
+      --rule:      #ddd5c5;
+      --accent:    #c17f4a;
+      --accent-d:  #a0632e;
+      --green:     #5a7a5c;
+      --rose:      #b8605a;
+      --blue:      #5a6e8a;
+      --yellow:    #f5e6a3;
+      --yellow-d:  #e8d47a;
+      --pink:      #f5ddd8;
+      --pink-d:    #e8c8c0;
+      --sage:      #d8e5d5;
+      --sage-d:    #c0d5bc;
+      --sky:       #d5e0ee;
+      --sky-d:     #bdd0e5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      height: 60px;
+      background: rgba(245,240,232,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .nav-logo em { font-style: italic; color: var(--accent); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink2);
+      text-decoration: none;
+      transition: color 0.15s;
+      cursor: pointer;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-write {
+      background: var(--ink);
+      color: var(--bg) !important;
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+      transition: background 0.15s !important;
+    }
+    .nav-write:hover { background: var(--accent) !important; color: var(--bg) !important; }
+
+    /* ─── HERO ────────────────────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 60px;
+    }
+
+    .hero-photo {
+      background: var(--warm);
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+    }
+
+    /* placeholder illustration */
+    .hero-photo-inner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.75rem;
+      color: var(--faint);
+      border: 3px dashed var(--rule);
+    }
+
+    .photo-icon { font-size: 3.5rem; opacity: 0.25; }
+
+    .photo-hint {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.45;
+    }
+
+    /* decorative blobs */
+    .hero-photo::before {
+      content: '';
+      position: absolute; bottom: -60px; right: -60px;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.08;
+    }
+    .hero-photo::after {
+      content: '';
+      position: absolute; top: 40px; left: -40px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: var(--green);
+      opacity: 0.07;
+    }
+
+    .hero-text {
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(2.5rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .hero-heading {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 300;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--ink);
+    }
+    .hero-heading em { font-style: italic; color: var(--accent); }
+
+    .hero-body {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--ink2);
+      max-width: 380px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .btn-hero-primary {
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.15s;
+    }
+    .btn-hero-primary:hover { background: var(--accent); }
+
+    .btn-hero-ghost {
+      background: transparent;
+      color: var(--ink2);
+      border: 1px solid var(--rule);
+      padding: 0.7rem 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.15s;
+    }
+    .btn-hero-ghost:hover { border-color: var(--ink2); color: var(--ink); }
+
+    .scroll-hint {
+      margin-top: 3rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .scroll-arrow { animation: bob 1.8s ease-in-out infinite; display: inline-block; }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
+    /* ─── NOTES SECTION ───────────────────────────────────────────────────── */
+    .notes-section {
+      padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+      background: var(--bg);
+    }
+
+    .section-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap; gap: 1rem;
+    }
+
+    .section-heading {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+    }
+    .section-heading em { font-style: italic; color: var(--accent); }
+
+    .section-sub {
+      font-size: 0.85rem;
+      color: var(--ink2);
+      margin-top: 0.3rem;
+      line-height: 1.5;
+    }
+
+    /* filter tabs */
+    .filter-bar {
+      display: flex; gap: 0.4rem; flex-wrap: wrap;
+    }
+
+    .fpill {
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      padding: 0.3rem 0.85rem;
+      border-radius: 20px;
+      border: 1px solid var(--rule);
+      cursor: pointer;
+      color: var(--ink2);
+      background: transparent;
+      transition: all 0.15s;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+    }
+    .fpill:hover { background: var(--warm); color: var(--ink); }
+    .fpill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    /* write button in section */
+    .write-fab {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.55rem 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.15s;
+    }
+    .write-fab:hover { background: var(--accent-d); }
+
+    /* ─── MASONRY GRID ────────────────────────────────────────────────────── */
+    .masonry {
+      columns: 3;
+      column-gap: 1.25rem;
+    }
+
+    @media (max-width: 900px) { .masonry { columns: 2; } }
+    @media (max-width: 520px) { .masonry { columns: 1; } }
+
+    .sticky {
+      break-inside: avoid;
+      margin-bottom: 1.25rem;
+      border-radius: 8px;
+      padding: 1.35rem 1.4rem 1.5rem;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s;
+      position: relative;
+      animation: pop 0.4s ease both;
+    }
+    @keyframes pop {
+      from { opacity: 0; transform: scale(0.96) translateY(6px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .sticky:hover {
+      transform: translateY(-3px) rotate(0.3deg);
+      box-shadow: 0 10px 30px rgba(42,33,24,0.12);
+    }
+
+    /* note colours */
+    .sticky-note    { background: var(--yellow); border-top: 3px solid var(--yellow-d); }
+    .sticky-letter  { background: var(--sky);    border-top: 3px solid var(--sky-d); }
+    .sticky-thought { background: var(--sage);   border-top: 3px solid var(--sage-d); }
+
+    /* pin dot */
+    .sticky::before {
+      content: '';
+      position: absolute; top: -4px; left: 50%;
+      transform: translateX(-50%);
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(42,33,24,0.2);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .sticky-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: rgba(42,33,24,0.45);
+      margin-bottom: 0.6rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .sticky-date { font-size: 0.6rem; color: rgba(42,33,24,0.35); }
+
+    .sticky-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .sticky-body {
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: rgba(42,33,24,0.8);
+    }
+
+    .sticky.is-letter .sticky-body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: rgba(42,33,24,0.7);
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .sticky-more {
+      font-size: 0.75rem;
+      color: var(--ink2);
+      margin-top: 0.6rem;
+      font-style: italic;
+      display: inline-block;
+    }
+
+    /* ─── SINGLE POST VIEW ────────────────────────────────────────────────── */
+    .post-page {
+      min-height: 100vh;
+      padding: 6rem clamp(1.5rem, 5vw, 4rem) 5rem;
+      max-width: 680px;
+      margin: 0 auto;
+      animation: fadein 0.35s ease both;
+    }
+    @keyframes fadein { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+    .post-back {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.78rem; letter-spacing: 0.05em;
+      color: var(--faint); cursor: pointer;
+      margin-bottom: 2.5rem; transition: color 0.15s;
+    }
+    .post-back:hover { color: var(--ink); }
+
+    .post-tag-row { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.25rem; }
+
+    .post-tag {
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.18rem 0.55rem; border-radius: 4px; font-weight: 400;
+    }
+    .post-tag-note    { background: var(--yellow); color: rgba(42,33,24,0.7); }
+    .post-tag-letter  { background: var(--sky);    color: rgba(42,33,24,0.7); }
+    .post-tag-thought { background: var(--sage);   color: rgba(42,33,24,0.7); }
+
+    .post-date { font-size: 0.72rem; color: var(--faint); }
+
+    .post-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 300; line-height: 1.15;
+      letter-spacing: -0.02em; margin-bottom: 2rem;
+    }
+
+    .post-body-note {
+      font-family: 'Caveat', cursive;
+      font-size: 1.35rem; line-height: 1.7; color: var(--ink);
+    }
+
+    .post-body-letter {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 300;
+      line-height: 1.9; color: var(--ink2);
+    }
+
+    .post-body-note p, .post-body-letter p { margin-bottom: 1.3rem; }
+
+    .post-rule { width: 40px; height: 2px; background: var(--rule); margin: 2.5rem 0; }
+
+    .post-foot { display: flex; align-items: center; justify-content: space-between; }
+
+    /* ─── COMPOSE VIEW ────────────────────────────────────────────────────── */
+    .compose-page {
+      min-height: 100vh;
+      padding: 6rem clamp(1.5rem, 5vw, 4rem) 5rem;
+      max-width: 680px;
+      margin: 0 auto;
+      animation: fadein 0.3s ease both;
+    }
+
+    .compose-page h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.9rem; font-weight: 300;
+      letter-spacing: -0.02em; margin-bottom: 0.3rem;
+    }
+
+    .compose-page .sub {
+      font-size: 0.9rem; color: var(--faint);
+      font-style: italic; margin-bottom: 2rem;
+    }
+
+    .type-row { display: flex; gap: 0.5rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
+
+    .tchip {
+      font-size: 0.72rem; letter-spacing: 0.04em;
+      padding: 0.35rem 0.9rem; border-radius: 20px;
+      border: 1px solid var(--rule); cursor: pointer;
+      color: var(--ink2); transition: all 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .tchip:hover { color: var(--ink); border-color: var(--faint); }
+    .tchip.on-note    { background: var(--yellow); border-color: var(--yellow-d); color: var(--ink); }
+    .tchip.on-letter  { background: var(--sky);    border-color: var(--sky-d);    color: var(--ink); }
+    .tchip.on-thought { background: var(--sage);   border-color: var(--sage-d);   color: var(--ink); }
+
+    .cfield { margin-bottom: 1.25rem; }
+    .cfield label {
+      display: block; font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--faint);
+      font-weight: 400; margin-bottom: 0.45rem;
+    }
+
+    .cfield input, .cfield textarea {
+      width: 100%; background: var(--paper);
+      border: 1px solid var(--rule); border-radius: 6px;
+      padding: 0.8rem 1rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      font-weight: 300; color: var(--ink); outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      line-height: 1.6;
+    }
+    .cfield input:focus, .cfield textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(193,127,74,0.1);
+    }
+    #f-title { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 300; }
+    .cfield textarea { min-height: 200px; resize: vertical; }
+    .short-ta { min-height: 130px !important; }
+
+    .char-hint { text-align: right; font-size: 0.65rem; color: var(--faint); margin-top: 0.3rem; }
+    .char-hint.over { color: var(--accent); }
+
+    .cactions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+
+    /* ─── BUTTONS ─────────────────────────────────────────────────────────── */
+    .btn {
+      border: none; cursor: pointer; border-radius: 5px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.83rem;
+      font-weight: 400; padding: 0.55rem 1.3rem; transition: all 0.15s;
+    }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-outline { background: transparent; color: var(--ink2); border: 1px solid var(--rule); }
+    .btn-outline:hover { color: var(--ink); border-color: var(--ink2); }
+    .btn-del { background: transparent; color: var(--faint); border: 1px solid var(--rule); font-size: 0.78rem; }
+    .btn-del:hover { color: var(--rose); border-color: var(--rose); }
+
+    /* ─── EMPTY ───────────────────────────────────────────────────────────── */
+    .empty { text-align: center; padding: 4rem 1rem; }
+    .empty-glyph { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.3; }
+    .empty h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 300; margin-bottom: 0.4rem; }
+    .empty p { color: var(--faint); font-size: 0.88rem; font-style: italic; margin-bottom: 1.5rem; }
+
+    /* ─── FOOTER ──────────────────────────────────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem clamp(1.5rem, 5vw, 4rem);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.72rem; color: var(--faint);
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── TOAST ───────────────────────────────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 1.75rem; left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: var(--ink); color: var(--bg);
+      padding: 0.6rem 1.3rem; border-radius: 5px;
+      font-size: 0.8rem; opacity: 0;
+      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      z-index: 999; white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-photo { min-height: 280px; }
+      .nav-links { gap: 1rem; }
+    }
+    @media (max-width: 520px) {
+      .nav-links a:not(.nav-write) { display: none; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="logo" onclick="showFeed(null)">a<em>note</em></div>
-  <div class="header-right">
-    <div class="header-filters">
-      <div class="filter-pill active" onclick="showFeed(null,this)">All</div>
-      <div class="filter-pill" onclick="showFeed('note',this)">Notes</div>
-      <div class="filter-pill" onclick="showFeed('letter',this)">Letters</div>
-      <div class="filter-pill" onclick="showFeed('thought',this)">Thoughts</div>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo" onclick="showHome()">your<em>name</em></div>
+    <div class="nav-links">
+      <a onclick="showHome()">home</a>
+      <a onclick="scrollToNotes()">notes</a>
+      <a class="nav-write" onclick="showCompose()">+ write</a>
     </div>
-    <button class="write-btn" onclick="showCompose()">+ Write</button>
-  </div>
-</header>
+  </nav>
 
-<div class="page-wrap" id="page"></div>
-<div class="toast" id="toast"></div>
+  <!-- MAIN WRAPPER -->
+  <div id="root"></div>
 
-<script src="script.js"></script>
+  <footer class="site-footer">
+    <span>yourname © 2026</span>
+    <span id="footer-count"></span>
+  </footer>
 
+  <div class="toast" id="toast"></div>
+
+<script>
+  /* ── STORAGE ── */
+  const KEY  = 'anote_v1';
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)||'[]'); } catch { return []; } };
+  const save = d => localStorage.setItem(KEY, JSON.stringify(d));
+
+  /* ── SEED ── */
+  let entries = load();
+  if (!entries.length) {
+    entries = [
+      { id:1, type:'note', title:'', body:"can't stop thinking about how we've outsourced our boredom. waiting for coffee used to be a moment of just... existing. now it's a scroll.", date:'Mar 10, 2026' },
+      { id:2, type:'letter', title:'on starting things you might not finish', body:"I've started and abandoned more projects than I can count. A half-built app, a blog that got three posts, a language learning streak I broke in week two.\n\nFor a long time I treated this as evidence of some character flaw. A lack of follow-through.\n\nBut I've been rethinking that. What if starting is the point? Not every project needs a destination. Some things teach you what you needed to know in the first week and then it's right to put them down.\n\nFinishing is overrated. Starting, again and again, might be the whole thing.", date:'Mar 8, 2026' },
+      { id:3, type:'thought', title:'', body:"the best conversations happen when both people are slightly lost. expertise kills a certain kind of openness.", date:'Mar 6, 2026' },
+      { id:4, type:'note', title:'', body:"made pasta from scratch for the first time. it took an hour and tasted exactly like the boxed kind. 10/10 would do again.", date:'Mar 3, 2026' },
+      { id:5, type:'letter', title:'why I deleted the news apps', body:"Not because the news is bad. Just because I noticed that reading it first thing in the morning was changing the texture of my whole day.\n\nI still read the news. I check it once in the afternoon, on a browser, deliberately. That small shift — from passive notification to active choice — made it feel less like something happening to me.", date:'Feb 28, 2026' },
+      { id:6, type:'thought', title:'', body:"rest is not the absence of work. it is a different kind of attention.", date:'Feb 24, 2026' },
+      { id:7, type:'note', title:'', body:"finally framed that print that's been leaning against my wall for eight months. room feels completely different. why did I wait so long.", date:'Feb 20, 2026' },
+    ];
+    save(entries);
+  }
+
+  let activeFilter = null;
+  let composeType  = 'note';
+
+  /* ── VIEWS ── */
+  function showHome() {
+    activeFilter = null;
+    setRoot(homeTpl());
+    updateFooter();
+    document.querySelectorAll('.fpill').forEach((p,i) => p.classList.toggle('active', i===0));
+  }
+
+  function scrollToNotes() {
+    showHome();
+    setTimeout(() => {
+      const el = document.getElementById('notes-anchor');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 80);
+  }
+
+  /* ── HOME TEMPLATE ── */
+  function homeTpl() {
+    const all    = load();
+    const list   = activeFilter ? all.filter(e => e.type === activeFilter) : all;
+    const label  = activeFilter ? activeFilter + 's' : 'everything';
+
+    let cards = '';
+    if (!list.length) {
+      cards = `<div class="empty">
+        <div class="empty-glyph">✦</div>
+        <h3>Nothing here yet</h3>
+        <p>Your first entry is waiting to be written.</p>
+        <button class="btn btn-primary" onclick="showCompose()">write something</button>
+      </div>`;
+    } else {
+      list.forEach((e, i) => {
+        const isL = e.type === 'letter';
+        cards += `<div class="sticky is-${e.type} sticky-${e.type}" onclick="openEntry(${e.id})" style="animation-delay:${i*0.05}s">
+          <div class="sticky-tag">
+            <span>${e.type}</span>
+            <span class="sticky-date">${e.date}</span>
+          </div>
+          ${isL && e.title ? `<div class="sticky-title">${e.title}</div>` : ''}
+          <div class="sticky-body">${isL ? clip(e.body, 220) : e.body}</div>
+          ${isL ? `<span class="sticky-more">read more →</span>` : ''}
+        </div>`;
+      });
+    }
+
+    return `
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-photo">
+          <div class="hero-photo-inner">
+            <div class="photo-icon">🌿</div>
+            <span class="photo-hint">your photo here</span>
+          </div>
+        </div>
+        <div class="hero-text">
+          <p class="hero-eyebrow">welcome to my little corner</p>
+          <h1 class="hero-heading">Hi, I'm <em>Your Name</em></h1>
+          <p class="hero-body">A place for notes, letters, and half-formed thoughts. I write about things I'm noticing, things I'm learning, and things I can't stop thinking about.</p>
+          <div class="hero-actions">
+            <button class="btn-hero-primary" onclick="scrollToNotes()">read my notes</button>
+            <button class="btn-hero-ghost" onclick="showCompose()">write something</button>
+          </div>
+          <div class="scroll-hint">
+            <span class="scroll-arrow">↓</span>
+            <span>scroll to notes</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTES FEED -->
+      <section class="notes-section" id="notes-anchor">
+        <div class="section-header">
+          <div>
+            <h2 class="section-heading">My <em>notes</em></h2>
+            <p class="section-sub">${list.length} entr${list.length===1?'y':'ies'} · ${label}</p>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap">
+            <div class="filter-bar">
+              <div class="fpill ${!activeFilter?'active':''}" onclick="setFilter(null,this)">all</div>
+              <div class="fpill ${activeFilter==='note'?'active':''}" onclick="setFilter('note',this)">notes</div>
+              <div class="fpill ${activeFilter==='letter'?'active':''}" onclick="setFilter('letter',this)">letters</div>
+              <div class="fpill ${activeFilter==='thought'?'active':''}" onclick="setFilter('thought',this)">thoughts</div>
+            </div>
+            <button class="write-fab" onclick="showCompose()">+ write</button>
+          </div>
+        </div>
+        <div class="masonry">${cards}</div>
+      </section>`;
+  }
+
+  function setFilter(filter, el) {
+    activeFilter = filter;
+    document.querySelectorAll('.fpill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    // re-render just the masonry
+    const section = document.getElementById('notes-anchor');
+    if (!section) { showHome(); return; }
+    const all  = load();
+    const list = filter ? all.filter(e => e.type===filter) : all;
+    const label = filter ? filter+'s' : 'everything';
+
+    section.querySelector('.section-sub').textContent =
+      `${list.length} entr${list.length===1?'y':'ies'} · ${label}`;
+
+    let cards = '';
+    if (!list.length) {
+      cards = `<div class="empty">
+        <div class="empty-glyph">✦</div>
+        <h3>Nothing here yet</h3>
+        <p>No ${filter||''}s written yet.</p>
+        <button class="btn btn-primary" onclick="showCompose()">write one</button>
+      </div>`;
+    } else {
+      list.forEach((e,i) => {
+        const isL = e.type==='letter';
+        cards += `<div class="sticky is-${e.type} sticky-${e.type}" onclick="openEntry(${e.id})" style="animation-delay:${i*0.05}s">
+          <div class="sticky-tag">
+            <span>${e.type}</span>
+            <span class="sticky-date">${e.date}</span>
+          </div>
+          ${isL && e.title ? `<div class="sticky-title">${e.title}</div>` : ''}
+          <div class="sticky-body">${isL ? clip(e.body,220) : e.body}</div>
+          ${isL ? `<span class="sticky-more">read more →</span>` : ''}
+        </div>`;
+      });
+    }
+    section.querySelector('.masonry').innerHTML = cards;
+  }
+
+  /* ── SINGLE ENTRY ── */
+  function openEntry(id) {
+    const e = load().find(x => x.id===id);
+    if (!e) return;
+    const isL = e.type === 'letter';
+    const bodyHtml = e.body.split('\n\n').map(p=>`<p>${p}</p>`).join('');
+    setRoot(`<div class="post-page">
+      <span class="post-back" onclick="showHome()">← back to notes</span>
+      <div class="post-tag-row">
+        <span class="post-tag post-tag-${e.type}">${e.type}</span>
+        <span class="post-date">${e.date}</span>
+      </div>
+      ${isL && e.title ? `<h1 class="post-title">${e.title}</h1>` : ''}
+      <div class="${isL?'post-body-letter':'post-body-note'}">${bodyHtml}</div>
+      <div class="post-rule"></div>
+      <div class="post-foot">
+        <span class="post-back" onclick="showHome()">← back</span>
+        <button class="btn btn-del" onclick="confirmDelete(${e.id})">delete</button>
+      </div>
+    </div>`);
+    window.scrollTo(0,0);
+  }
+
+  function confirmDelete(id) {
+    if (!confirm('Delete this entry?')) return;
+    save(load().filter(e => e.id!==id));
+    toast('Deleted.');
+    showHome();
+  }
+
+  /* ── COMPOSE ── */
+  function showCompose() {
+    composeType = 'note';
+    renderCompose();
+    window.scrollTo(0,0);
+  }
+
+  function renderCompose() {
+    const isL = composeType === 'letter';
+    setRoot(`<div class="compose-page">
+      <h2>New entry</h2>
+      <p class="sub">What's on your mind?</p>
+      <div class="type-row">
+        <div class="tchip ${composeType==='note'   ?'on-note':''}"    onclick="setType('note')">📌 note</div>
+        <div class="tchip ${composeType==='letter' ?'on-letter':''}"  onclick="setType('letter')">✉️ letter</div>
+        <div class="tchip ${composeType==='thought'?'on-thought':''}" onclick="setType('thought')">💭 thought</div>
+      </div>
+      ${isL ? `<div class="cfield"><label>title</label><input id="f-title" type="text" placeholder="Give it a title…" autocomplete="off"/></div>` : ''}
+      <div class="cfield">
+        <label>${isL?'body':composeType==='note'?"what's on your mind?":'the thought'}</label>
+        <textarea id="f-body" class="${composeType!=='letter'?'short-ta':''}"
+          placeholder="${isL?'Write something longer…':composeType==='note'?'Just start writing…':'One sharp observation…'}"
+          oninput="updateChar()"></textarea>
+        ${composeType!=='letter'?`<div class="char-hint" id="char-hint">0 chars</div>`:''}
+      </div>
+      <div class="cactions">
+        <button class="btn btn-primary" onclick="publish()">publish</button>
+        <button class="btn btn-outline" onclick="showHome()">cancel</button>
+      </div>
+    </div>`);
+  }
+
+  function setType(t) { composeType=t; renderCompose(); }
+
+  function updateChar() {
+    const el=document.getElementById('char-hint'), b=document.getElementById('f-body');
+    if (!el||!b) return;
+    const n=b.value.length;
+    el.textContent=n+' chars';
+    el.className='char-hint'+(n>300?' over':'');
+  }
+
+  function publish() {
+    const body  = document.getElementById('f-body')?.value?.trim();
+    const title = document.getElementById('f-title')?.value?.trim()||'';
+    if (!body) { toast('write something first ✏️'); return; }
+    const all   = load();
+    const date  = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    all.unshift({ id:Date.now(), type:composeType, title, body, date });
+    save(all);
+    toast('published ✓');
+    showHome();
+  }
+
+  /* ── UTILS ── */
+  const clip    = (s,n) => s.length>n ? s.slice(0,n)+'…' : s;
+  const setRoot = html  => { document.getElementById('root').innerHTML = html; };
+
+  function updateFooter() {
+    const n = load().length;
+    document.getElementById('footer-count').textContent = `${n} entr${n===1?'y':'ies'}`;
+  }
+
+  function toast(msg) {
+    const t=document.getElementById('toast');
+    t.textContent=msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2500);
+  }
+
+  /* ── INIT ── */
+  showHome();
+</script>
 </body>
 </html>

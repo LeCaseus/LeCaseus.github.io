@@ -50,6 +50,7 @@ nav {
     letter-spacing: -0.02em;
     color: var(--ink);
     cursor: pointer;
+    text-decoration: none; 
 }
 .nav-logo em { font-style: italic; color: var(--accent); }
 

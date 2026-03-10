@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio — Chezter Vargas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    .wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 3rem);
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding: 6rem 0 3.5rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 3.5rem;
+    }
+
+    .page-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+    }
+
+    .page-heading {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .page-heading em { font-style: italic; color: var(--accent); }
+    .page-sub { font-size: 0.92rem; color: var(--ink2); margin-top: 0.5rem; font-style: italic; }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--faint);
+      font-weight: 500;
+      margin-bottom: 1.75rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+    /* ── FILTER BAR ── */
+    .filter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ── PROJECTS GRID ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4.5rem;
+    }
+
+    .project-card {
+      background: var(--paper);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: box-shadow 0.18s, transform 0.18s;
+      animation: rise 0.4s ease both;
+    }
+    @keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .project-card:hover { box-shadow: 0 10px 32px rgba(42,33,24,0.1); transform: translateY(-3px); }
+
+    .project-cover {
+      aspect-ratio: 16/9;
+      background: var(--warm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .project-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+    .project-cover-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(42,33,24,0.5));
+      opacity: 0;
+      transition: opacity 0.2s;
+      display: flex; align-items: flex-end; justify-content: flex-end;
+      padding: 0.75rem;
+    }
+    .project-card:hover .project-cover-overlay { opacity: 1; }
+
+    .project-cover-links { display: flex; gap: 0.4rem; }
+    .project-cover-link {
+      width: 30px; height: 30px;
+      background: rgba(250,247,242,0.9);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink); font-size: 0.72rem;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .project-cover-link:hover { background: var(--accent); color: white; }
+
+    .project-body { padding: 1.25rem 1.35rem 1.4rem; }
+
+    .project-cat {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+    .project-cat-biomed { color: var(--rose); }
+    .project-cat-cad    { color: var(--blue); }
+    .project-cat-ai     { color: var(--green); }
+    .project-cat-web    { color: var(--accent); }
+
+    .project-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+
+    .project-desc {
+      font-size: 0.83rem;
+      color: var(--ink2);
+      line-height: 1.65;
+      margin-bottom: 0.85rem;
+    }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .project-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      background: var(--warm);
+      color: var(--ink2);
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 4.5rem;
+    }
+
+    .skill-card {
+      background: var(--paper);
+      border-radius: 10px;
+      padding: 1.25rem;
+      animation: rise 0.4s ease both;
+    }
+
+    .skill-card-icon {
+      width: 36px; height: 36px;
+      background: var(--warm);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .skill-card-name {
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+
+    .skill-card-level {
+      font-size: 0.72rem;
+      color: var(--faint);
+      margin-bottom: 0.65rem;
+    }
+
+    .skill-bar { height: 3px; background: var(--rule); border-radius: 2px; overflow: hidden; }
+    .skill-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+
+    /* ── ACHIEVEMENTS ── */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 5rem;
+    }
+
+    .achievement-card {
+      background: var(--paper);
+      border-radius: 10px;
+      padding: 1.35rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      animation: rise 0.4s ease both;
+    }
+
+    .achievement-icon {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .achievement-icon-gold   { background: rgba(245,230,103,0.3); }
+    .achievement-icon-blue   { background: rgba(90,110,138,0.1); }
+    .achievement-icon-green  { background: rgba(74,122,92,0.1); }
+    .achievement-icon-orange { background: rgba(193,127,74,0.1); }
+
+    .achievement-name {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+
+    .achievement-detail {
+      font-size: 0.78rem;
+      color: var(--ink2);
+      line-height: 1.5;
+    }
+
+    .achievement-year {
+      font-size: 0.65rem;
+      color: var(--faint);
+      letter-spacing: 0.06em;
+      margin-top: 0.25rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 520px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid   { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">chezter<em>vargas</em></a>
+    <div class="nav-links">
+      <a href="index.html">home</a>
+      <a href="about.html">about</a>
+      <a href="blog.html">blog</a>
+      <a href="portfolio.html" class="active">portfolio</a>
+      <a href="resume.html">resume</a>
+      <a href="contact.html">contact</a>
+      <a class="nav-write" href="blog.html">+ write</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="page-header">
+      <p class="page-eyebrow">work & projects</p>
+      <h1 class="page-heading">My <em>Portfolio</em></h1>
+      <p class="page-sub">Things I've built, designed, and shipped.</p>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="filter-row">
+      <div class="section-label" style="margin-bottom:0;flex:1">projects</div>
+      <div class="filter-bar">
+        <div class="fpill active" onclick="filterProjects(null,this)">all</div>
+        <div class="fpill" onclick="filterProjects('biomed',this)">biomedical</div>
+        <div class="fpill" onclick="filterProjects('cad',this)">CAD</div>
+        <div class="fpill" onclick="filterProjects('ai',this)">AI</div>
+        <div class="fpill" onclick="filterProjects('web',this)">web</div>
+      </div>
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+
+      <div class="project-card" data-cat="biomed">
+        <div class="project-cover">🦾
+          <div class="project-cover-overlay">
+            <div class="project-cover-links">
+              <a href="#" class="project-cover-link" title="View project"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat project-cat-biomed">biomedical</div>
+          <div class="project-name">eM-Brace</div>
+          <p class="project-desc">Autonomous wrist splint with an integrated massage system for alleviating muscle weakness related to Carpal Tunnel Syndrome. Final year thesis project.</p>
+          <div class="project-tags">
+            <span class="project-tag">Arduino</span>
+            <span class="project-tag">Sensors</span>
+            <span class="project-tag">3D Printing</span>
+            <span class="project-tag">C++</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="ai">
+        <div class="project-cover">🐱
+          <div class="project-cover-overlay">
+            <div class="project-cover-links">
+              <a href="https://github.com/LeCaseus/CH3SH1RE" target="_blank" class="project-cover-link" title="View on GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat project-cat-ai">AI / Python</div>
+          <div class="project-name">CH3SH1RE</div>
+          <p class="project-desc">A personal AI assistant project built for fun. Exploring local LLMs, memory, and tool use through a custom Python interface.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">SQLite</span>
+            <span class="project-tag">LLM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="web">
+        <div class="project-cover">🌿
+          <div class="project-cover-overlay">
+            <div class="project-cover-links">
+              <a href="https://github.com/LeCaseus/Personal-Website" target="_blank" class="project-cover-link" title="View on GitHub"><i class="fa-brands fa-github"></i></a>
+              <a href="index.html" class="project-cover-link" title="View live"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat project-cat-web">web</div>
+          <div class="project-name">This Website</div>
+          <p class="project-desc">Personal portfolio and micro-blog built from scratch. No frameworks, no templates — just HTML, CSS, JavaScript, and Node.js.</p>
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">SQLite</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="cad">
+        <div class="project-cover">🖨️
+          <div class="project-cover-overlay">
+            <div class="project-cover-links">
+              <a href="#" class="project-cover-link" title="View project"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat project-cat-cad">CAD / 3D design</div>
+          <div class="project-name">R&D Medical Components</div>
+          <p class="project-desc">Designed and 3D-printed prototype components for R&D use at Zamboanga City Medical Center during internship.</p>
+          <div class="project-tags">
+            <span class="project-tag">CAD</span>
+            <span class="project-tag">3D Printing</span>
+            <span class="project-tag">Prototyping</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section-label">core skills</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <div class="skill-card-name">Maintenance & Repair</div>
+        <div class="skill-card-level">Advanced</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fa-solid fa-cube"></i></div>
+        <div class="skill-card-name">CAD / 3D Design</div>
+        <div class="skill-card-level">Proficient</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fa-solid fa-microchip"></i></div>
+        <div class="skill-card-name">Circuit Design</div>
+        <div class="skill-card-level">Intermediate</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fa-brands fa-python"></i></div>
+        <div class="skill-card-name">Python</div>
+        <div class="skill-card-level">Intermediate</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fa-solid fa-code"></i></div>
+        <div class="skill-card-name">C / C++</div>
+        <div class="skill-card-level">Intermediate</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon"><i class="fa-brands fa-js"></i></div>
+        <div class="skill-card-name">Web Development</div>
+        <div class="skill-card-level">Learning</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:45%"></div></div>
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div class="section-label">achievements</div>
+    <div class="achievements-grid">
+      <div class="achievement-card">
+        <div class="achievement-icon achievement-icon-gold">🎓</div>
+        <div>
+          <div class="achievement-name">BS Biomedical Engineering</div>
+          <div class="achievement-detail">Ateneo de Zamboanga University · GPA 3.23</div>
+          <div class="achievement-year">2025</div>
+        </div>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon achievement-icon-blue">🏥</div>
+        <div>
+          <div class="achievement-name">OJT Completion</div>
+          <div class="achievement-detail">Zamboanga City Medical Center · Biomedical Engineering Dept.</div>
+          <div class="achievement-year">2024</div>
+        </div>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon achievement-icon-green">🔬</div>
+        <div>
+          <div class="achievement-name">Thesis: eM-Brace</div>
+          <div class="achievement-detail">Autonomous wrist splint with integrated massage system for CTS</div>
+          <div class="achievement-year">2025</div>
+        </div>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon achievement-icon-orange">📟</div>
+        <div>
+          <div class="achievement-name">PCB Design Workshop</div>
+          <div class="achievement-detail">Junior IECEP – ADZU Chapter</div>
+          <div class="achievement-year">2023</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <span id="copyright"></span>
+    <div class="social-links-footer">
+      <a href="https://www.youtube.com/@LeCaseus" target="_blank" class="social-footer-btn"><i class="fa-brands fa-youtube"></i></a>
+      <a href="https://github.com/LeCaseus" target="_blank" class="social-footer-btn"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/lecaseus" target="_blank" class="social-footer-btn"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/cheeshire_/" target="_blank" class="social-footer-btn"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function filterProjects(cat, el) {
+      document.querySelectorAll('.fpill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.project-card').forEach((card, i) => {
+        const show = !cat || card.dataset.cat === cat;
+        card.style.display = show ? 'block' : 'none';
+        if (show) card.style.animationDelay = `${i * 0.06}s`;
+      });
+    }
+
+    document.getElementById('copyright').textContent = `Chezter Vargas © ${new Date().getFullYear()}`;
+  </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 const Database = require('better-sqlite3');
-const db = Database('anote.db');
+const db = Database('caseus.db');
 
 // create tables if they don't exist yet
 db.exec(`

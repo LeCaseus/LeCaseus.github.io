@@ -1,11 +1,3 @@
-/* ── STORAGE ── */
-const KEY  = 'anote_v1';
-const load = () => { try { return JSON.parse(localStorage.getItem(KEY)||'[]'); } catch { return []; } };
-const save = d => localStorage.setItem(KEY, JSON.stringify(d));
-
-/* ── SEED ── */
-let entries = load();
-
 let activeFilter = null;
 let composeType  = 'note';
 
@@ -23,12 +15,14 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
 /* ── VIEWS ── */
-function showHome() {
-activeFilter = null;
-setRoot(homeTpl());
-updateFooter();
-document.querySelectorAll('.fpill').forEach((p,i) => p.classList.toggle('active', i===0));
-setTimeout(initReveal, 50);
+async function showHome() {
+  activeFilter = null;
+  const res  = await fetch('/api/entries');
+  const list = await res.json();
+  setRoot(homeTpl(list));
+  updateFooter(list.length);
+  document.querySelectorAll('.fpill').forEach((p,i) => p.classList.toggle('active', i===0));
+  setTimeout(initReveal, 50);
 }
 
 function scrollToNotes() {
@@ -40,9 +34,7 @@ setTimeout(() => {
 }
 
 /* ── HOME TEMPLATE ── */
-function homeTpl() {
-const all    = load();
-const list   = activeFilter ? all.filter(e => e.type === activeFilter) : all;
+function homeTpl(list) {
 const label  = activeFilter ? activeFilter + 's' : 'everything';
 
 let cards = '';
@@ -117,80 +109,82 @@ return `
     </section>`;
 }
 
-function setFilter(filter, el) {
-activeFilter = filter;
-document.querySelectorAll('.fpill').forEach(p => p.classList.remove('active'));
-el.classList.add('active');
-// re-render just the masonry
-const section = document.getElementById('notes-anchor');
-if (!section) { showHome(); return; }
-const all  = load();
-const list = filter ? all.filter(e => e.type===filter) : all;
-const label = filter ? filter+'s' : 'everything';
+async function setFilter(filter, el) {
+    activeFilter = filter;
+    document.querySelectorAll('.fpill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    // re-render just the masonry
+    const section = document.getElementById('notes-anchor');
+    if (!section) { await showHome(); return; }
+    const url  = filter ? `/api/entries?type=${filter}` : '/api/entries';
+    const res  = await fetch(url);
+    const list = await res.json();
+    const label = filter ? filter+'s' : 'everything';
 
-section.querySelector('.section-sub').textContent =
-    `${list.length} entr${list.length===1?'y':'ies'} · ${label}`;
+    section.querySelector('.section-sub').textContent =
+        `${list.length} entr${list.length===1?'y':'ies'} · ${label}`;
 
-let cards = '';
-if (!list.length) {
-    cards = `<div class="empty">
-    <div class="empty-glyph">✦</div>
-    <h3>Nothing here yet</h3>
-    <p>No ${filter||''}s written yet.</p>
-    <button class="btn btn-primary" onclick="showCompose()">write one</button>
-    </div>`;
-} else {
-    list.forEach((e,i) => {
-    const isL = e.type==='letter';
-    cards += `<div class="sticky is-${e.type} sticky-${e.type}" onclick="openEntry(${e.id})" style="animation-delay:${i*0.05}s">
-        <div class="sticky-tag">
-        <span>${e.type}</span>
-        <span class="sticky-date">${e.date}</span>
-        </div>
-        ${isL && e.title ? `<div class="sticky-title">${e.title}</div>` : ''}
-        <div class="sticky-body">${isL ? clip(e.body,220) : e.body}</div>
-        ${isL ? `<span class="sticky-more">read more →</span>` : ''}
-    </div>`;
-    });
-}
-section.querySelector('.masonry').innerHTML = cards;
+    let cards = '';
+    if (!list.length) {
+        cards = `<div class="empty">
+        <div class="empty-glyph">✦</div>
+        <h3>Nothing here yet</h3>
+        <p>No ${filter||''}s written yet.</p>
+        <button class="btn btn-primary" onclick="showCompose()">write one</button>
+        </div>`;
+    } else {
+        list.forEach((e,i) => {
+        const isL = e.type==='letter';
+        cards += `<div class="sticky is-${e.type} sticky-${e.type}" onclick="openEntry(${e.id})" style="animation-delay:${i*0.05}s">
+            <div class="sticky-tag">
+            <span>${e.type}</span>
+            <span class="sticky-date">${e.date}</span>
+            </div>
+            ${isL && e.title ? `<div class="sticky-title">${e.title}</div>` : ''}
+            <div class="sticky-body">${isL ? clip(e.body,220) : e.body}</div>
+            ${isL ? `<span class="sticky-more">read more →</span>` : ''}
+        </div>`;
+        });
+    }
+    section.querySelector('.masonry').innerHTML = cards;
 }
 
 /* ── SINGLE ENTRY ── */
-function openEntry(id) {
-const e = load().find(x => x.id===id);
-if (!e) return;
-const isL = e.type === 'letter';
-const bodyHtml = e.body.split('\n\n').map(p=>`<p>${p}</p>`).join('');
-setRoot(`<div class="post-page">
-    <span class="post-back" onclick="showHome()">← back to notes</span>
-    <div class="post-tag-row">
-    <span class="post-tag post-tag-${e.type}">${e.type}</span>
-    <span class="post-date">${e.date}</span>
-    </div>
-    ${isL && e.title ? `<h1 class="post-title">${e.title}</h1>` : ''}
-    <div class="${isL?'post-body-letter':'post-body-note'}">${bodyHtml}</div>
-    <div class="post-rule"></div>
-    <div class="post-foot">
-    <span class="post-back" onclick="showHome()">← back</span>
-    <button class="btn btn-del" onclick="confirmDelete(${e.id})">delete</button>
-    </div>
-</div>`);
-window.scrollTo(0,0);
+async function openEntry(id) {
+    const res = await fetch(`/api/entries/${id}`);
+    const e   = await res.json();
+    if (!e) return;
+    const isL = e.type === 'letter';
+    const bodyHtml = e.body.split('\n\n').map(p=>`<p>${p}</p>`).join('');
+    setRoot(`<div class="post-page">
+        <span class="post-back" onclick="showHome()">← back to notes</span>
+        <div class="post-tag-row">
+        <span class="post-tag post-tag-${e.type}">${e.type}</span>
+        <span class="post-date">${e.date}</span>
+        </div>
+        ${isL && e.title ? `<h1 class="post-title">${e.title}</h1>` : ''}
+        <div class="${isL?'post-body-letter':'post-body-note'}">${bodyHtml}</div>
+        <div class="post-rule"></div>
+        <div class="post-foot">
+        <span class="post-back" onclick="showHome()">← back</span>
+        <button class="btn btn-del" onclick="confirmDelete(${e.id})">delete</button>
+        </div>
+    </div>`);
+    window.scrollTo(0,0);
 }
 
-function confirmDelete(id) {
-if (!confirm('Delete this entry?')) return;
-save(load().filter(e => e.id!==id));
-toast('Deleted.');
-showHome();
+async function confirmDelete(id) {
+    if (!confirm('Delete this entry?')) return;
+    await fetch(`/api/entries/${id}`, { method: 'DELETE' });
+    toast('Deleted.');
+    showHome();
 }
 
 /* ── COMPOSE ── */
 function showCompose() {
-composeType = 'note';
-renderCompose();
-window.scrollTo(0,0);
+    composeType = 'note';
+    renderCompose();
+    window.scrollTo(0,0);
 }
 
 function renderCompose() {
@@ -228,24 +222,25 @@ el.textContent=n+' chars';
 el.className='char-hint'+(n>300?' over':'');
 }
 
-function publish() {
-const body  = document.getElementById('f-body')?.value?.trim();
-const title = document.getElementById('f-title')?.value?.trim()||'';
-if (!body) { toast('write something first ✏️'); return; }
-const all   = load();
-const date  = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-all.unshift({ id:Date.now(), type:composeType, title, body, date });
-save(all);
-toast('published ✓');
-showHome();
+async function publish() {
+    const body  = document.getElementById('f-body')?.value?.trim();
+    const title = document.getElementById('f-title')?.value?.trim()||'';
+    if (!body) { toast('write something first ✏️'); return; }
+    const date  = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    await fetch('/api/entries', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: composeType, title, body, date })
+    });
+    toast('published ✓');
+    showHome();
 }
 
 /* ── UTILS ── */
 const clip    = (s,n) => s.length>n ? s.slice(0,n)+'…' : s;
 const setRoot = html  => { document.getElementById('root').innerHTML = html; };
 
-function updateFooter() {
-const n = load().length;
+function updateFooter(n) {
 document.getElementById('footer-count').textContent = `${n} entr${n===1?'y':'ies'}`;
 }
 

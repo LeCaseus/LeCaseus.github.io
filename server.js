@@ -15,6 +15,12 @@ app.get('/api/entries', (req, res) => {
   res.json(rows);
 });
 
+app.get('/api/entries/:id', (req, res) => {
+  const row = db.prepare('SELECT * FROM entries WHERE id = ?').get(req.params.id);
+  if (!row) return res.status(404).json({ error: 'not found' });
+  res.json(row);
+});
+
 app.post('/api/entries', (req, res) => {
   const { type, title, body, date } = req.body;
   if (!type || !body) return res.status(400).json({ error: 'type and body required' });
@@ -35,6 +41,12 @@ app.get('/api/posts', (req, res) => {
     ? db.prepare('SELECT * FROM posts WHERE category = ? ORDER BY created_at DESC').all(category)
     : db.prepare('SELECT * FROM posts ORDER BY created_at DESC').all();
   res.json(rows);
+});
+
+app.get('/api/posts/:id', (req, res) => {
+  const row = db.prepare('SELECT * FROM posts WHERE id = ?').get(req.params.id);
+  if (!row) return res.status(404).json({ error: 'not found' });
+  res.json(row);
 });
 
 app.post('/api/posts', (req, res) => {

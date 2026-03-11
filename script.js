@@ -26,6 +26,7 @@ async function showHome() {
     setRoot(homeTpl(list));
     updateFooter(list.length);
     heroRendered = true;
+    loadBlogTeaser();
     setTimeout(initReveal, 50);
   }
 
@@ -134,6 +135,47 @@ return `
     </div>
     </section>
 
+    <!-- PORTFOLIO TEASER -->
+    <section class="teaser-section">
+        <div class="teaser-header">
+        <div>
+            <p class="teaser-eyebrow">selected work</p>
+            <h2 class="section-heading">My <em>Projects</em></h2>
+        </div>
+        <a href="portfolio.html" class="teaser-link">see all work →</a>
+        </div>
+        <div class="teaser-grid">
+        <div class="teaser-card">
+            <div class="teaser-cover">🦾</div>
+            <div class="teaser-body">
+            <div class="teaser-cat teaser-cat-biomed">biomedical</div>
+            <div class="teaser-name">eM-Brace</div>
+            <p class="teaser-desc">Autonomous wrist splint with integrated massage system for Carpal Tunnel Syndrome.</p>
+            </div>
+        </div>
+        <div class="teaser-card">
+            <div class="teaser-cover">🐱</div>
+            <div class="teaser-body">
+            <div class="teaser-cat teaser-cat-ai">AI / Python</div>
+            <div class="teaser-name">CH3SH1RE</div>
+            <p class="teaser-desc">A personal AI assistant exploring local LLMs, memory, and tool use through a custom Python interface.</p>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- BLOG TEASER -->
+    <section class="teaser-section teaser-section-alt">
+        <div class="teaser-header">
+        <div>
+            <p class="teaser-eyebrow">latest writing</p>
+            <h2 class="section-heading">From the <em>Blog</em></h2>
+        </div>
+        <a href="blog.html" class="teaser-link">read all posts →</a>
+        </div>
+        <div id="blog-teaser-grid" class="teaser-grid"></div>
+    </section>
+
     <!-- NOTES FEED -->
     <section class="notes-section" id="notes-anchor">
     <div class="section-header">
@@ -153,6 +195,30 @@ return `
     </div>
     <div class="masonry">${cards}</div>
     </section>`;
+}
+
+async function loadBlogTeaser() {
+  const res  = await fetch('/api/posts');
+  const list = await res.json();
+  const el   = document.getElementById('blog-teaser-grid');
+  if (!el) return;
+
+  if (!list.length) {
+    el.innerHTML = `<p style="color:var(--faint);font-style:italic;font-size:0.9rem">No posts yet — check back soon.</p>`;
+    return;
+  }
+
+  el.innerHTML = list.slice(0, 3).map(p => `
+    <a href="blog.html" class="teaser-card teaser-card-link">
+      <div class="teaser-cover">${p.emoji || '✦'}</div>
+      <div class="teaser-body">
+        <div class="teaser-cat teaser-cat-${p.category}">${p.category}</div>
+        <div class="teaser-name">${p.title}</div>
+        <p class="teaser-desc">${p.excerpt}</p>
+        <span class="teaser-meta">${p.date} · ${p.read_time}</span>
+      </div>
+    </a>
+  `).join('');
 }
 
 async function setFilter(filter, el) {

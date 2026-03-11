@@ -106,6 +106,7 @@ function showCompose() {
           <option value="personal">Personal</option>
           <option value="gaming">Gaming</option>
           <option value="career">Career</option>
+          <option value="fitness">Fitness</option>
         </select>
       </div>
       <div class="cfield">

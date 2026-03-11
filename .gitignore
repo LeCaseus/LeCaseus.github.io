@@ -5,7 +5,7 @@ node_modules/
 *.db
 *.sqlite
 
-# environment variables (for later)
+# environment variables
 .env
 
 # OS junk

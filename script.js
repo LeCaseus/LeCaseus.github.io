@@ -352,6 +352,28 @@ async function publish() {
     showHome();
 }
 
+
+  function toggleMenu() {
+    const btn  = document.getElementById('nav-hamburger');
+    const menu = document.getElementById('nav-mobile');
+    const open = menu.classList.toggle('open');
+    btn.classList.toggle('open', open);
+  }
+
+  document.querySelectorAll('.nav-mobile a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('nav-mobile').classList.remove('open');
+      document.getElementById('nav-hamburger').classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('nav') && !e.target.closest('.nav-mobile')) {
+      document.getElementById('nav-mobile').classList.remove('open');
+      document.getElementById('nav-hamburger').classList.remove('open');
+    }
+  });
+
 /* ── UTILS ── */
 const clip    = (s,n) => s.length>n ? s.slice(0,n)+'…' : s;
 const setRoot = html  => { document.getElementById('root').innerHTML = html; };

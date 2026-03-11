@@ -1,5 +1,6 @@
 let activeFilter = null;
 let composeType = "note";
+const isAdmin = new URLSearchParams(window.location.search).has("admin");
 
 /* ── SCROLL REVEAL ── */
 function initReveal() {
@@ -67,7 +68,7 @@ async function refreshNotes() {
       <div class="empty-glyph">✦</div>
       <h3>Nothing here yet</h3>
       <p>Your first entry is waiting to be written.</p>
-      <button class="btn btn-primary" onclick="showCompose()">write something</button>
+      ${isAdmin ? `<button class="btn btn-primary" onclick="showCompose()">write something</button>` : ""}
     </div>`;
   } else {
     list.forEach((e, i) => {
@@ -97,7 +98,7 @@ function homeTpl(list) {
     <div class="empty-glyph">✦</div>
     <h3>Nothing here yet</h3>
     <p>Your first entry is waiting to be written.</p>
-    <button class="btn btn-primary" onclick="showCompose()">write something</button>
+    ${isAdmin ? `<button class="btn btn-primary" onclick="showCompose()">write something</button>` : ""}
     </div>`;
   } else {
     list.forEach((e, i) => {
@@ -197,7 +198,7 @@ function homeTpl(list) {
             <div class="fpill ${activeFilter === "letter" ? "active" : ""}" onclick="setFilter('letter',this)">letters</div>
             <div class="fpill ${activeFilter === "thought" ? "active" : ""}" onclick="setFilter('thought',this)">thoughts</div>
         </div>
-        <button class="write-fab" onclick="showCompose()">+ write</button>
+        ${isAdmin ? `<button class="write-fab" onclick="showCompose()">+ write</button>` : ""}
         </div>
     </div>
     <div class="masonry">${cards}</div>
@@ -260,8 +261,7 @@ async function setFilter(filter, el) {
         <div class="empty-glyph">✦</div>
         <h3>Nothing here yet</h3>
         <p>No ${filter || ""}s written yet.</p>
-        <button class="btn btn-primary" onclick="showCompose()">write one</button>
-        </div>`;
+        ${isAdmin ? `<button class="btn btn-primary" onclick="showCompose()">write one</button>` : ""}        </div>`;
   } else {
     list.forEach((e, i) => {
       const isL = e.type === "letter";

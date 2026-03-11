@@ -1,4 +1,5 @@
 let activeFilter = null;
+const isAdmin = new URLSearchParams(window.location.search).has("admin");
 
 async function setFilter(filter, el) {
   activeFilter = filter;
@@ -21,7 +22,7 @@ async function renderFeed() {
       <div class="empty-glyph">✦</div>
       <h3>No posts yet</h3>
       <p>No ${activeFilter || ""} posts written yet.</p>
-      <button class="btn btn-primary" onclick="showCompose()">write one</button>
+      ${isAdmin ? `<button class="btn btn-primary" onclick="showCompose()">write one</button>` : ""}
     </div>`);
     return;
   }
@@ -29,7 +30,7 @@ async function renderFeed() {
   const [featured, ...rest] = list;
   let html = `
     <div style="display:flex;justify-content:flex-end;margin-bottom:1.5rem;">
-      <button class="write-fab" onclick="showCompose()">+ write</button>
+      ${isAdmin ? `<button class="write-fab" onclick="showCompose()">+ write</button>` : ""}
     </div>
     <div class="featured" onclick="openPost(${featured.id})">
       <div class="featured-image">${featured.emoji || "✦"}</div>
@@ -50,7 +51,7 @@ async function renderFeed() {
   if (rest.length) {
     html += `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
       <div class="section-label" style="margin-bottom:0;flex:1">more posts</div>
-      <button class="write-fab" onclick="showCompose()">+ write</button>
+      ${isAdmin ? `<button class="write-fab" onclick="showCompose()">+ write</button>` : ""}
     </div><div class="posts-grid">`;
     rest.forEach((p, i) => {
       html += `<div class="post-card" onclick="openPost(${p.id})" style="animation-delay:${i * 0.06}s">

@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Website — Chezter Vargas</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+
+    <style>
+      .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 clamp(1.5rem, 5vw, 3rem);
+      }
+
+      /* ── PAGE HEADER ── */
+      .page-header {
+        padding: 6rem 0 3.5rem;
+        border-bottom: 1px solid var(--rule);
+        margin-bottom: 3.5rem;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--faint);
+        text-decoration: none;
+        margin-bottom: 2rem;
+        transition: color 0.15s;
+      }
+      .back-link:hover {
+        color: var(--ink);
+      }
+
+      .page-eyebrow {
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 500;
+        margin-bottom: 0.6rem;
+      }
+
+      .page-heading {
+        font-family: "Fraunces", serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+      }
+      .page-heading em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .page-sub {
+        font-size: 0.92rem;
+        color: var(--ink2);
+        line-height: 1.7;
+        max-width: 620px;
+        margin-bottom: 1.75rem;
+      }
+
+      /* ── STATUS BADGE ── */
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 0.3rem 0.75rem;
+        border-radius: 20px;
+        background: rgba(193, 127, 74, 0.1);
+        color: var(--accent);
+        border: 1px solid rgba(193, 127, 74, 0.25);
+        margin-bottom: 1.25rem;
+      }
+      .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+
+      /* ── META ROW ── */
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: center;
+        margin-bottom: 1.25rem;
+      }
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.75rem;
+        color: var(--ink2);
+        letter-spacing: 0.03em;
+      }
+      .meta-item i {
+        color: var(--faint);
+        font-size: 0.7rem;
+        width: 14px;
+        text-align: center;
+      }
+
+      /* ── TAGS ── */
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-bottom: 1.75rem;
+      }
+      .tag {
+        font-size: 0.62rem;
+        letter-spacing: 0.04em;
+        padding: 0.15rem 0.55rem;
+        border-radius: 4px;
+        background: var(--warm);
+        color: var(--ink2);
+      }
+      .tag-mono {
+        font-family: "DM Mono", monospace;
+        background: rgba(193, 127, 74, 0.08);
+        color: var(--accent-d);
+      }
+
+      /* ── ACTION BUTTONS ── */
+      .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+      .btn-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        padding: 0.55rem 1.1rem;
+        border-radius: 6px;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 400;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.15s;
+        border: 1px solid var(--rule);
+      }
+      .btn-action-primary {
+        background: var(--ink);
+        color: var(--bg);
+        border-color: var(--ink);
+      }
+      .btn-action-primary:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .btn-action-ghost {
+        background: transparent;
+        color: var(--ink2);
+      }
+      .btn-action-ghost:hover {
+        background: var(--warm);
+        color: var(--ink);
+        border-color: var(--faint);
+      }
+
+      /* ── SECTION LABEL ── */
+      .section-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--faint);
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      /* ── SCREENSHOT ── */
+      .screenshot-section {
+        margin-bottom: 4rem;
+      }
+
+      .screenshot-wrap {
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        background: var(--warm);
+        aspect-ratio: 16/9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        color: var(--faint);
+        letter-spacing: 0.04em;
+        position: relative;
+      }
+      .screenshot-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        display: block;
+      }
+      /* browser chrome mockup */
+      .browser-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 36px;
+        background: var(--paper);
+        border-bottom: 1px solid var(--rule);
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        gap: 0.5rem;
+        z-index: 2;
+      }
+      .browser-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--rule);
+      }
+      .browser-url {
+        margin-left: 0.5rem;
+        font-family: "DM Mono", monospace;
+        font-size: 0.65rem;
+        color: var(--faint);
+        background: var(--warm);
+        border: 1px solid var(--rule);
+        border-radius: 4px;
+        padding: 0.15rem 0.75rem;
+        letter-spacing: 0.02em;
+      }
+
+      /* ── PAGES GRID ── */
+      .pages-section {
+        margin-bottom: 4rem;
+      }
+
+      .pages-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1rem;
+      }
+
+      .page-card {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 1.25rem 1.35rem;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        transition:
+          box-shadow 0.18s,
+          transform 0.18s;
+      }
+      .page-card:hover {
+        box-shadow: 0 6px 24px rgba(42, 33, 24, 0.07);
+        transform: translateY(-2px);
+      }
+
+      .page-card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+      }
+
+      .page-card-name {
+        font-family: "DM Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--accent);
+        letter-spacing: 0.02em;
+      }
+
+      .page-card-arrow {
+        font-size: 0.65rem;
+        color: var(--faint);
+        transition:
+          color 0.15s,
+          transform 0.15s;
+      }
+      .page-card:hover .page-card-arrow {
+        color: var(--accent);
+        transform: translate(2px, -2px);
+      }
+
+      .page-card-title {
+        font-family: "Fraunces", serif;
+        font-size: 0.95rem;
+        font-weight: 300;
+        color: var(--ink);
+        margin-bottom: 0.3rem;
+      }
+
+      .page-card-desc {
+        font-size: 0.78rem;
+        color: var(--ink2);
+        line-height: 1.55;
+      }
+
+      /* ── TECH STACK ── */
+      .stack-section {
+        margin-bottom: 4rem;
+      }
+
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 0.75rem;
+      }
+
+      .stack-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 0.9rem 1rem;
+      }
+      .stack-icon {
+        font-size: 1rem;
+        width: 28px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+      .stack-name {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        color: var(--ink);
+        font-weight: 400;
+      }
+      .stack-role {
+        font-size: 0.65rem;
+        color: var(--faint);
+        margin-top: 0.1rem;
+        letter-spacing: 0.02em;
+      }
+
+      /* ── PHILOSOPHY ── */
+      .philosophy-section {
+        margin-bottom: 4.5rem;
+      }
+
+      .philosophy-box {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-left: 3px solid var(--accent);
+        border-radius: 0 10px 10px 0;
+        padding: 1.5rem 1.75rem;
+      }
+
+      .philosophy-box p {
+        font-size: 0.9rem;
+        color: var(--ink2);
+        line-height: 1.8;
+        margin-bottom: 0.85rem;
+      }
+      .philosophy-box p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 600px) {
+        .pages-grid {
+          grid-template-columns: 1fr;
+        }
+        .stack-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="nav-logo" href="/">chezter<em>vargas</em></a>
+      <div class="nav-links">
+        <a href="/">home</a>
+        <a href="/about">about</a>
+        <a href="/blog">blog</a>
+        <a href="/portfolio" class="active">portfolio</a>
+        <a href="/resume">resume</a>
+        <a href="/contact">contact</a>
+      </div>
+      <button
+        class="nav-hamburger"
+        id="nav-hamburger"
+        onclick="toggleMenu()"
+        aria-label="Toggle menu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="/">home</a>
+      <a href="/about">about</a>
+      <a href="/blog">blog</a>
+      <a href="/portfolio" class="active">portfolio</a>
+      <a href="/resume">resume</a>
+      <a href="/contact">contact</a>
+    </div>
+
+    <div class="wrap">
+      <div class="page-header">
+        <a href="/portfolio" class="back-link">
+          <i class="fa-solid fa-arrow-left"></i> portfolio
+        </a>
+
+        <div class="status-badge">
+          <span class="status-dot"></span> live & evolving
+        </div>
+
+        <p class="page-eyebrow">web · personal</p>
+        <h1 class="page-heading">Personal <em>Website</em></h1>
+        <p class="page-sub">
+          This site — built entirely from scratch with no frameworks, no
+          templates, and no shortcuts. A portfolio, micro-blog, and playground
+          rolled into one. Every line of HTML, CSS, and JavaScript written by
+          hand.
+        </p>
+
+        <div class="meta-row">
+          <span class="meta-item">
+            <i class="fa-regular fa-calendar"></i> 2024 – present
+          </span>
+          <span class="meta-item">
+            <i class="fa-solid fa-user"></i> Solo project
+          </span>
+          <span class="meta-item">
+            <i class="fa-solid fa-server"></i> Deployed on Vercel
+          </span>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag tag-mono">HTML</span>
+          <span class="tag tag-mono">CSS</span>
+          <span class="tag tag-mono">JavaScript</span>
+          <span class="tag tag-mono">Node.js</span>
+          <span class="tag tag-mono">SQLite</span>
+          <span class="tag">No frameworks</span>
+          <span class="tag">No templates</span>
+        </div>
+
+        <div class="action-row">
+          <a href="/" class="btn-action btn-action-primary">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Live
+          </a>
+          <a
+            href="https://github.com/LeCaseus/Personal-Website"
+            target="_blank"
+            class="btn-action btn-action-ghost"
+          >
+            <i class="fa-brands fa-github"></i> View on GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- SCREENSHOT -->
+      <div class="screenshot-section">
+        <div class="section-label">preview</div>
+        <div class="screenshot-wrap">
+          <div class="browser-bar">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-url">cheztervargas.vercel.app</div>
+          </div>
+          <!-- Drop a screenshot in assets and uncomment this:
+          <img src="../assets/portfolio-covers/website-screenshot.png" alt="Personal website screenshot" style="padding-top:36px;" />
+          -->
+          <span style="margin-top: 36px; font-style: italic">
+            screenshot coming soon
+          </span>
+        </div>
+      </div>
+
+      <!-- PAGES -->
+      <div class="pages-section">
+        <div class="section-label">pages</div>
+        <div class="pages-grid">
+          <a href="/" class="page-card">
+            <div class="page-card-top">
+              <span class="page-card-name">/</span>
+              <i class="fa-solid fa-arrow-up-right page-card-arrow"></i>
+            </div>
+            <div class="page-card-title">Home</div>
+            <p class="page-card-desc">
+              Hero section, selected projects, and latest blog posts pulled
+              dynamically from the database.
+            </p>
+          </a>
+
+          <a href="/about" class="page-card">
+            <div class="page-card-top">
+              <span class="page-card-name">/about</span>
+              <i class="fa-solid fa-arrow-up-right page-card-arrow"></i>
+            </div>
+            <div class="page-card-title">About</div>
+            <p class="page-card-desc">
+              Background, interests, and a bit of personality — the human behind
+              the engineer.
+            </p>
+          </a>
+
+          <a href="/blog" class="page-card">
+            <div class="page-card-top">
+              <span class="page-card-name">/blog</span>
+              <i class="fa-solid fa-arrow-up-right page-card-arrow"></i>
+            </div>
+            <div class="page-card-title">Blog</div>
+            <p class="page-card-desc">
+              A micro-blog with three post types — notes, letters, and thoughts
+              — stored in a Neon PostgreSQL database.
+            </p>
+          </a>
+
+          <a href="/portfolio" class="page-card">
+            <div class="page-card-top">
+              <span class="page-card-name">/portfolio</span>
+              <i class="fa-solid fa-arrow-up-right page-card-arrow"></i>
+            </div>
+            <div class="page-card-title">Portfolio</div>
+            <p class="page-card-desc">
+              Filterable project cards with dedicated pages for each project.
+              You're looking at one right now.
+            </p>
+          </a>
+
+          <a href="/resume" class="page-card">
+            <div class="page-card-top">
+              <span class="page-card-name">/resume</span>
+              <i class="fa-solid fa-arrow-up-right page-card-arrow"></i>
+            </div>
+            <div class="page-card-title">Resume</div>
+            <p class="page-card-desc">
+              Work experience, education, skills, and certifications — with a
+              downloadable PDF.
+            </p>
+          </a>
+
+          <a href="/contact" class="page-card">
+            <div class="page-card-top">
+              <span class="page-card-name">/contact</span>
+              <i class="fa-solid fa-arrow-up-right page-card-arrow"></i>
+            </div>
+            <div class="page-card-title">Contact</div>
+            <p class="page-card-desc">
+              A simple contact form and links to social profiles for getting in
+              touch.
+            </p>
+          </a>
+        </div>
+      </div>
+
+      <!-- TECH STACK -->
+      <div class="stack-section">
+        <div class="section-label">tech stack</div>
+        <div class="stack-grid">
+          <div class="stack-item">
+            <span class="stack-icon">🌐</span>
+            <div>
+              <div class="stack-name">HTML / CSS / JS</div>
+              <div class="stack-role">Frontend — no frameworks</div>
+            </div>
+          </div>
+          <div class="stack-item">
+            <span class="stack-icon">🟩</span>
+            <div>
+              <div class="stack-name">Node.js + Express</div>
+              <div class="stack-role">Backend server</div>
+            </div>
+          </div>
+          <div class="stack-item">
+            <span class="stack-icon">🗄️</span>
+            <div>
+              <div class="stack-name">Neon (PostgreSQL)</div>
+              <div class="stack-role">Blog & entry storage</div>
+            </div>
+          </div>
+          <div class="stack-item">
+            <span class="stack-icon">☁️</span>
+            <div>
+              <div class="stack-name">Cloudinary</div>
+              <div class="stack-role">Image uploads & hosting</div>
+            </div>
+          </div>
+          <div class="stack-item">
+            <span class="stack-icon">▲</span>
+            <div>
+              <div class="stack-name">Vercel</div>
+              <div class="stack-role">Deployment & hosting</div>
+            </div>
+          </div>
+          <div class="stack-item">
+            <span class="stack-icon">🔤</span>
+            <div>
+              <div class="stack-name">Google Fonts</div>
+              <div class="stack-role">Fraunces + DM Sans</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHILOSOPHY -->
+      <div class="philosophy-section">
+        <div class="section-label">why from scratch?</div>
+        <div class="philosophy-box">
+          <p>
+            Most personal sites get bootstrapped from a template or a framework
+            — which is totally fine, but I wanted to actually understand what I
+            was building. Writing the CSS by hand meant learning why things
+            break. Writing the server from scratch meant understanding what a
+            route actually is.
+          </p>
+          <p>
+            This site is less about the end result and more about the process of
+            building it. It'll keep changing as I learn new things, and that's
+            kind of the point.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <span id="copyright"></span>
+      <div class="social-links-footer">
+        <a
+          href="https://www.youtube.com/@LeCaseus"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-youtube"></i
+        ></a>
+        <a
+          href="https://github.com/LeCaseus"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-github"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/lecaseus"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-linkedin"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/cheeshire_/"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("copyright").textContent =
+        `Chezter Vargas © ${new Date().getFullYear()}`;
+
+      function toggleMenu() {
+        const btn = document.getElementById("nav-hamburger");
+        const menu = document.getElementById("nav-mobile");
+        const open = menu.classList.toggle("open");
+        btn.classList.toggle("open", open);
+      }
+      document.querySelectorAll(".nav-mobile a").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.getElementById("nav-mobile").classList.remove("open");
+          document.getElementById("nav-hamburger").classList.remove("open");
+        });
+      });
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("nav") && !e.target.closest(".nav-mobile")) {
+          document.getElementById("nav-mobile").classList.remove("open");
+          document.getElementById("nav-hamburger").classList.remove("open");
+        }
+      });
+    </script>
+  </body>
+</html>

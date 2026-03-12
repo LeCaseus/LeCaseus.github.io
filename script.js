@@ -153,22 +153,30 @@ function homeTpl(list) {
         <a href="/portfolio" class="teaser-link">see all work →</a>
         </div>
         <div class="teaser-grid">
-        <div class="teaser-card">
-            <div class="teaser-cover">🦾</div>
-            <div class="teaser-body">
-            <div class="teaser-cat teaser-cat-biomed">biomedical</div>
-            <div class="teaser-name">eM-Brace</div>
-            <p class="teaser-desc">Autonomous wrist splint with integrated massage system for Carpal Tunnel Syndrome.</p>
-            </div>
-        </div>
-        <div class="teaser-card">
-            <div class="teaser-cover">🐱</div>
-            <div class="teaser-body">
-            <div class="teaser-cat teaser-cat-ai">AI / Python</div>
-            <div class="teaser-name">CH3SH1RE</div>
-            <p class="teaser-desc">A personal AI assistant exploring local LLMs, memory, and tool use through a custom Python interface.</p>
-            </div>
-        </div>
+          <div class="teaser-card">
+              <div class="teaser-cover"><img src="assets/portfolio-covers/em-brace.png" alt="eM-Brace project cover" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+              <div class="teaser-body">
+              <div class="teaser-cat teaser-cat-biomed">biomedical</div>
+              <div class="teaser-name">eM-Brace</div>
+              <p class="teaser-desc">Autonomous wrist splint with integrated massage system for Carpal Tunnel Syndrome.</p>
+              </div>
+          </div>
+          <div class="teaser-card">
+              <div class="teaser-cover">🐱</div>
+              <div class="teaser-body">
+              <div class="teaser-cat teaser-cat-ai">AI / Python</div>
+              <div class="teaser-name">CH3SH1RE</div>
+              <p class="teaser-desc">A personal AI assistant exploring local LLMs, memory, and tool use through a custom Python interface.</p>
+              </div>
+          </div>
+          <div class="teaser-card">
+              <div class="teaser-cover"><img src="assets/portfolio-covers/website-snapshot.png" alt="Personal Website project cover" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
+              <div class="teaser-body">
+              <div class="teaser-cat teaser-cat-web">web</div>
+              <div class="teaser-name">Personal Website</div>
+              <p class="teaser-desc">A portfolio and blog site built with vanilla JavaScript, HTML, and CSS, showcasing my projects and writings.</p>
+              </div>
+           </div>
         </div>
     </section>
 

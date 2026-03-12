@@ -8,7 +8,9 @@
     { "src": "blog_script.js", "use": "@vercel/static" },
     { "src": "assets/**", "use": "@vercel/static" },
     { "src": "favicon.svg", "use": "@vercel/static" },
-    { "src": "em-brace.html", "use": "@vercel/static" }
+    { "src": "em-brace.html", "use": "@vercel/static" },
+    { "src": "ch3sh1re.html", "use": "@vercel/static" },
+    { "src": "personal-website.html", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "server.js" },
@@ -23,7 +25,12 @@
     { "src": "/about", "dest": "/about.html" },
     { "src": "/blog", "dest": "/blog.html" },
     { "src": "/portfolio", "dest": "/portfolio.html" },
-    { "src": "/portfolio/em-brace", "dest": "/em-brace.html" },
+    { "src": "/portfolio/em-brace", "dest": "/portfolio/em-brace.html" },
+    { "src": "/portfolio/ch3sh1re", "dest": "/portfolio/ch3sh1re.html" },
+    {
+      "src": "/portfolio/personal-website",
+      "dest": "/portfolio/personal-website.html"
+    },
     { "src": "/resume", "dest": "/resume.html" },
     { "src": "/contact", "dest": "/contact.html" }
   ]

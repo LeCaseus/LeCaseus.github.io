@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CH3SH1RE — Chezter Vargas</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+
+    <style>
+      .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 clamp(1.5rem, 5vw, 3rem);
+      }
+
+      /* ── PAGE HEADER ── */
+      .page-header {
+        padding: 6rem 0 3.5rem;
+        border-bottom: 1px solid var(--rule);
+        margin-bottom: 3.5rem;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--faint);
+        text-decoration: none;
+        margin-bottom: 2rem;
+        transition: color 0.15s;
+      }
+      .back-link:hover {
+        color: var(--ink);
+      }
+
+      .page-eyebrow {
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--green);
+        font-weight: 500;
+        margin-bottom: 0.6rem;
+      }
+
+      .page-heading {
+        font-family: "DM Mono", monospace;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        color: var(--ink);
+      }
+      .page-heading em {
+        font-style: normal;
+        color: var(--accent);
+      }
+
+      .page-sub {
+        font-size: 0.92rem;
+        color: var(--ink2);
+        line-height: 1.7;
+        max-width: 620px;
+        margin-bottom: 1.75rem;
+      }
+
+      /* ── STATUS BADGE ── */
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 0.3rem 0.75rem;
+        border-radius: 20px;
+        background: rgba(90, 122, 92, 0.12);
+        color: var(--green);
+        border: 1px solid rgba(90, 122, 92, 0.25);
+        margin-bottom: 1.25rem;
+      }
+      .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--green);
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+
+      /* ── META ROW ── */
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: center;
+        margin-bottom: 1.25rem;
+      }
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.75rem;
+        color: var(--ink2);
+        letter-spacing: 0.03em;
+      }
+      .meta-item i {
+        color: var(--faint);
+        font-size: 0.7rem;
+        width: 14px;
+        text-align: center;
+      }
+
+      /* ── TAGS ── */
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-bottom: 1.75rem;
+      }
+      .tag {
+        font-size: 0.62rem;
+        letter-spacing: 0.04em;
+        padding: 0.15rem 0.55rem;
+        border-radius: 4px;
+        background: var(--warm);
+        color: var(--ink2);
+      }
+      .tag-mono {
+        font-family: "DM Mono", monospace;
+        background: rgba(90, 122, 92, 0.1);
+        color: var(--green);
+      }
+
+      /* ── ACTION BUTTONS ── */
+      .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+      .btn-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        padding: 0.55rem 1.1rem;
+        border-radius: 6px;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 400;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.15s;
+        border: 1px solid var(--rule);
+      }
+      .btn-action-primary {
+        background: var(--ink);
+        color: var(--bg);
+        border-color: var(--ink);
+      }
+      .btn-action-primary:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .btn-action-ghost {
+        background: transparent;
+        color: var(--ink2);
+      }
+      .btn-action-ghost:hover {
+        background: var(--warm);
+        color: var(--ink);
+        border-color: var(--faint);
+      }
+
+      /* ── SECTION LABEL ── */
+      .section-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--faint);
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      /* ── FEATURE GRID ── */
+      .features-section {
+        margin-bottom: 4rem;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+      }
+
+      .feature-card {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 1.35rem 1.4rem;
+        transition:
+          box-shadow 0.18s,
+          transform 0.18s;
+      }
+      .feature-card:hover {
+        box-shadow: 0 6px 24px rgba(42, 33, 24, 0.07);
+        transform: translateY(-2px);
+      }
+
+      .feature-icon {
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+        display: block;
+      }
+
+      .feature-title {
+        font-family: "Fraunces", serif;
+        font-size: 0.95rem;
+        font-weight: 300;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        margin-bottom: 0.35rem;
+      }
+
+      .feature-desc {
+        font-size: 0.8rem;
+        color: var(--ink2);
+        line-height: 1.6;
+      }
+
+      .feature-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.6rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-weight: 500;
+        margin-top: 0.6rem;
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+      }
+      .status-done {
+        background: rgba(90, 122, 92, 0.1);
+        color: var(--green);
+      }
+      .status-wip {
+        background: rgba(241, 196, 120, 0.2);
+        color: #b8862a;
+      }
+      .status-planned {
+        background: var(--warm);
+        color: var(--faint);
+      }
+
+      /* ── TECH STACK ── */
+      .stack-section {
+        margin-bottom: 4rem;
+      }
+
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 0.75rem;
+      }
+
+      .stack-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 0.9rem 1rem;
+      }
+
+      .stack-icon {
+        font-size: 1rem;
+        width: 28px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .stack-name {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        color: var(--ink);
+        font-weight: 400;
+      }
+
+      .stack-role {
+        font-size: 0.65rem;
+        color: var(--faint);
+        margin-top: 0.1rem;
+        letter-spacing: 0.02em;
+      }
+
+      /* ── SPECS ── */
+      .specs-section {
+        margin-bottom: 4rem;
+      }
+
+      .specs-box {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .spec-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 0.9rem 1.35rem;
+        border-bottom: 1px solid var(--rule);
+        font-size: 0.82rem;
+      }
+      .spec-row:last-child {
+        border-bottom: none;
+      }
+
+      .spec-key {
+        font-family: "DM Mono", monospace;
+        font-size: 0.72rem;
+        color: var(--faint);
+        min-width: 140px;
+        flex-shrink: 0;
+        padding-top: 0.05rem;
+        letter-spacing: 0.02em;
+      }
+
+      .spec-val {
+        color: var(--ink2);
+        line-height: 1.5;
+      }
+      .spec-val code {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        background: var(--warm);
+        padding: 0.1rem 0.4rem;
+        border-radius: 3px;
+        color: var(--ink);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 600px) {
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        .stack-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .spec-key {
+          min-width: 100px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="nav-logo" href="/">chezter<em>vargas</em></a>
+      <div class="nav-links">
+        <a href="/">home</a>
+        <a href="/about">about</a>
+        <a href="/blog">blog</a>
+        <a href="/portfolio" class="active">portfolio</a>
+        <a href="/resume">resume</a>
+        <a href="/contact">contact</a>
+      </div>
+      <button
+        class="nav-hamburger"
+        id="nav-hamburger"
+        onclick="toggleMenu()"
+        aria-label="Toggle menu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="/">home</a>
+      <a href="/about">about</a>
+      <a href="/blog">blog</a>
+      <a href="/portfolio" class="active">portfolio</a>
+      <a href="/resume">resume</a>
+      <a href="/contact">contact</a>
+    </div>
+
+    <div class="wrap">
+      <div class="page-header">
+        <a href="/portfolio" class="back-link">
+          <i class="fa-solid fa-arrow-left"></i> portfolio
+        </a>
+
+        <div class="status-badge">
+          <span class="status-dot"></span> active project
+        </div>
+
+        <p class="page-eyebrow">AI · Python</p>
+        <h1 class="page-heading">CH3<em>SH1</em>RE</h1>
+        <p class="page-sub">
+          A personal local AI assistant built for fun and learning. Runs
+          entirely on-device using llama.cpp and a quantized Qwen2.5 model — no
+          cloud, no API keys, no subscriptions. An ongoing project that grows as
+          I learn.
+        </p>
+
+        <div class="meta-row">
+          <span class="meta-item">
+            <i class="fa-regular fa-calendar"></i> 2024 – present
+          </span>
+          <span class="meta-item">
+            <i class="fa-solid fa-user"></i> Solo project
+          </span>
+          <span class="meta-item">
+            <i class="fa-brands fa-python"></i> Python · 100%
+          </span>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag tag-mono">Python</span>
+          <span class="tag tag-mono">SQLite</span>
+          <span class="tag tag-mono">llama.cpp</span>
+          <span class="tag tag-mono">Qwen2.5</span>
+          <span class="tag">Local LLM</span>
+          <span class="tag">AI</span>
+        </div>
+
+        <div class="action-row">
+          <a
+            href="https://github.com/LeCaseus/CH3SH1RE"
+            target="_blank"
+            class="btn-action btn-action-primary"
+          >
+            <i class="fa-brands fa-github"></i> View on GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- FEATURES -->
+      <div class="features-section">
+        <div class="section-label">features & roadmap</div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="feature-icon">🧠</span>
+            <div class="feature-title">Local LLM Inference</div>
+            <p class="feature-desc">
+              Runs Qwen2.5 7B instruct (q5_k_m quantized) entirely on-device via
+              a llama.cpp server. No internet required after setup.
+            </p>
+            <span class="feature-status status-done">
+              <i class="fa-solid fa-check"></i> done
+            </span>
+          </div>
+
+          <div class="feature-card">
+            <span class="feature-icon">💾</span>
+            <div class="feature-title">Persistent Memory</div>
+            <p class="feature-desc">
+              Conversations and context stored in a local SQLite database,
+              letting the assistant remember past interactions.
+            </p>
+            <span class="feature-status status-done">
+              <i class="fa-solid fa-check"></i> done
+            </span>
+          </div>
+
+          <div class="feature-card">
+            <span class="feature-icon">👁️</span>
+            <div class="feature-title">Vision Capabilities</div>
+            <p class="feature-desc">
+              Image understanding through a dedicated vision service, allowing
+              the assistant to process and describe visual input.
+            </p>
+            <span class="feature-status status-wip">
+              <i class="fa-solid fa-circle-half-stroke"></i> in progress
+            </span>
+          </div>
+
+          <div class="feature-card">
+            <span class="feature-icon">🌐</span>
+            <div class="feature-title">Web Search</div>
+            <p class="feature-desc">
+              Planned integration to give the assistant access to live web
+              results to answer questions beyond its training data.
+            </p>
+            <span class="feature-status status-planned">
+              <i class="fa-regular fa-clock"></i> planned
+            </span>
+          </div>
+
+          <div class="feature-card">
+            <span class="feature-icon">📚</span>
+            <div class="feature-title">
+              RAG (Retrieval-Augmented Generation)
+            </div>
+            <p class="feature-desc">
+              Planned support for loading personal documents and files so the
+              assistant can answer questions grounded in your own data.
+            </p>
+            <span class="feature-status status-planned">
+              <i class="fa-regular fa-clock"></i> planned
+            </span>
+          </div>
+
+          <div class="feature-card">
+            <span class="feature-icon">🛠️</span>
+            <div class="feature-title">Tool Use</div>
+            <p class="feature-desc">
+              Exploring function calling and tool-use patterns to let the
+              assistant take actions, not just answer questions.
+            </p>
+            <span class="feature-status status-planned">
+              <i class="fa-regular fa-clock"></i> planned
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECH STACK -->
+      <div class="stack-section">
+        <div class="section-label">tech stack</div>
+        <div class="stack-grid">
+          <div class="stack-item">
+            <span class="stack-icon">🐍</span>
+            <div>
+              <div class="stack-name">Python</div>
+              <div class="stack-role">Core language</div>
+            </div>
+          </div>
+          <div class="stack-item">
+            <span class="stack-icon">🦙</span>
+            <div>
+              <div class="stack-name">llama.cpp</div>
+              <div class="stack-role">LLM inference server</div>
+            </div>
+          </div>
+          <div class="stack-item">
+            <span class="stack-icon">🤖</span>
+            <div>
+              <div class="stack-name">Qwen2.5 7B</div>
+              <div class="stack-role">Language model</div>
+            </div>
+          </div>
+          <div class="stack-item">
+            <span class="stack-icon">🗄️</span>
+            <div>
+              <div class="stack-name">SQLite</div>
+              <div class="stack-role">Memory & storage</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPECS -->
+      <div class="specs-section">
+        <div class="section-label">hardware specs (dev machine)</div>
+        <div class="specs-box">
+          <div class="spec-row">
+            <span class="spec-key">CPU</span>
+            <span class="spec-val">AMD Ryzen 5 5500U @ 2.1 GHz</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">RAM</span>
+            <span class="spec-val">16 GB</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">GPU</span>
+            <span class="spec-val">NVIDIA RTX 3050 Laptop — 4 GB VRAM</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Model</span>
+            <span class="spec-val"
+              ><code>qwen2.5-7b-instruct-q5_k_m.gguf</code></span
+            >
+          </div>
+          <div class="spec-row">
+            <span class="spec-key">Inference</span>
+            <span class="spec-val">llama.cpp local server — fully offline</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <span id="copyright"></span>
+      <div class="social-links-footer">
+        <a
+          href="https://www.youtube.com/@LeCaseus"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-youtube"></i
+        ></a>
+        <a
+          href="https://github.com/LeCaseus"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-github"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/lecaseus"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-linkedin"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/cheeshire_/"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("copyright").textContent =
+        `Chezter Vargas © ${new Date().getFullYear()}`;
+
+      function toggleMenu() {
+        const btn = document.getElementById("nav-hamburger");
+        const menu = document.getElementById("nav-mobile");
+        const open = menu.classList.toggle("open");
+        btn.classList.toggle("open", open);
+      }
+      document.querySelectorAll(".nav-mobile a").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.getElementById("nav-mobile").classList.remove("open");
+          document.getElementById("nav-hamburger").classList.remove("open");
+        });
+      });
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("nav") && !e.target.closest(".nav-mobile")) {
+          document.getElementById("nav-mobile").classList.remove("open");
+          document.getElementById("nav-hamburger").classList.remove("open");
+        }
+      });
+    </script>
+  </body>
+</html>

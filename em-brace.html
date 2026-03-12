@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eM-Brace — Chezter Vargas</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+
+    <style>
+      .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 clamp(1.5rem, 5vw, 3rem);
+      }
+
+      /* ── PAGE HEADER ── */
+      .page-header {
+        padding: 6rem 0 3.5rem;
+        border-bottom: 1px solid var(--rule);
+        margin-bottom: 3.5rem;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--faint);
+        text-decoration: none;
+        margin-bottom: 2rem;
+        transition: color 0.15s;
+      }
+      .back-link:hover {
+        color: var(--ink);
+      }
+
+      .page-eyebrow {
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--rose);
+        font-weight: 500;
+        margin-bottom: 0.6rem;
+      }
+
+      .page-heading {
+        font-family: "Fraunces", serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+      }
+      .page-heading em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .page-sub {
+        font-size: 0.92rem;
+        color: var(--ink2);
+        line-height: 1.7;
+        max-width: 620px;
+        margin-bottom: 1.75rem;
+      }
+
+      /* ── META ROW ── */
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: center;
+      }
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.75rem;
+        color: var(--ink2);
+        letter-spacing: 0.03em;
+      }
+      .meta-item i {
+        color: var(--faint);
+        font-size: 0.7rem;
+        width: 14px;
+        text-align: center;
+      }
+
+      /* ── ACTION BUTTONS ── */
+      .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-top: 2rem;
+      }
+
+      .btn-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        padding: 0.55rem 1.1rem;
+        border-radius: 6px;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 400;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.15s;
+        border: 1px solid var(--rule);
+      }
+      .btn-action-primary {
+        background: var(--ink);
+        color: var(--bg);
+        border-color: var(--ink);
+      }
+      .btn-action-primary:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+      .btn-action-ghost {
+        background: transparent;
+        color: var(--ink2);
+      }
+      .btn-action-ghost:hover {
+        background: var(--warm);
+        color: var(--ink);
+        border-color: var(--faint);
+      }
+
+      /* ── TAGS ── */
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-top: 1.25rem;
+      }
+      .tag {
+        font-size: 0.62rem;
+        letter-spacing: 0.04em;
+        padding: 0.15rem 0.55rem;
+        border-radius: 4px;
+        background: var(--warm);
+        color: var(--ink2);
+      }
+
+      /* ── SECTION LABEL ── */
+      .section-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--faint);
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .section-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      /* ── PDF READER ── */
+      .reader-section {
+        margin-bottom: 4.5rem;
+      }
+
+      .reader-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-bottom: none;
+        border-radius: 8px 8px 0 0;
+        padding: 0.65rem 1rem;
+      }
+
+      .reader-nav {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .reader-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid var(--rule);
+        background: transparent;
+        color: var(--ink2);
+        font-size: 0.7rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.15s;
+        font-family: "DM Sans", sans-serif;
+      }
+      .reader-btn:hover:not(:disabled) {
+        background: var(--warm);
+        color: var(--ink);
+        border-color: var(--faint);
+      }
+      .reader-btn:disabled {
+        opacity: 0.35;
+        cursor: default;
+      }
+
+      .reader-page-info {
+        font-size: 0.72rem;
+        color: var(--ink2);
+        letter-spacing: 0.03em;
+        min-width: 80px;
+        text-align: center;
+      }
+
+      .reader-zoom {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .zoom-label {
+        font-size: 0.68rem;
+        color: var(--faint);
+        letter-spacing: 0.05em;
+        min-width: 38px;
+        text-align: center;
+      }
+
+      .reader-canvas-wrap {
+        background: #3a3530;
+        border: 1px solid var(--rule);
+        border-radius: 0 0 8px 8px;
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 680px;
+        padding: 2rem 1rem;
+        position: relative;
+      }
+
+      #pdf-canvas {
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.35);
+        border-radius: 2px;
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      .reader-loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        color: rgba(250, 247, 242, 0.5);
+        font-size: 0.8rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .spinner {
+        width: 28px;
+        height: 28px;
+        border: 2px solid rgba(250, 247, 242, 0.15);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 600px) {
+        .reader-zoom {
+          display: none;
+        }
+        .reader-canvas-wrap {
+          padding: 1rem 0.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="nav-logo" href="/">chezter<em>vargas</em></a>
+      <div class="nav-links">
+        <a href="/">home</a>
+        <a href="/about">about</a>
+        <a href="/blog">blog</a>
+        <a href="/portfolio" class="active">portfolio</a>
+        <a href="/resume">resume</a>
+        <a href="/contact">contact</a>
+      </div>
+      <button
+        class="nav-hamburger"
+        id="nav-hamburger"
+        onclick="toggleMenu()"
+        aria-label="Toggle menu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="/">home</a>
+      <a href="/about">about</a>
+      <a href="/blog">blog</a>
+      <a href="/portfolio" class="active">portfolio</a>
+      <a href="/resume">resume</a>
+      <a href="/contact">contact</a>
+    </div>
+
+    <div class="wrap">
+      <div class="page-header">
+        <a href="/portfolio" class="back-link">
+          <i class="fa-solid fa-arrow-left"></i> portfolio
+        </a>
+
+        <p class="page-eyebrow">biomedical · thesis</p>
+        <h1 class="page-heading">eM-<em>Brace</em></h1>
+        <p class="page-sub">
+          An autonomous wrist splint with an integrated massage system for
+          alleviating muscle weakness related to Carpal Tunnel Syndrome.
+          Developed as a final year thesis project at Ateneo de Zamboanga
+          University.
+        </p>
+
+        <div class="meta-row">
+          <span class="meta-item">
+            <i class="fa-regular fa-calendar"></i> 2021 – 2025
+          </span>
+          <span class="meta-item">
+            <i class="fa-solid fa-location-dot"></i> Ateneo de Zamboanga
+            University
+          </span>
+          <span class="meta-item">
+            <i class="fa-solid fa-user"></i> Vargas &amp; Salupado
+          </span>
+        </div>
+
+        <div class="tag-row">
+          <span class="tag">Arduino</span>
+          <span class="tag">Sensors</span>
+          <span class="tag">3D Printing</span>
+          <span class="tag">C++</span>
+          <span class="tag">CAD</span>
+          <span class="tag">Biomedical</span>
+        </div>
+
+        <div class="action-row">
+          <a
+            href="../assets/em-brace-thesis.pdf"
+            download
+            class="btn-action btn-action-primary"
+          >
+            <i class="fa-solid fa-download"></i> Download PDF
+          </a>
+          <a
+            href="https://github.com/LeCaseus/eM-Brace_Codes"
+            target="_blank"
+            class="btn-action btn-action-ghost"
+          >
+            <i class="fa-brands fa-github"></i> View Code on GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- PDF READER -->
+      <div class="reader-section">
+        <div class="section-label">manuscript</div>
+
+        <div class="reader-toolbar">
+          <div class="reader-nav">
+            <button
+              class="reader-btn"
+              id="btn-prev"
+              title="Previous page"
+              disabled
+            >
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <span class="reader-page-info" id="page-info">— / —</span>
+            <button class="reader-btn" id="btn-next" title="Next page" disabled>
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <div class="reader-zoom">
+            <button class="reader-btn" id="btn-zoom-out" title="Zoom out">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="zoom-label" id="zoom-label">100%</span>
+            <button class="reader-btn" id="btn-zoom-in" title="Zoom in">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <button
+              class="reader-btn"
+              id="btn-zoom-fit"
+              title="Fit to width"
+              style="
+                width: auto;
+                padding: 0 0.6rem;
+                font-size: 0.62rem;
+                letter-spacing: 0.04em;
+              "
+            >
+              fit
+            </button>
+          </div>
+        </div>
+
+        <div class="reader-canvas-wrap" id="canvas-wrap">
+          <div class="reader-loading" id="reader-loading">
+            <div class="spinner"></div>
+            <span>Loading manuscript</span>
+          </div>
+          <canvas id="pdf-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <span id="copyright"></span>
+      <div class="social-links-footer">
+        <a
+          href="https://www.youtube.com/@LeCaseus"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-youtube"></i
+        ></a>
+        <a
+          href="https://github.com/LeCaseus"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-github"></i
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/lecaseus"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-linkedin"></i
+        ></a>
+        <a
+          href="https://www.instagram.com/cheeshire_/"
+          target="_blank"
+          class="social-footer-btn"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+      </div>
+    </footer>
+
+    <!-- PDF.js from cdnjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+      // ── PDF.js setup ──────────────────────────────────────────────────────
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+      const PDF_URL = "../assets/em-brace-thesis.pdf";
+
+      let pdfDoc = null;
+      let currentPage = 1;
+      let scale = 1.3;
+      const canvas = document.getElementById("pdf-canvas");
+      const ctx = canvas.getContext("2d");
+      const loading = document.getElementById("reader-loading");
+      const wrap = document.getElementById("canvas-wrap");
+
+      function fitScale() {
+        const available = wrap.clientWidth - 32;
+        return available / 612; // 612pt = standard PDF page width
+      }
+
+      function renderPage(num) {
+        pdfDoc.getPage(num).then((page) => {
+          const viewport = page.getViewport({ scale });
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+
+          page.render({ canvasContext: ctx, viewport }).promise.then(() => {
+            loading.style.display = "none";
+            canvas.style.display = "block";
+            updateUI();
+          });
+        });
+      }
+
+      function updateUI() {
+        document.getElementById("page-info").textContent =
+          `${currentPage} / ${pdfDoc.numPages}`;
+        document.getElementById("btn-prev").disabled = currentPage <= 1;
+        document.getElementById("btn-next").disabled =
+          currentPage >= pdfDoc.numPages;
+        document.getElementById("zoom-label").textContent =
+          Math.round(scale * 100) + "%";
+      }
+
+      // Load PDF
+      pdfjsLib
+        .getDocument(PDF_URL)
+        .promise.then((pdf) => {
+          pdfDoc = pdf;
+          scale = fitScale();
+          renderPage(currentPage);
+        })
+        .catch(() => {
+          loading.innerHTML = `<i class="fa-regular fa-file-pdf" style="font-size:2rem;opacity:0.4"></i>
+           <span>Could not load PDF — check the asset path.</span>`;
+        });
+
+      // Controls
+      document.getElementById("btn-prev").addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderPage(currentPage);
+        }
+      });
+      document.getElementById("btn-next").addEventListener("click", () => {
+        if (currentPage < pdfDoc.numPages) {
+          currentPage++;
+          renderPage(currentPage);
+        }
+      });
+      document.getElementById("btn-zoom-in").addEventListener("click", () => {
+        scale = Math.min(scale + 0.2, 3);
+        renderPage(currentPage);
+      });
+      document.getElementById("btn-zoom-out").addEventListener("click", () => {
+        scale = Math.max(scale - 0.2, 0.5);
+        renderPage(currentPage);
+      });
+      document.getElementById("btn-zoom-fit").addEventListener("click", () => {
+        scale = fitScale();
+        renderPage(currentPage);
+      });
+
+      // Keyboard nav
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          if (currentPage < (pdfDoc?.numPages ?? 1)) {
+            currentPage++;
+            renderPage(currentPage);
+          }
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          if (currentPage > 1) {
+            currentPage--;
+            renderPage(currentPage);
+          }
+        }
+      });
+
+      // ── Nav / footer boilerplate ──────────────────────────────────────────
+      document.getElementById("copyright").textContent =
+        `Chezter Vargas © ${new Date().getFullYear()}`;
+
+      function toggleMenu() {
+        const btn = document.getElementById("nav-hamburger");
+        const menu = document.getElementById("nav-mobile");
+        const open = menu.classList.toggle("open");
+        btn.classList.toggle("open", open);
+      }
+      document.querySelectorAll(".nav-mobile a").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.getElementById("nav-mobile").classList.remove("open");
+          document.getElementById("nav-hamburger").classList.remove("open");
+        });
+      });
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("nav") && !e.target.closest(".nav-mobile")) {
+          document.getElementById("nav-mobile").classList.remove("open");
+          document.getElementById("nav-hamburger").classList.remove("open");
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -22,6 +22,7 @@
     { "src": "/about", "dest": "/about.html" },
     { "src": "/blog", "dest": "/blog.html" },
     { "src": "/portfolio", "dest": "/portfolio.html" },
+    { "src": "/em-brace", "dest": "/em-brace.html" },
     { "src": "/resume", "dest": "/resume.html" },
     { "src": "/contact", "dest": "/contact.html" }
   ]

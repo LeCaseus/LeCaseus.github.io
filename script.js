@@ -221,7 +221,13 @@ async function loadBlogTeaser() {
     .map(
       (p) => `
     <a href="blog.html" class="teaser-card teaser-card-link">
-      <div class="teaser-cover">${p.emoji || "✦"}</div>
+      <div class="teaser-cover">
+        ${
+          p.cover_url
+            ? `<img src="${p.cover_url}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;"/>`
+            : p.emoji || "✦"
+        }
+      </div>
       <div class="teaser-body">
         <div class="teaser-cat teaser-cat-${p.category}">${p.category}</div>
         <div class="teaser-name">${p.title}</div>

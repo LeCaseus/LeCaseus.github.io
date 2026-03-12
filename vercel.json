@@ -17,6 +17,8 @@
     { "src": "/favicon.svg", "dest": "/favicon.svg" },
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
     { "src": "/", "dest": "/index.html" },
+    { "src": "/index", "dest": "/index.html" },
+    { "src": "/index.html", "dest": "/index.html" },
     { "src": "/about", "dest": "/about.html" },
     { "src": "/blog", "dest": "/blog.html" },
     { "src": "/portfolio", "dest": "/portfolio.html" },

@@ -134,7 +134,7 @@ function homeTpl(list) {
         </div>
         <div class="hero-actions reveal reveal-delay-4">
         <button class="btn-hero-primary" onclick="scrollToNotes()">read my notes</button>
-        <a href="portfolio.html" class="btn-hero-ghost" style="text-decoration: none;">view my work</a>
+        <a href="/portfolio" class="btn-hero-ghost" style="text-decoration: none;">view my work</a>
         </div>
         <div class="scroll-hint reveal reveal-delay-4">
         <span class="scroll-arrow">↓</span>
@@ -150,7 +150,7 @@ function homeTpl(list) {
             <p class="teaser-eyebrow">selected work</p>
             <h2 class="section-heading">My <em>Projects</em></h2>
         </div>
-        <a href="portfolio.html" class="teaser-link">see all work →</a>
+        <a href="/portfolio" class="teaser-link">see all work →</a>
         </div>
         <div class="teaser-grid">
         <div class="teaser-card">
@@ -179,7 +179,7 @@ function homeTpl(list) {
             <p class="teaser-eyebrow">latest writing</p>
             <h2 class="section-heading">From the <em>Blog</em></h2>
         </div>
-        <a href="blog.html" class="teaser-link">read all posts →</a>
+        <a href="/blog" class="teaser-link">read all posts →</a>
         </div>
         <div id="blog-teaser-grid" class="teaser-grid"></div>
     </section>
@@ -220,7 +220,7 @@ async function loadBlogTeaser() {
     .slice(0, 3)
     .map(
       (p) => `
-    <a href="blog.html" class="teaser-card teaser-card-link">
+    <a href="/blog#${p.id}" class="teaser-card teaser-card-link">
       <div class="teaser-cover">
         ${
           p.cover_url

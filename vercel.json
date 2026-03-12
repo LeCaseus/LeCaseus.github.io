@@ -7,7 +7,8 @@
     { "src": "script.js", "use": "@vercel/static" },
     { "src": "blog_script.js", "use": "@vercel/static" },
     { "src": "assets/**", "use": "@vercel/static" },
-    { "src": "favicon.svg", "use": "@vercel/static" }
+    { "src": "favicon.svg", "use": "@vercel/static" },
+    { "src": "em-brace.html", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "server.js" },

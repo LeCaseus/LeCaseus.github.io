@@ -22,99 +22,16 @@ function initReveal() {
 let heroRendered = false;
 
 async function showHome() {
-  activeFilter = null;
-
   if (!heroRendered) {
-    const res = await fetch("/api/entries");
-    const list = await res.json();
-    setRoot(homeTpl(list));
-    updateFooter(list.length);
+    setRoot(homeTpl());
     heroRendered = true;
-    loadBlogTeaser();
+    loadBlogFeed();
     setTimeout(initReveal, 50);
   }
-
-  document
-    .querySelectorAll(".fpill")
-    .forEach((p, i) => p.classList.toggle("active", i === 0));
-  await refreshNotes();
-}
-
-function scrollToNotes() {
-  showHome();
-  setTimeout(() => {
-    const el = document.getElementById("notes-anchor");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  }, 80);
-}
-
-async function refreshNotes() {
-  const url = activeFilter
-    ? `/api/entries?type=${activeFilter}`
-    : "/api/entries";
-  const res = await fetch(url);
-  const list = await res.json();
-  const label = activeFilter ? activeFilter + "s" : "everything";
-
-  const section = document.getElementById("notes-anchor");
-  if (!section) return;
-
-  section.querySelector(".section-sub").textContent =
-    `${list.length} entr${list.length === 1 ? "y" : "ies"} · ${label}`;
-
-  let cards = "";
-  if (!list.length) {
-    cards = `<div class="empty">
-      <div class="empty-glyph">✦</div>
-      <h3>Nothing here yet</h3>
-      <p>Your first entry is waiting to be written.</p>
-      ${isAdmin ? `<button class="btn btn-primary" onclick="showCompose()">write something</button>` : ""}
-    </div>`;
-  } else {
-    list.forEach((e, i) => {
-      const isL = e.type === "letter";
-      cards += `<div class="sticky is-${e.type} sticky-${e.type}" onclick="openEntry(${e.id})" style="animation-delay:${i * 0.05}s">
-        <div class="sticky-tag">
-          <span>${e.type}</span>
-          <span class="sticky-date">${e.date}</span>
-        </div>
-        ${isL && e.title ? `<div class="sticky-title">${e.title}</div>` : ""}
-        <div class="sticky-body">${isL ? clip(e.body, 220) : e.body}</div>
-        ${isL ? `<span class="sticky-more">read more →</span>` : ""}
-      </div>`;
-    });
-  }
-  section.querySelector(".masonry").innerHTML = cards;
-  updateFooter(list.length);
 }
 
 /* ── HOME TEMPLATE ── */
-function homeTpl(list) {
-  const label = activeFilter ? activeFilter + "s" : "everything";
-
-  let cards = "";
-  if (!list.length) {
-    cards = `<div class="empty">
-    <div class="empty-glyph">✦</div>
-    <h3>Nothing here yet</h3>
-    <p>Your first entry is waiting to be written.</p>
-    ${isAdmin ? `<button class="btn btn-primary" onclick="showCompose()">write something</button>` : ""}
-    </div>`;
-  } else {
-    list.forEach((e, i) => {
-      const isL = e.type === "letter";
-      cards += `<div class="sticky is-${e.type} sticky-${e.type}" onclick="openEntry(${e.id})" style="animation-delay:${i * 0.05}s">
-        <div class="sticky-tag">
-        <span>${e.type}</span>
-        <span class="sticky-date">${e.date}</span>
-        </div>
-        ${isL && e.title ? `<div class="sticky-title">${e.title}</div>` : ""}
-        <div class="sticky-body">${isL ? clip(e.body, 220) : e.body}</div>
-        ${isL ? `<span class="sticky-more">read more →</span>` : ""}
-    </div>`;
-    });
-  }
-
+function homeTpl() {
   return `
     <!-- HERO -->
     <section class="hero">
@@ -133,119 +50,201 @@ function homeTpl(list) {
         <a href="https://www.instagram.com/cheeshire_/" target="_blank" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
         </div>
         <div class="hero-actions reveal reveal-delay-4">
-        <button class="btn-hero-primary" onclick="scrollToNotes()">read my notes</button>
-        <a href="/portfolio" class="btn-hero-ghost" style="text-decoration: none;">view my work</a>
+        <a href="/#blog" class="btn-hero-primary" style="text-decoration:none;">read my blog</a>
+        <a href="/#portfolio" class="btn-hero-ghost" style="text-decoration: none;">view my work</a>
         </div>
         <div class="scroll-hint reveal reveal-delay-4">
         <span class="scroll-arrow">↓</span>
-        <span>scroll to notes</span>
+        <span>scroll to see stuff</span>
         </div>
     </div>
     </section>
 
-    <!-- PORTFOLIO TEASER -->
-    <section class="teaser-section">
-        <div class="teaser-header">
+    <!-- PORTFOLIO SECTION -->
+    <section class="portfolio-section" id="portfolio">
+      <div class="section-header">
         <div>
-            <p class="teaser-eyebrow">selected work</p>
-            <h2 class="section-heading">My <em>Projects</em></h2>
+          <h2 class="section-heading">My <em>Projects</em></h2>
         </div>
-        <a href="/portfolio" class="teaser-link">see all work →</a>
-        </div>
-        <div class="teaser-grid">
-          <div class="teaser-card">
-              <div class="teaser-cover"><img src="assets/portfolio-covers/em-brace-snapshot.png" alt="eM-Brace project cover" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
-              <div class="teaser-body">
-              <div class="teaser-cat teaser-cat-biomed">biomedical</div>
-              <div class="teaser-name">eM-Brace</div>
-              <p class="teaser-desc">Autonomous wrist splint with integrated massage system for Carpal Tunnel Syndrome.</p>
-              </div>
-          </div>
-          <div class="teaser-card">
-              <div class="teaser-cover">🐱</div>
-              <div class="teaser-body">
-              <div class="teaser-cat teaser-cat-ai">AI / Python</div>
-              <div class="teaser-name">CH3SH1RE</div>
-              <p class="teaser-desc">A personal AI assistant exploring local LLMs, memory, and tool use through a custom Python interface.</p>
-              </div>
-          </div>
-          <div class="teaser-card">
-              <div class="teaser-cover"><img src="assets/portfolio-covers/website-snapshot.png" alt="Personal Website project cover" style="width:100%;height:100%;object-fit:cover;display:block;"/></div>
-              <div class="teaser-body">
-              <div class="teaser-cat teaser-cat-web">web</div>
-              <div class="teaser-name">Personal Website</div>
-              <p class="teaser-desc">A portfolio and blog site built with vanilla JavaScript, HTML, and CSS, showcasing my projects and writings.</p>
-              </div>
-           </div>
-        </div>
-    </section>
-
-    <!-- BLOG TEASER -->
-    <section class="teaser-section teaser-section-alt">
-        <div class="teaser-header">
-        <div>
-            <p class="teaser-eyebrow">latest writing</p>
-            <h2 class="section-heading">From the <em>Blog</em></h2>
-        </div>
-        <a href="/blog" class="teaser-link">read all posts →</a>
-        </div>
-        <div id="blog-teaser-grid" class="teaser-grid"></div>
-    </section>
-
-    <!-- NOTES FEED -->
-    <section class="notes-section" id="notes-anchor">
-    <div class="section-header">
-        <div>
-        <h2 class="section-heading">My <em>notes</em></h2>
-        <p class="section-sub">${list.length} entr${list.length === 1 ? "y" : "ies"} · ${label}</p>
-        </div>
-        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap">
         <div class="filter-bar">
-            <div class="fpill ${!activeFilter ? "active" : ""}" onclick="setFilter(null,this)">all</div>
-            <div class="fpill ${activeFilter === "note" ? "active" : ""}" onclick="setFilter('note',this)">notes</div>
-            <div class="fpill ${activeFilter === "letter" ? "active" : ""}" onclick="setFilter('letter',this)">letters</div>
-            <div class="fpill ${activeFilter === "thought" ? "active" : ""}" onclick="setFilter('thought',this)">thoughts</div>
+          <div class="fpill active" onclick="filterProjects(null,this)">all</div>
+          <div class="fpill" onclick="filterProjects('biomed',this)">biomedical</div>
+          <div class="fpill" onclick="filterProjects('cad',this)">CAD</div>
+          <div class="fpill" onclick="filterProjects('ai',this)">AI</div>
+          <div class="fpill" onclick="filterProjects('web',this)">web</div>
         </div>
-        ${isAdmin ? `<button class="write-fab" onclick="showCompose()">+ write</button>` : ""}
+      </div>
+      <div class="projects-grid" id="projects-grid">
+        <a href="/portfolio/em-brace" class="project-card" data-cat="biomed" style="text-decoration:none;color:inherit;display:block">
+          <div class="project-cover"><img src="assets/portfolio-covers/em-brace-snapshot.png" alt="eM-Brace"/><div class="project-cover-overlay"></div></div>
+          <div class="project-body">
+            <div class="project-cat project-cat-biomed">biomedical</div>
+            <div class="project-name">eM-Brace</div>
+            <p class="project-desc">Autonomous wrist splint with an integrated massage system for alleviating muscle weakness related to Carpal Tunnel Syndrome. Final year thesis project.</p>
+            <div class="project-tags"><span class="project-tag">Arduino</span><span class="project-tag">Sensors</span><span class="project-tag">3D Printing</span><span class="project-tag">C++</span></div>
+          </div>
+        </a>
+        <a href="/portfolio/ch3sh1re" class="project-card" data-cat="ai" style="text-decoration:none;color:inherit;display:block">
+          <div class="project-cover">🐱<div class="project-cover-overlay"></div></div>
+          <div class="project-body">
+            <div class="project-cat project-cat-ai">AI / Python</div>
+            <div class="project-name">CH3SH1RE</div>
+            <p class="project-desc">A local AI assistant I'm building for fun. This is a personal project, but you can check out the repo for some early experiments and notes.</p>
+            <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">SQLite</span><span class="project-tag">LLM</span></div>
+          </div>
+        </a>
+        <a href="/portfolio/personal-website" class="project-card" data-cat="web" style="text-decoration:none;color:inherit;display:block">
+          <div class="project-cover"><img src="assets/portfolio-covers/website-snapshot.png" alt="Personal Website"/><div class="project-cover-overlay"></div></div>
+          <div class="project-body">
+            <div class="project-cat project-cat-web">web</div>
+            <div class="project-name">Personal Website</div>
+            <p class="project-desc">You're looking at it! Built from scratch using vanilla HTML, CSS, and JavaScript. Hosted on Vercel, open-source on GitHub.</p>
+            <div class="project-tags"><span class="project-tag">HTML</span><span class="project-tag">CSS</span><span class="project-tag">JavaScript</span><span class="project-tag">Node.js</span></div>
+          </div>
+        </a>
+        <a href="#" class="project-card" data-cat="cad" style="text-decoration:none;color:inherit;display:block">
+          <div class="project-cover">🖨️<div class="project-cover-overlay"></div></div>
+          <div class="project-body">
+            <div class="project-cat project-cat-cad">CAD / 3D design</div>
+            <div class="project-name">3D Models</div>
+            <p class="project-desc">Designed and 3D-printed prototype components for personal and thesis use at Zamboanga City Medical Center during internship.</p>
+            <div class="project-tags"><span class="project-tag">CAD</span><span class="project-tag">3D Printing</span><span class="project-tag">Prototyping</span></div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- BLOG SECTION -->
+    <section class="blog-section" id="blog">
+      <div class="section-header">
+        <div>
+          <h2 class="section-heading">The <em>Blog</em></h2>
         </div>
-    </div>
-    <div class="masonry">${cards}</div>
+        <div class="filter-bar">
+          <div class="fpill active" onclick="setBlogFilter(null,this)">all</div>
+          <div class="fpill" onclick="setBlogFilter('personal',this)">personal</div>
+          <div class="fpill" onclick="setBlogFilter('gaming',this)">gaming</div>
+          <div class="fpill" onclick="setBlogFilter('career',this)">career</div>
+          <div class="fpill" onclick="setBlogFilter('fitness',this)">fitness</div>
+          <div class="fpill" onclick="setBlogFilter('note',this)">notes</div>
+          <div class="fpill" onclick="setBlogFilter('letter',this)">letters</div>
+          <div class="fpill" onclick="setBlogFilter('thought',this)">thoughts</div>
+        </div>
+      </div>
+      <div id="blog-feed"></div>
     </section>`;
 }
 
-async function loadBlogTeaser() {
-  const res = await fetch("/api/posts");
-  const list = await res.json();
-  const el = document.getElementById("blog-teaser-grid");
-  if (!el) return;
+let activeBlogFilter = null;
 
-  if (!list.length) {
-    el.innerHTML = `<p style="color:var(--faint);font-style:italic;font-size:0.9rem">No posts yet — check back soon.</p>`;
+async function loadBlogFeed() {
+  const [postsRes, entriesRes] = await Promise.all([
+    fetch("/api/posts"),
+    fetch("/api/entries"),
+  ]);
+  const posts = await postsRes.json();
+  const entries = await entriesRes.json();
+
+  // tag each item with its source so we know how to open it
+  const tagged = [
+    ...posts.map((p) => ({ ...p, _source: "post" })),
+    ...entries.map((e) => ({ ...e, _source: "entry", category: e.type })),
+  ];
+
+  // sort by date descending — assumes "Mon DD, YYYY" format
+  tagged.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  window._blogItems = tagged;
+  renderBlogFeed(tagged);
+}
+
+function setBlogFilter(filter, el) {
+  activeBlogFilter = filter;
+  document
+    .querySelectorAll("#blog .fpill")
+    .forEach((p) => p.classList.remove("active"));
+  el.classList.add("active");
+
+  const filtered = filter
+    ? window._blogItems.filter(
+        (i) => i.category === filter || i.type === filter,
+      )
+    : window._blogItems;
+
+  renderBlogFeed(filtered);
+}
+
+function renderBlogFeed(items) {
+  const feed = document.getElementById("blog-feed");
+  if (!feed) return;
+
+  if (!items.length) {
+    feed.innerHTML = `<div class="empty">
+      <div class="empty-glyph">✦</div>
+      <h3>Nothing here yet</h3>
+      <p>No posts written yet.</p>
+    </div>`;
     return;
   }
 
-  el.innerHTML = list
-    .slice(0, 3)
-    .map(
-      (p) => `
-    <a href="/blog#${p.id}" class="teaser-card teaser-card-link">
-      <div class="teaser-cover">
-        ${
-          p.cover_url
-            ? `<img src="${p.cover_url}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;display:block;"/>`
-            : p.emoji || "✦"
-        }
+  const [featured, ...rest] = items;
+  let html = renderFeatured(featured);
+  if (rest.length) {
+    html += `<div class="posts-grid">`;
+    rest.forEach((item, i) => {
+      html += renderPostCard(item, i);
+    });
+    html += `</div>`;
+  }
+  feed.innerHTML = html;
+}
+
+function renderFeatured(item) {
+  const isEntry = item._source === "entry";
+  const cover = item.cover_url
+    ? `<img src="${item.cover_url}" alt="${item.title || ""}"/>`
+    : item.emoji || "✦";
+  const title = item.title || item.type;
+  const excerpt = item.excerpt || clip(item.body, 160);
+  const cat = item.category || item.type;
+
+  return `<div class="featured" onclick="${isEntry ? `openEntry(${item.id})` : `openPost(${item.id})`}">
+    <div class="featured-image">${cover}</div>
+    <div class="featured-body">
+      <div class="featured-label">latest</div>
+      <h2 class="featured-title">${title}</h2>
+      <p class="featured-excerpt">${excerpt}</p>
+      <div class="post-meta">
+        <span class="cat-tag cat-${cat}">${cat}</span>
+        <span class="post-meta-dot"></span>
+        <span>${item.date}</span>
+        ${item.read_time ? `<span class="post-meta-dot"></span><span>${item.read_time}</span>` : ""}
       </div>
-      <div class="teaser-body">
-        <div class="teaser-cat teaser-cat-${p.category}">${p.category}</div>
-        <div class="teaser-name">${p.title}</div>
-        <p class="teaser-desc">${p.excerpt}</p>
-        <span class="teaser-meta">${p.date} · ${p.read_time}</span>
+    </div>
+  </div>`;
+}
+
+function renderPostCard(item, i) {
+  const isEntry = item._source === "entry";
+  const cover = item.cover_url
+    ? `<img src="${item.cover_url}" alt="${item.title || ""}"/>`
+    : item.emoji || "✦";
+  const title = item.title || item.type;
+  const excerpt = item.excerpt || clip(item.body, 120);
+  const cat = item.category || item.type;
+
+  return `<div class="post-card" onclick="${isEntry ? `openEntry(${item.id})` : `openPost(${item.id})`}" style="animation-delay:${i * 0.06}s">
+    <div class="post-card-image">${cover}</div>
+    <div class="post-card-body">
+      <div class="post-meta" style="margin-bottom:0.6rem">
+        <span class="cat-tag cat-${cat}">${cat}</span>
+        ${item.read_time ? `<span class="post-meta-dot"></span><span>${item.read_time}</span>` : ""}
       </div>
-    </a>
-  `,
-    )
-    .join("");
+      <h3 class="post-card-title">${title}</h3>
+      <p class="post-card-excerpt">${excerpt}</p>
+      <div class="post-meta"><span>${item.date}</span></div>
+    </div>
+  </div>`;
 }
 
 async function setFilter(filter, el) {

@@ -3,65 +3,357 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home — Chezter Vargas</title>
+    <title>ChezterVargas</title>
+
+    <!-- ======= FONTS ======= -->
     <link
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
+
+    <!-- ======= ICONS ======= -->
     <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
     />
+
+    <!-- ======= STYLES ======= -->
     <link rel="stylesheet" href="style.css" />
+
+    <!-- ======= FAVICON ======= -->
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   </head>
+
   <body>
-    <nav class="site-nav">
-      <a href="#" class="nav-logo">chezter<em>vargas</em></a>
-      <div class="nav-dock">
-        <a href="#" class="nav-dock-link active">home</a>
-        <a href="#portfolio" class="nav-dock-link">portfolio</a>
-        <a href="#blog" class="nav-dock-link">blog</a>
-        <a href="/about" class="nav-dock-link">about</a>
+    <!-- ======= NAVIGATION BAR ======= -->
+    <nav class="top_nav">
+      <a href="index.html" class="nav_logo">chezter<em>vargas</em></a>
+      <div class="nav_links">
+        <a href="index.html" class="nav_link active">home</a>
+        <a href="#portfolio_section" class="nav_link">portfolio</a>
+        <a href="#blog_section" class="nav_link">blog</a>
+        <a href="about.html" class="nav_link">about</a>
       </div>
-      <a href="mailto:cheztervargas@outlook.com" class="nav-cta"
+
+      <a href="mailto:cheztervargas@outlook.com" class="nav_cta"
         >get in touch ↗</a
       >
     </nav>
 
-    <div id="root"></div>
+    <!-- ======= MAIN PAGE CONTENT ======= -->
+    <main class="page_content">
+      <!-- HERO SECTION -->
+      <section id="hero_section" class="hero_section">
+        <div class="hero_photo">
+          <img
+            src="assets/homepage.JPG"
+            alt="Hero Photo"
+            style="width: 100%; height: 100%; object-fit: cover; display: block"
+          />
+        </div>
+        <div class="hero_text">
+          <p class="hero_eyebrow reveal">welcome to my personal space</p>
+          <h1 class="hero_heading reveal reveal_delay_1">
+            Hi, I'm <em>Chezter Vargas</em>
+          </h1>
+          <p class="hero_body reveal reveal_delay_2">
+            I'm stepping back from all the noise, not because I'm antisocial but
+            because social media has stopped being social. It's just an
+            algorithm selling your attention now. I'd rather show up here, on my
+            own terms.
+          </p>
+          <div class="social_links reveal reveal_delay_3">
+            <a
+              href="https://www.youtube.com/@LeCaseus"
+              target="_blank"
+              class="social_btn"
+            >
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a
+              href="https://github.com/LeCaseus"
+              target="_blank"
+              class="social_btn"
+            >
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/lecaseus"
+              target="_blank"
+              class="social_btn"
+            >
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/cheeshire_/"
+              target="_blank"
+              class="social_btn"
+            >
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+          </div>
+          <div class="hero_actions reveal reveal_delay_4">
+            <a
+              href="#blog_section"
+              class="btn_hero_primary"
+              style="text-decoration: none"
+              >read my blog</a
+            >
+            <a
+              href="/about.html"
+              class="btn_hero_ghost"
+              style="text-decoration: none"
+              >who am I?</a
+            >
+          </div>
+          <div class="scroll_hint reveal reveal_delay_4">
+            <span class="scroll_arrow">↓</span>
+            <span>scroll to see stuff</span>
+          </div>
+        </div>
+      </section>
 
-    <footer class="site-footer">
-      <span id="copyright"></span>
-      <div class="social-links-footer">
+      <!-- PORTFOLIO SECTION -->
+      <section id="portfolio_section" class="portfolio_section">
+        <div class="section_header">
+          <h2 class="section_heading">my <em>projects</em></h2>
+          <p class="section_sub">a few highlights from the lab</p>
+        </div>
+        <div class="portfolio_grid">
+          <a
+            href="/portfolio/em-brace"
+            class="pb_card pb_wide"
+            style="text-decoration: none"
+          >
+            <div class="pb_bg">
+              <img
+                src="assets/portfolio-covers/em-brace-snapshot.png"
+                alt="eM-Brace"
+              />
+            </div>
+            <div class="pb_overlay">
+              <span class="project_cat project_cat_biomed">biomedical</span>
+              <h3 class="pb_title">eM-Brace</h3>
+              <p class="pb_desc">
+                Autonomous wrist splint with massage system for Carpal Tunnel
+                Syndrome. Final year thesis.
+              </p>
+              <div class="project_tags">
+                <span class="project_tag">Arduino</span
+                ><span class="project_tag">Sensors</span
+                ><span class="project_tag">3D Printing</span
+                ><span class="project_tag">C++</span>
+              </div>
+            </div>
+          </a>
+          <a
+            href="/portfolio/ch3sh1re"
+            class="pb_card pb_small pb_emoji_card"
+            style="text-decoration: none"
+          >
+            <div class="pb_bg pb_bg_emoji">🐱</div>
+            <div class="pb_overlay">
+              <span class="project_cat project_cat_ai">AI / Python</span>
+              <h3 class="pb_title">CH3SH1RE</h3>
+              <p class="pb_desc">
+                A local AI assistant I'm building for fun — early experiments
+                and notes on the repo.
+              </p>
+              <div class="project_tags">
+                <span class="project_tag">Python</span
+                ><span class="project_tag">SQLite</span
+                ><span class="project_tag">LLM</span>
+              </div>
+            </div>
+          </a>
+          <a
+            href="/portfolio/personal-website"
+            class="pb_card pb_small"
+            style="text-decoration: none"
+          >
+            <div class="pb_bg">
+              <img
+                src="assets/portfolio-covers/website-snapshot.png"
+                alt="Personal Website"
+              />
+            </div>
+            <div class="pb_overlay">
+              <span class="project_cat project_cat_web">web</span>
+              <h3 class="pb_title">Personal Website</h3>
+              <p class="pb_desc">
+                You're looking at it. Vanilla stack, hosted on Vercel.
+              </p>
+              <div class="project_tags">
+                <span class="project_tag">HTML</span
+                ><span class="project_tag">CSS</span
+                ><span class="project_tag">JS</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- BLOG SECTION -->
+      <section id="blog_section" class="blog_section">
+        <div class="section_header">
+          <div>
+            <h2 class="section_heading">the <em>blog</em></h2>
+            <p class="section_sub"><em>read em and weep or whatever</em></p>
+          </div>
+        </div>
+
+        <!-- Tag filter bubbles — filter_blog() in script.js handles the active state toggle -->
+        <div class="tag_cloud">
+          <div class="tag_bubble active" onclick="filter_blog(null, this)">
+            ✦ all
+          </div>
+          <div class="tag_bubble" onclick="filter_blog('personal', this)">
+            personal
+          </div>
+          <div class="tag_bubble" onclick="filter_blog('gaming', this)">
+            gaming
+          </div>
+          <div class="tag_bubble" onclick="filter_blog('career', this)">
+            career
+          </div>
+          <div class="tag_bubble" onclick="filter_blog('fitness', this)">
+            fitness
+          </div>
+          <div class="tag_bubble" onclick="filter_blog('letter', this)">
+            letters
+          </div>
+        </div>
+
+        <!-- Blog cards live here — add a new <a class="blog_card"> for each post -->
+        <div class="blog_scroll_wrap">
+          <div id="blog_feed" class="blog_feed">
+            <!-- TEMPLATE: copy this block for each new post you write
+            <a href="posts/your-post-filename.html" class="blog_card">
+              <div class="blog_card_bg">
+                <img src="assets/your-cover-image.jpg" alt="Post title" />
+              </div>
+              <div class="blog_card_overlay">
+                <span class="cat_tag cat_personal">personal</span>
+                <h3 class="blog_card_title">Your Post Title</h3>
+                <p class="blog_card_excerpt">One sentence that makes someone want to read it.</p>
+                <span class="blog_card_date">Jan 1, 2025</span>
+              </div>
+            </a>
+            -->
+            <a
+              href="posts/hello-real-world.html"
+              class="blog_card"
+              data-category="personal"
+            >
+              <div class="blog_card_bg">
+                <img
+                  src="assets/blog_media/hello_real_world.png"
+                  alt="Hello to the Real World"
+                />
+              </div>
+              <div class="blog_card_overlay">
+                <span class="cat_tag cat_personal">personal</span>
+                <h3 class="blog_card_title">
+                  print("Hello to the Real World!")
+                </h3>
+                <p class="blog_card_excerpt">
+                  Everything nowadays is just a bunch of SEO optimization and
+                  spouting out AI nonsense...
+                </p>
+                <span class="blog_card_date">Jul 5, 2025</span>
+              </div>
+            </a>
+
+            <a
+              href="posts/building-your-own.html"
+              class="blog_card blog_card_letter"
+              data-category="letter"
+            >
+              <div class="blog_card_bg"></div>
+              <div class="blog_card_overlay">
+                <span class="cat_tag cat_letter">letter</span>
+                <h3 class="blog_card_title">
+                  On to building your own instead of just using one
+                </h3>
+                <p class="blog_card_excerpt">
+                  I want to talk about CH3SH1RE. Not because it's impressive
+                  right now. Honestly it's not.
+                </p>
+                <span class="blog_card_date">Mar 12, 2026</span>
+              </div>
+            </a>
+
+            <a
+              href="posts/biomedical-students.html"
+              class="blog_card blog_card_letter"
+              data-category="letter"
+            >
+              <div class="blog_card_bg"></div>
+              <div class="blog_card_overlay">
+                <span class="cat_tag cat_letter">letter</span>
+                <h3 class="blog_card_title">
+                  To all Biomedical Engineering students
+                </h3>
+                <p class="blog_card_excerpt">
+                  If I could go back and tell myself one thing, it's to learn AI
+                  development.
+                </p>
+                <span class="blog_card_date">Mar 12, 2026</span>
+              </div>
+            </a>
+          </div>
+          <button
+            class="blog_scroll_btn blog_scroll_prev"
+            onclick="scroll_blog(-1)"
+          >
+            ←
+          </button>
+          <button
+            class="blog_scroll_btn blog_scroll_next"
+            onclick="scroll_blog(1)"
+          >
+            →
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="site_footer">
+      <span class="copyright_text">© 2025 Chezter Vargas</span>
+      <div class="social_links">
         <a
           href="https://www.youtube.com/@LeCaseus"
           target="_blank"
-          class="social-footer-btn"
-          ><i class="fa-brands fa-youtube"></i
-        ></a>
+          class="social_btn"
+        >
+          <i class="fa-brands fa-youtube"></i>
+        </a>
         <a
           href="https://github.com/LeCaseus"
           target="_blank"
-          class="social-footer-btn"
-          ><i class="fa-brands fa-github"></i
-        ></a>
+          class="social_btn"
+        >
+          <i class="fa-brands fa-github"></i>
+        </a>
         <a
           href="https://www.linkedin.com/in/lecaseus"
           target="_blank"
-          class="social-footer-btn"
-          ><i class="fa-brands fa-linkedin"></i
-        ></a>
+          class="social_btn"
+        >
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
         <a
           href="https://www.instagram.com/cheeshire_/"
           target="_blank"
-          class="social-footer-btn"
-          ><i class="fa-brands fa-instagram"></i
-        ></a>
+          class="social_btn"
+        >
+          <i class="fa-brands fa-instagram"></i>
+        </a>
       </div>
     </footer>
 
-    <div class="toast" id="toast"></div>
+    <!-- ======= JAVASCRIPT ======= -->
     <script src="script.js"></script>
   </body>
 </html>

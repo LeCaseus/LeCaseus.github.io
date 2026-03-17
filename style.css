@@ -1,3 +1,36 @@
+/* ============================================================
+   style.css — Chezter Vargas Personal Site
+
+   Sections:
+     1.  Reset & variables
+     2.  Base (html, body)
+     3.  Nav
+     4.  Hero
+     5.  Section headers (shared by portfolio + blog)
+     6.  Portfolio bento grid
+     7.  Blog section
+     8.  Blog cards
+     9.  Tag filter bubbles
+     10. Social links
+     11. Scroll reveal animation
+     12. Footer
+     13. Responsive (mobile overrides)
+
+   What was removed:
+     - .toast — popup notification, only used by admin actions
+     - .compose-page, .cfield, .cfield-row, .cactions — admin write forms
+     - .btn, .btn-primary, .btn-outline, .btn-del — admin buttons
+     - .empty, .empty-glyph — "nothing here yet" state for empty feed
+     - .single-wrap, .single-cover, .single-title, .single-body — dynamic
+       full post view (posts are now their own .html files instead)
+     - .post-page, .post-back, .post-tag-row, .post-tag, .post-date,
+       .post-title, .post-body-letter, .post-rule, .post-foot — dynamic
+       entry/letter view, same reason
+     - .post-meta, .post-meta-dot — only used in the dynamic post view
+   ============================================================ */
+
+/* ─── 1. RESET & VARIABLES ────────────────────────────────────────────── */
+
 *,
 *::before,
 *::after {
@@ -5,40 +38,63 @@
   margin: 0;
   padding: 0;
 }
+/* Applies to every element: padding/border are included in width measurements,
+   and all default browser margins/padding are zeroed out. */
 
 :root {
-  --bg: #f5f0e8;
-  --warm: #ede5d8;
-  --paper: #faf7f2;
-  --ink: #2a2118;
-  --ink2: #6b5d4f;
-  --faint: #b8a898;
+  /* Backgrounds */
+  --bg: #f5f0e8; /* warm off-white, used for the page background */
+  --warm: #ede5d8; /* slightly darker warm tone, used for image placeholders */
+  --paper: #faf7f2; /* lightest tone, used for sections that "pop" off the bg */
+
+  /* Text */
+  --ink: #2a2118; /* near-black, main text colour */
+  --ink2: #6b5d4f; /* mid-brown, secondary/body text */
+  --faint: #b8a898; /* light brown, used for dates, hints, placeholders */
+
+  /* Borders & dividers */
   --rule: #ddd5c5;
+
+  /* Accent (the orange-brown used for highlights, active states, CTAs) */
   --accent: #c17f4a;
-  --accent-d: #a0632e;
+  --accent_d: #a0632e; /* darker shade for hover states */
+  /* Renamed: accent-d → accent_d */
+
+  /* Category colours for blog tags */
   --green: #5a7a5c;
   --rose: #b8605a;
   --blue: #5a6e8a;
+
+  /* Tint colours (used as card backgrounds and category badge fills) */
   --yellow: #f5e6a3;
-  --yellow-d: #e8d47a;
+  --yellow_d: #e8d47a;
   --pink: #f5ddd8;
-  --pink-d: #e8c8c0;
+  --pink_d: #e8c8c0;
   --sage: #d8e5d5;
-  --sage-d: #c0d5bc;
-  --sky: #d5e0ee;
-  --sky-d: #bdd0e5;
+  --sage_d: #c0d5bc;
+  --sky: #d5e0ee; /* used for "letter" type blog cards */
+  --sky_d: #bdd0e5;
+
+  /* Blog category badge colours */
   --personal: #b8605a;
   --gaming: #5a6e8a;
   --career: #4a7a5c;
   --fitness: #5a7a5c;
-  --personal-l: rgba(184, 96, 90, 0.08);
-  --gaming-l: rgba(90, 110, 138, 0.08);
-  --career-l: rgba(74, 122, 92, 0.08);
-  --fitness-l: rgba(90, 122, 92, 0.08);
+
+  /* Light tint versions of the above (for badge backgrounds) */
+  --personal_l: rgba(184, 96, 90, 0.08);
+  --gaming_l: rgba(90, 110, 138, 0.08);
+  --career_l: rgba(74, 122, 92, 0.08);
+  --fitness_l: rgba(90, 122, 92, 0.08);
 }
+
+/* ─── 2. BASE ─────────────────────────────────────────────────────────── */
 
 html {
   scroll-behavior: smooth;
+  /* Makes all anchor link jumps animate smoothly instead of snapping.
+     The JS smooth scroll in script.js handles in-page links; this handles
+     any direct URL hash navigation (e.g. yoursite.com/#blog_section). */
 }
 
 body {
@@ -48,26 +104,30 @@ body {
   font-weight: 300;
 }
 
-/* ─── NAV ─────────────────────────────────────────────────────────────── */
-.site-nav {
-  position: fixed;
+/* ─── 3. NAV ──────────────────────────────────────────────────────────── */
+
+.top_nav {
+  position: fixed; /* stays at the top of the screen while you scroll */
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 100; /* sits above all other page content */
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem clamp(1.5rem, 5vw, 4rem);
+  /* clamp(min, preferred, max) — padding shrinks on small screens, grows on large */
   background: transparent;
   pointer-events: none;
+  /* The nav bar itself is click-through (transparent area doesn't block scrolling).
+     Only the actual links inside it are clickable — see .top_nav > * below. */
 }
 
-.site-nav > * {
-  pointer-events: all;
+.top_nav > * {
+  pointer-events: all; /* re-enables clicks on the direct children (logo, links, CTA) */
 }
 
-.nav-logo {
+.nav_logo {
   font-family: "Fraunces", serif;
   font-size: 0.95rem;
   font-weight: 400;
@@ -75,20 +135,22 @@ body {
   text-decoration: none;
   letter-spacing: -0.01em;
 }
-.nav-logo em {
+.nav_logo em {
   color: var(--accent);
   font-style: normal;
+  /* <em> is used here purely for styling the "vargas" part in accent colour,
+     not for semantic emphasis — so font-style: normal removes the default italic. */
 }
 
-.nav-dock {
+.nav_links {
   display: flex;
   align-items: center;
   gap: 0.25rem;
   padding: 0.35rem 0.5rem;
-  border-radius: 999px;
+  border-radius: 999px; /* pill shape */
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%); /* Safari support */
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.1),
@@ -96,7 +158,7 @@ body {
     inset 0 -1px 0 rgba(0, 0, 0, 0.05);
 }
 
-.nav-dock-link {
+.nav_link {
   font-size: 0.78rem;
   letter-spacing: 0.02em;
   color: var(--ink);
@@ -105,16 +167,18 @@ body {
   border-radius: 999px;
   transition: all 0.15s;
 }
-.nav-dock-link:hover {
+.nav_link:hover {
   background: rgba(255, 255, 255, 0.2);
   color: var(--ink);
 }
-.nav-dock-link.active {
+.nav_link.active {
   background: var(--accent);
   color: white;
+  /* .active is toggled by update_nav_active() in script.js
+     based on which section is currently in view. */
 }
 
-.nav-cta {
+.nav_cta {
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.03em;
@@ -126,44 +190,38 @@ body {
   border: 1.5px solid var(--accent);
   transition: all 0.15s;
 }
-.nav-cta:hover {
-  background: var(--accent-d);
-  border-color: var(--accent-d);
+.nav_cta:hover {
+  background: var(--accent_d);
+  border-color: var(--accent_d);
 }
 
-@media (max-width: 768px) {
-  .nav-dock {
-    display: none;
-  }
-}
+/* ─── 4. HERO ─────────────────────────────────────────────────────────── */
 
-/* ─── HERO ────────────────────────────────────────────────────────────── */
-.hero {
-  height: 100dvh;
+.hero_section {
+  height: 100dvh; /* dvh = dynamic viewport height, accounts for mobile browser bars */
   max-height: 100vh;
   overflow: hidden;
   display: grid;
+  grid-template-columns: 1fr 1fr; /* photo on left, text on right, equal width */
   align-content: center;
-  grid-template-columns: 1fr 1fr;
   gap: 0;
 }
 
-.hero-photo {
+.hero_photo {
   background: var(--warm);
   position: relative;
   overflow: hidden;
   height: 100%;
   min-height: 100dvh;
 }
-
-.hero-photo img {
+.hero_photo img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* fills the box without stretching, crops if needed */
   display: block;
 }
 
-.hero-text {
+.hero_text {
   background: var(--paper);
   display: flex;
   flex-direction: column;
@@ -171,7 +229,7 @@ body {
   padding: clamp(2.5rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
 }
 
-.hero-eyebrow {
+.hero_eyebrow {
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -180,7 +238,7 @@ body {
   margin-bottom: 1rem;
 }
 
-.hero-heading {
+.hero_heading {
   font-family: "Fraunces", serif;
   font-size: clamp(2.2rem, 4vw, 3.4rem);
   font-weight: 300;
@@ -189,12 +247,12 @@ body {
   margin-bottom: 1.5rem;
   color: var(--ink);
 }
-.hero-heading em {
+.hero_heading em {
   font-style: italic;
   color: var(--accent);
 }
 
-.hero-body {
+.hero_body {
   font-size: 1rem;
   line-height: 1.8;
   color: var(--ink2);
@@ -202,13 +260,14 @@ body {
   margin-bottom: 2.5rem;
 }
 
-.hero-actions {
+.hero_actions {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
 }
 
-.btn-hero-primary {
+/* Primary hero button — dark glassy pill */
+.btn_hero_primary {
   background: rgba(44, 33, 24, 0.75);
   color: #faf8f4;
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -223,8 +282,10 @@ body {
     0 4px 20px rgba(44, 33, 24, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
   transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
 }
-.btn-hero-primary:hover {
+.btn_hero_primary:hover {
   background: rgba(193, 127, 74, 0.8);
   box-shadow:
     0 6px 28px rgba(193, 127, 74, 0.3),
@@ -232,7 +293,8 @@ body {
   transform: translateY(-1px);
 }
 
-.btn-hero-ghost {
+/* Ghost hero button — light glassy pill */
+.btn_hero_ghost {
   background: rgba(255, 255, 255, 0.25);
   color: var(--ink);
   border: 1px solid rgba(255, 255, 255, 0.45);
@@ -247,8 +309,10 @@ body {
     0 4px 16px rgba(44, 33, 24, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
   transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
 }
-.btn-hero-ghost:hover {
+.btn_hero_ghost:hover {
   background: rgba(255, 255, 255, 0.4);
   box-shadow:
     0 6px 24px rgba(44, 33, 24, 0.12),
@@ -256,7 +320,8 @@ body {
   transform: translateY(-1px);
 }
 
-.scroll-hint {
+/* The bouncing "scroll to see stuff" hint at the bottom of the hero */
+.scroll_hint {
   margin-top: 3rem;
   display: flex;
   align-items: center;
@@ -266,7 +331,7 @@ body {
   text-transform: uppercase;
   color: var(--faint);
 }
-.scroll-arrow {
+.scroll_arrow {
   animation: bob 1.8s ease-in-out infinite;
   display: inline-block;
 }
@@ -280,8 +345,10 @@ body {
   }
 }
 
-/* ─── SECTION HEADER ─────────────────────────────────────────────────── */
-.section-header {
+/* ─── 5. SECTION HEADERS ──────────────────────────────────────────────── */
+/* Shared layout used by both the portfolio and blog section headings */
+
+.section_header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -290,59 +357,27 @@ body {
   gap: 1rem;
 }
 
-.section-heading {
+.section_heading {
   font-family: "Fraunces", serif;
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 300;
   letter-spacing: -0.02em;
 }
-.section-heading em {
+.section_heading em {
   font-style: italic;
   color: var(--accent);
 }
 
-.section-sub {
+.section_sub {
   font-size: 0.85rem;
   color: var(--ink2);
   margin-top: 0.3rem;
   line-height: 1.5;
 }
 
-/* ── TAG CLOUD ── */
-.tag-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-bottom: 2.5rem;
-}
+/* ─── 6. PORTFOLIO BENTO GRID ─────────────────────────────────────────── */
 
-.tag-bubble {
-  font-size: 0.82rem;
-  padding: 0.45rem 1.1rem;
-  border-radius: 999px;
-  border: 1.5px solid var(--rule);
-  color: var(--ink2);
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  user-select: none;
-  letter-spacing: 0.01em;
-}
-.tag-bubble:hover {
-  border-color: var(--ink2);
-  color: var(--ink);
-  transform: translateY(-2px);
-}
-.tag-bubble.active {
-  background: var(--ink);
-  color: var(--bg);
-  border-color: var(--ink);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(42, 33, 24, 0.15);
-}
-
-/* ─── PORTFOLIO BENTO ────────────────────────────────────────────────── */
-.portfolio-section {
+.portfolio_section {
   padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem);
   background: var(--paper);
   border-top: 1px solid var(--rule);
@@ -352,27 +387,29 @@ body {
   justify-content: center;
 }
 
-.proj-bento {
+/* The bento grid: 3 columns, 2 rows of fixed height cards */
+.proj_bento {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 260px 260px;
   gap: 1rem;
 }
 
-.pb-wide {
+/* Card size variants — controls how many grid cells each card spans */
+.pb_wide {
   grid-column: span 2;
   grid-row: span 1;
-}
-.pb-tall {
+} /* big horizontal card */
+.pb_tall {
   grid-column: 3;
   grid-row: span 2;
-}
-.pb-small {
+} /* tall right-side card */
+.pb_small {
   grid-column: span 1;
   grid-row: span 1;
-}
+} /* small square card */
 
-.pb-card {
+.pb_card {
   position: relative;
   border-radius: 14px;
   overflow: hidden;
@@ -381,35 +418,38 @@ body {
     transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 0.2s;
 }
-.pb-card:hover {
+.pb_card:hover {
   transform: scale(1.02);
   box-shadow: 0 12px 36px rgba(42, 33, 24, 0.15);
 }
 
-.pb-bg {
+/* The background layer of a card (image or emoji) */
+.pb_bg {
   position: absolute;
-  inset: 0;
+  inset: 0; /* shorthand for top:0; right:0; bottom:0; left:0 */
   background: var(--warm);
 }
-.pb-bg img {
+.pb_bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-.pb-bg-emoji {
+
+/* Emoji-only cards use a centred large emoji instead of an image */
+.pb_bg_emoji {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3.5rem;
   background: var(--paper);
 }
-.pb-tall .pb-bg-emoji {
+.pb_tall .pb_bg_emoji {
   font-size: 4.5rem;
 }
 
-/* dark gradient for image cards */
-.pb-card:not(.pb-emoji-card) .pb-bg::after {
+/* Dark gradient overlay on image cards so text is readable over the photo */
+.pb_card:not(.pb_emoji_card) .pb_bg::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -421,31 +461,32 @@ body {
   );
 }
 
-.pb-overlay {
+/* The text overlay sitting on top of the background */
+.pb_overlay {
   position: absolute;
   inset: 0;
   padding: 1.4rem 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-end; /* pushes text to the bottom of the card */
 }
 
-/* emoji cards: dark text */
-.pb-emoji-card .pb-overlay {
+/* Emoji cards use dark text (light background), image cards use white text */
+.pb_emoji_card .pb_overlay {
   color: var(--ink);
 }
-.pb-emoji-card .pb-title {
+.pb_emoji_card .pb_title {
   color: var(--ink);
 }
-.pb-emoji-card .pb-desc {
+.pb_emoji_card .pb_desc {
   color: var(--ink2);
 }
-.pb-emoji-card .project-tag {
+.pb_emoji_card .project_tag {
   background: var(--warm);
   color: var(--ink2);
 }
 
-.pb-title {
+.pb_title {
   font-family: "Fraunces", serif;
   font-size: 1.2rem;
   font-weight: 300;
@@ -454,91 +495,64 @@ body {
   color: white;
   margin: 0.3rem 0 0.4rem;
 }
-.pb-wide .pb-title {
+.pb_wide .pb_title {
   font-size: 1.5rem;
 }
-.pb-tall .pb-title {
+.pb_tall .pb_title {
   font-size: 1.35rem;
 }
 
-.pb-desc {
+.pb_desc {
   font-size: 0.8rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.75);
   margin-bottom: 0.75rem;
+  /* Clamps the description to 2 lines with "..." if it overflows */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.pb-tall .pb-desc {
+.pb_tall .pb_desc {
   -webkit-line-clamp: 4;
   line-clamp: 4;
 }
 
-.project-cat {
+/* Small category label above the card title (e.g. "biomedical", "web") */
+.project_cat {
   font-size: 0.6rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 500;
   margin-bottom: 0.4rem;
 }
-.project-cat-biomed {
+.project_cat_biomed {
   color: var(--rose);
 }
-.project-cat-cad {
+.project_cat_cad {
   color: var(--blue);
 }
-.project-cat-ai {
+.project_cat_ai {
   color: var(--green);
 }
-.project-cat-web {
+.project_cat_web {
   color: var(--accent);
 }
 
-.project-tags {
+/* Tech stack tags at the bottom of each card (e.g. "Arduino", "CSS") */
+.project_tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
 }
-.project-tag {
+.project_tag {
   font-size: 0.62rem;
   letter-spacing: 0.04em;
   padding: 0.15rem 0.5rem;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.15);
   color: rgba(255, 255, 255, 0.85);
-}
-
-@media (max-width: 700px) {
-  .proj-bento {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 200px 200px 200px;
-  }
-  .pb-wide {
-    grid-column: span 2;
-  }
-  .pb-tall {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-  .pb-small {
-    grid-column: span 1;
-  }
-}
-@media (max-width: 440px) {
-  .proj-bento {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-  }
-  .pb-wide,
-  .pb-tall,
-  .pb-small {
-    grid-column: span 1;
-    grid-row: span 1;
-    min-height: 200px;
-  }
 }
 
 @keyframes rise {
@@ -552,8 +566,9 @@ body {
   }
 }
 
-/* ─── BLOG SECTION ────────────────────────────────────────────────────── */
-.blog-section {
+/* ─── 7. BLOG SECTION ─────────────────────────────────────────────────── */
+
+.blog_section {
   padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem);
   background: var(--bg);
   border-top: 1px solid var(--rule);
@@ -563,22 +578,8 @@ body {
   justify-content: center;
 }
 
-.post-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.72rem;
-  color: var(--faint);
-  flex-wrap: wrap;
-}
-.post-meta-dot {
-  width: 3px;
-  height: 3px;
-  background: var(--faint);
-  border-radius: 50%;
-}
-
-.cat-tag {
+/* Category badge pills on each blog card */
+.cat_tag {
   font-size: 0.62rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -586,35 +587,36 @@ body {
   padding: 0.15rem 0.5rem;
   border-radius: 4px;
 }
-.cat-personal {
-  background: var(--personal-l);
+.cat_personal {
+  background: var(--personal_l);
   color: var(--personal);
 }
-.cat-gaming {
-  background: var(--gaming-l);
+.cat_gaming {
+  background: var(--gaming_l);
   color: var(--gaming);
 }
-.cat-career {
-  background: var(--career-l);
+.cat_career {
+  background: var(--career_l);
   color: var(--career);
 }
-.cat-fitness {
-  background: var(--fitness-l);
+.cat_fitness {
+  background: var(--fitness_l);
   color: var(--fitness);
 }
-.cat-letter {
+.cat_letter {
   background: var(--sky);
   color: rgba(42, 33, 24, 0.7);
 }
 
-/* ── BLOG SCROLL ── */
-.blog-scroll-wrap {
+/* Wrapper that positions the ← → scroll buttons relative to the feed */
+.blog_scroll_wrap {
   position: relative;
   margin: 0 -1rem;
   padding: 0 1rem;
 }
 
-.blog-scroll-btn {
+/* The ← and → scroll arrow buttons */
+.blog_scroll_btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -632,40 +634,36 @@ body {
   transition: all 0.15s;
   z-index: 2;
 }
-.blog-scroll-btn:hover {
+.blog_scroll_btn:hover {
   background: var(--ink);
   color: var(--bg);
   border-color: var(--ink);
 }
-.blog-scroll-prev {
+.blog_scroll_prev {
   left: -8px;
 }
-.blog-scroll-next {
+.blog_scroll_next {
   right: -8px;
 }
 
-@media (max-width: 520px) {
-  .blog-scroll-btn {
-    display: none;
-  }
-}
-
-.blog-scroll {
+/* The horizontally-scrollable row of blog cards */
+.blog_feed {
   display: flex;
   gap: 1.25rem;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
+  scroll-snap-type: x mandatory; /* snaps to each card when scrolling */
+  scrollbar-width: none; /* hides scrollbar in Firefox */
   padding: 0.5rem 0 1.5rem;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
 }
-.blog-scroll::-webkit-scrollbar {
-  display: none;
+.blog_feed::-webkit-scrollbar {
+  display: none; /* hides scrollbar in Chrome/Safari */
 }
 
-/* ── BLOG CARD ── */
-.bsc {
-  flex: 0 0 340px;
+/* ─── 8. BLOG CARDS ───────────────────────────────────────────────────── */
+
+.blog_card {
+  flex: 0 0 340px; /* fixed width, doesn't shrink */
   height: 460px;
   border-radius: 14px;
   overflow: hidden;
@@ -674,28 +672,31 @@ body {
   scroll-snap-align: start;
   transition: transform 0.2s;
   animation: rise 0.4s ease both;
+  text-decoration: none; /* since cards will be <a> tags linking to post pages */
+  display: block;
 }
-.bsc:hover {
+.blog_card:hover {
   transform: scale(1.02);
 }
 
-.bsc-bg {
+/* Background layer of the card */
+.blog_card_bg {
   position: absolute;
   inset: 0;
   background: var(--warm);
 }
-.bsc-bg img {
+.blog_card_bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-.bsc-bg-plain {
-  background: var(--warm);
+.blog_card_bg_plain {
+  background: var(--warm); /* fallback when there's no cover image */
 }
 
-/* dark gradient for image cards */
-.bsc:not(.bsc-letter) .bsc-bg::after {
+/* Dark gradient for image cards so text is readable */
+.blog_card:not(.blog_card_letter) .blog_card_bg::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -707,24 +708,25 @@ body {
   );
 }
 
-/* letter cards */
-.bsc-letter .bsc-bg {
+/* "Letter" type cards get a sky-blue background and dark text */
+.blog_card_letter .blog_card_bg {
   background: var(--sky);
 }
-.bsc-letter .bsc-overlay {
+.blog_card_letter .blog_card_overlay {
   color: var(--ink);
 }
-.bsc-letter .bsc-title {
+.blog_card_letter .blog_card_title {
   color: var(--ink);
 }
-.bsc-letter .bsc-excerpt {
+.blog_card_letter .blog_card_excerpt {
   color: var(--ink2);
 }
-.bsc-letter .bsc-date {
+.blog_card_letter .blog_card_date {
   color: var(--faint);
 }
 
-.bsc-overlay {
+/* Text overlay pinned to the bottom of each card */
+.blog_card_overlay {
   position: absolute;
   inset: 0;
   padding: 1.75rem 1.6rem;
@@ -734,7 +736,7 @@ body {
   color: white;
 }
 
-.bsc-title {
+.blog_card_title {
   font-family: "Fraunces", serif;
   font-size: 1.35rem;
   font-weight: 300;
@@ -743,7 +745,8 @@ body {
   color: white;
   margin-bottom: 0.5rem;
 }
-.bsc-excerpt {
+
+.blog_card_excerpt {
   font-size: 0.82rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.75);
@@ -754,313 +757,129 @@ body {
   overflow: hidden;
   margin-bottom: 0.75rem;
 }
-.bsc-date {
+
+.blog_card_date {
   font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.04em;
 }
 
-@media (max-width: 600px) {
-  .bsc {
-    flex: 0 0 280px;
-    height: 380px;
-  }
-}
+/* ─── 9. TAG FILTER BUBBLES ───────────────────────────────────────────── */
+/* The "✦ all / personal / gaming / career / fitness / letters" filter row */
 
-/* ─── SINGLE POST VIEW ─────────────────────────────────────────────────── */
-.single-wrap {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 6rem clamp(1.5rem, 5vw, 2rem) 5rem;
-  animation: rise 0.35s ease both;
-}
-
-.single-cover {
-  width: 100%;
-  aspect-ratio: 16/7;
-  background: var(--warm);
-  border-radius: 10px;
-  overflow: hidden;
+.tag_cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
   margin-bottom: 2.5rem;
+}
+
+.tag_bubble {
+  font-size: 0.82rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--rule);
+  color: var(--ink2);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+  letter-spacing: 0.01em;
+}
+.tag_bubble:hover {
+  border-color: var(--ink2);
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+.tag_bubble.active {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(42, 33, 24, 0.15);
+}
+
+/* ─── 10. SOCIAL LINKS ────────────────────────────────────────────────── */
+
+/* Icon buttons in the hero section */
+.social_links {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.social_btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--warm);
+  border: 1px solid var(--rule);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4rem;
-  position: relative;
-}
-.single-cover img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.single-title {
-  font-family: "Fraunces", serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
-}
-
-.single-body {
-  font-size: 1.05rem;
-  line-height: 1.9;
   color: var(--ink2);
-  font-weight: 300;
-}
-.single-body p {
-  margin-bottom: 1.4rem;
-}
-.single-body h2 {
-  font-family: "Fraunces", serif;
-  font-size: 1.4rem;
-  font-weight: 300;
-  margin: 2rem 0 0.75rem;
-  color: var(--ink);
-}
-
-/* ─── ENTRY VIEW (letters) ────────────────────────────────────────────── */
-.post-page {
-  min-height: 100vh;
-  padding: 6rem clamp(1.5rem, 5vw, 4rem) 5rem;
-  max-width: 680px;
-  margin: 0 auto;
-  animation: fadein 0.35s ease both;
-}
-@keyframes fadein {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.post-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.05em;
-  color: var(--faint);
-  cursor: pointer;
-  margin-bottom: 2.5rem;
-  transition: color 0.15s;
-}
-.post-back:hover {
-  color: var(--ink);
-}
-
-.post-tag-row {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  margin-bottom: 1.25rem;
-}
-
-.post-tag {
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.18rem 0.55rem;
-  border-radius: 4px;
-  font-weight: 400;
-}
-.post-tag-letter {
-  background: var(--sky);
-  color: rgba(42, 33, 24, 0.7);
-}
-
-.post-date {
-  font-size: 0.72rem;
-  color: var(--faint);
-}
-
-.post-title {
-  font-family: "Fraunces", serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-  font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  margin-bottom: 2rem;
-}
-
-.post-body-letter {
-  font-family: "DM Sans", sans-serif;
-  font-size: 1rem;
-  font-weight: 300;
-  line-height: 1.9;
-  color: var(--ink2);
-}
-.post-body-letter p {
-  margin-bottom: 1.3rem;
-}
-
-.post-rule {
-  width: 40px;
-  height: 2px;
-  background: var(--rule);
-  margin: 2.5rem 0;
-}
-
-.post-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* ─── COMPOSE VIEW ────────────────────────────────────────────────────── */
-.compose-page {
-  min-height: 100vh;
-  padding: 6rem clamp(1.5rem, 5vw, 4rem) 5rem;
-  max-width: 680px;
-  margin: 0 auto;
-  animation: fadein 0.3s ease both;
-}
-
-.compose-page h2 {
-  font-family: "Fraunces", serif;
-  font-size: 1.9rem;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.3rem;
-}
-
-.compose-page .sub {
+  text-decoration: none;
   font-size: 0.9rem;
-  color: var(--faint);
-  font-style: italic;
-  margin-bottom: 2rem;
-}
-
-.cfield {
-  margin-bottom: 1.25rem;
-}
-.cfield label {
-  display: block;
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--faint);
-  font-weight: 400;
-  margin-bottom: 0.45rem;
-}
-
-.cfield input,
-.cfield textarea,
-.cfield select {
-  width: 100%;
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 6px;
-  padding: 0.8rem 1rem;
-  font-family: "DM Sans", sans-serif;
-  font-size: 0.95rem;
-  font-weight: 300;
-  color: var(--ink);
-  outline: none;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
-  line-height: 1.6;
-}
-.cfield input:focus,
-.cfield textarea:focus,
-.cfield select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(193, 127, 74, 0.1);
-}
-#f-title {
-  font-family: "Fraunces", serif;
-  font-size: 1.1rem;
-  font-weight: 300;
-}
-.cfield textarea {
-  min-height: 200px;
-  resize: vertical;
-}
-
-.cfield-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-}
-@media (max-width: 520px) {
-  .cfield-row {
-    grid-template-columns: 1fr;
-  }
-}
-
-.cactions {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-
-/* ─── BUTTONS ─────────────────────────────────────────────────────────── */
-.btn {
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-family: "DM Sans", sans-serif;
-  font-size: 0.83rem;
-  font-weight: 400;
-  padding: 0.55rem 1.3rem;
   transition: all 0.15s;
 }
-.btn-primary {
+.social_btn:hover {
   background: var(--ink);
   color: var(--bg);
+  border-color: var(--ink);
 }
-.btn-primary:hover {
-  background: var(--accent);
+
+/* Icon links in the footer (simpler, no background circle) */
+.social_links_footer {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
-.btn-outline {
-  background: transparent;
-  color: var(--ink2);
-  border: 1px solid var(--rule);
-}
-.btn-outline:hover {
-  color: var(--ink);
-  border-color: var(--ink2);
-}
-.btn-del {
-  background: transparent;
+.social_footer_btn {
   color: var(--faint);
-  border: 1px solid var(--rule);
-  font-size: 0.78rem;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.15s;
 }
-.btn-del:hover {
-  color: var(--rose);
-  border-color: var(--rose);
-}
-
-/* ─── EMPTY ───────────────────────────────────────────────────────────── */
-.empty {
-  text-align: center;
-  padding: 4rem 1rem;
-  width: 100%;
-}
-.empty-glyph {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  opacity: 0.3;
-}
-.empty h3 {
-  font-family: "Fraunces", serif;
-  font-size: 1.3rem;
-  font-weight: 300;
-  margin-bottom: 0.4rem;
+.social_footer_btn:hover {
+  color: var(--ink);
 }
 
-/* ─── FOOTER ──────────────────────────────────────────────────────────── */
-.site-footer {
+/* ─── 11. SCROLL REVEAL ───────────────────────────────────────────────── */
+/* Elements with class="reveal" start invisible and slide up into view.
+   The JavaScript in script.js adds class="visible" when they scroll
+   into the viewport, which triggers these CSS transitions. */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delays so elements don't all appear at exactly the same time */
+.reveal_delay_1 {
+  transition-delay: 0.1s;
+}
+.reveal_delay_2 {
+  transition-delay: 0.2s;
+}
+.reveal_delay_3 {
+  transition-delay: 0.3s;
+}
+.reveal_delay_4 {
+  transition-delay: 0.4s;
+}
+.reveal_delay_5 {
+  transition-delay: 0.5s;
+}
+
+/* ─── 12. FOOTER ──────────────────────────────────────────────────────── */
+
+.site_footer {
   border-top: 1px solid var(--rule);
   padding: 2rem clamp(1.5rem, 5vw, 4rem);
   display: flex;
@@ -1071,39 +890,27 @@ body {
   letter-spacing: 0.04em;
 }
 
-/* ─── TOAST ───────────────────────────────────────────────────────────── */
-.toast {
-  position: fixed;
-  bottom: 1.75rem;
-  left: 50%;
-  transform: translateX(-50%) translateY(60px);
-  background: var(--ink);
-  color: var(--bg);
-  padding: 0.6rem 1.3rem;
-  border-radius: 5px;
-  font-size: 0.8rem;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 999;
-  white-space: nowrap;
-}
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+/* ─── 13. RESPONSIVE ──────────────────────────────────────────────────── */
+
+/* Hide the nav pill on mobile — too cramped */
+@media (max-width: 768px) {
+  .nav_links {
+    display: none;
+  }
 }
 
-/* ─── RESPONSIVE ──────────────────────────────────────────────────────── */
+/* Mobile hero: stack photo behind text with a dark gradient overlay */
 @media (max-width: 768px) {
-  .hero {
+  .hero_section {
     grid-template-columns: 1fr;
     position: relative;
   }
-  .hero-photo {
+  .hero_photo {
     position: absolute;
     inset: 0;
     min-height: unset;
   }
-  .hero-text {
+  .hero_text {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -1118,23 +925,23 @@ body {
     padding: 0 clamp(1.5rem, 6vw, 2.5rem) 3rem;
     justify-content: flex-end;
   }
-  /* flip all text to light since it's now over a dark overlay */
-  .hero-eyebrow {
+  /* Flip all hero text to light colours since it's now over a dark overlay */
+  .hero_eyebrow {
     color: rgba(245, 240, 232, 0.7);
   }
-  .hero-heading {
+  .hero_heading {
     color: #faf7f2;
   }
-  .hero-heading em {
+  .hero_heading em {
     color: var(--accent);
   }
-  .hero-body {
+  .hero_body {
     color: rgba(245, 240, 232, 0.75);
   }
-  .scroll-hint {
+  .scroll_hint {
     color: rgba(245, 240, 232, 0.4);
   }
-  .social-btn {
+  .social_btn {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.25);
     color: #faf7f2;
@@ -1142,74 +949,60 @@ body {
   }
 }
 
-/* SOCIAL LINKS */
-.social-links {
-  display: flex;
-  gap: 0.6rem;
-  margin-bottom: 1.5rem;
+/* Portfolio bento: 2-column on tablet */
+@media (max-width: 700px) {
+  .proj_bento {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 200px 200px;
+  }
+  .pb_wide {
+    grid-column: span 2;
+  }
+  .pb_tall {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  .pb_small {
+    grid-column: span 1;
+  }
 }
 
-.social-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--warm);
-  border: 1px solid var(--rule);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ink2);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.15s;
-}
-.social-btn:hover {
-  background: var(--ink);
-  color: var(--bg);
-  border-color: var(--ink);
+/* Portfolio bento: single column on small phones */
+@media (max-width: 440px) {
+  .proj_bento {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+  .pb_wide,
+  .pb_tall,
+  .pb_small {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 200px;
+  }
 }
 
-.social-links-footer {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
+/* Hide scroll buttons on small screens (swipe works natively) */
+@media (max-width: 520px) {
+  .blog_scroll_btn {
+    display: none;
+  }
 }
 
-.social-footer-btn {
-  color: var(--faint);
-  text-decoration: none;
-  font-size: 0.85rem;
-  transition: color 0.15s;
-}
-.social-footer-btn:hover {
-  color: var(--ink);
+/* Blog cards: slightly smaller on mobile */
+@media (max-width: 600px) {
+  .blog_card {
+    flex: 0 0 280px;
+    height: 380px;
+  }
 }
 
-/* SCROLL REVEAL */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.reveal-delay-1 {
-  transition-delay: 0.1s;
-}
-.reveal-delay-2 {
-  transition-delay: 0.2s;
-}
-.reveal-delay-3 {
-  transition-delay: 0.3s;
-}
-.reveal-delay-4 {
-  transition-delay: 0.4s;
-}
-.reveal-delay-5 {
-  transition-delay: 0.5s;
+/* Compose form: single column on small screens */
+/* NOTE: .cfield-row was part of the admin compose form which has been removed.
+   This media query is kept here as a reminder in case you bring a write form
+   back later — you'd re-add .cfield-row and this rule would already be here. */
+@media (max-width: 520px) {
+  .cfield_row {
+    grid-template-columns: 1fr;
+  }
 }

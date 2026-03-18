@@ -85,9 +85,9 @@ function filter_blog(category, clicked_bubble) {
     .forEach((b) => b.classList.remove("active"));
   clicked_bubble.classList.add("active");
 
-  document.querySelectorAll(".blog_card").forEach((card) => {
-    const match = !category || card.dataset.category === category;
-    card.style.display = match ? "block" : "none";
+  document.querySelectorAll(".blog_row").forEach((row) => {
+    const match = !category || row.dataset.category === category;
+    row.style.display = match ? "grid" : "none";
   });
 }
 

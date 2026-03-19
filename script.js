@@ -1,43 +1,57 @@
 /* ============================================================
    script.js — Chezter Vargas Personal Site
-   
-   What lives here now:
-     1. Scroll reveal animation (fade elements in as you scroll)
-     2. Nav active state (highlights the right nav link as you scroll)
-     3. Blog horizontal scroll (the ← → arrow buttons)
-     4. Smooth scrolling for anchor links (e.g. #blog_section)
+
+   What lives here:
+     1. Scroll reveal animation
+     2. Nav active state + scrolled class
+     3. Blog horizontal scroll (← → arrow buttons)
+     4. Blog tag filter
+     5. Smooth scrolling for anchor links
 
    ============================================================ */
 
 /* ── SCROLL REVEAL ── */
 /* Watches for elements with class="reveal" and adds class="visible"
-   when they scroll into view. The actual fade-in animation is
-   defined in style.css using those two class names. */
+   when they scroll into view. The actual fade-in is in style.css. */
 function init_reveal() {
   const observer = new IntersectionObserver(
     (entries) =>
       entries.forEach((entry) => {
         if (entry.isIntersecting) entry.target.classList.add("visible");
       }),
-    { threshold: 0.15 },
-    /* threshold: 0.15 means the animation triggers when 15% of the
-       element is visible on screen. Raise this (e.g. 0.4) to trigger
-       later, lower it (e.g. 0.05) to trigger earlier. */
+    { threshold: 0.12 },
+    /* 0.12 = trigger when 12% of the element is visible */
   );
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 }
 
-/* ── NAV ACTIVE STATE ── */
-/* Highlights the correct nav link based on which section you've
-   scrolled to. Looks for elements with id="portfolio_section"
-   and id="blog_section" — make sure those IDs exist in index.html. */
-function update_nav_active() {
-  const sections = ["portfolio_section", "blog_section"];
-  const scroll_pos = window.scrollY + 120;
-  /* +120 offsets for the fixed nav bar height so the active state
-     switches slightly before you actually reach the section. */
+/* ── NAV ACTIVE STATE + SCROLLED CLASS ── */
+/* Highlights the correct nav link based on which section is in view.
+   Also adds class="scrolled" to .top_nav so it gets a background
+   when you scroll past the hero — the style is in style.css. */
+function update_nav() {
+  const nav = document.querySelector(".top_nav");
+  const scroll_pos = window.scrollY + 130;
 
-  let active = "home";
+  /* Toggle background on nav once you scroll past 80px */
+  if (window.scrollY > 80) {
+    nav?.classList.add("scrolled");
+  } else {
+    nav?.classList.remove("scrolled");
+  }
+
+  /* Section IDs in order — update this list if you add new sections */
+  const sections = [
+    "hero_section",
+    "about_section",
+    "edu_section",
+    "exp_section",
+    "portfolio_section",
+    "blog_section",
+    "contact_section",
+  ];
+
+  let active = "hero_section";
   for (const id of sections) {
     const el = document.getElementById(id);
     if (el && el.offsetTop <= scroll_pos) active = id;
@@ -46,53 +60,40 @@ function update_nav_active() {
   document.querySelectorAll(".nav_link").forEach((link) => {
     link.classList.remove("active");
     const href = link.getAttribute("href");
-    if (
-      (active === "home" && (href === "index.html" || href === "/")) ||
-      (active === "portfolio_section" && href === "#portfolio_section") ||
-      (active === "blog_section" && href === "#blog_section")
-    ) {
-      link.classList.add("active");
-    }
+    if (href === `#${active}`) link.classList.add("active");
   });
 }
-window.addEventListener("scroll", update_nav_active);
+window.addEventListener("scroll", update_nav, { passive: true });
 
 /* ── BLOG HORIZONTAL SCROLL ── */
 /* Powers the ← → buttons on the blog section.
-   Pass -1 for left, 1 for right.
-   Looks for id="blog_feed" in index.html. */
+   Pass -1 for left, 1 for right. */
 function scroll_blog(dir) {
   const feed = document.getElementById("blog_feed");
   if (!feed) return;
-  const card_width =
-    (feed.querySelector(".blog_card")?.offsetWidth || 340) + 20;
-  /* Grabs the width of the first blog card (plus a 20px gap) to
-     know exactly how far to scroll each time. If no card is found,
-     defaults to 340px. */
+  const card_width = (feed.querySelector(".blog_card")?.offsetWidth || 340) + 1;
+  /* +1 for the 1px gap we use as a border between cards */
   feed.scrollBy({ left: dir * card_width, behavior: "smooth" });
 }
 
 /* ── BLOG TAG FILTER ── */
-/* Filters the visible blog cards by category when you click a tag bubble.
-   Pass null to show all cards. The active class on the bubble is handled here too.
-   Works by showing/hiding cards based on their data-category attribute —
-   make sure each .blog_card in index.html has data-category="personal" etc. */
+/* Shows/hides blog cards by their data-category attribute.
+   Pass null to show all cards. Active class on bubble is handled here. */
 function filter_blog(category, clicked_bubble) {
   document
     .querySelectorAll(".tag_bubble")
     .forEach((b) => b.classList.remove("active"));
   clicked_bubble.classList.add("active");
 
-  document.querySelectorAll(".blog_card").forEach((card) => {
-    const match = !category || card.dataset.category === category;
-    card.style.display = match ? "block" : "none";
+  document.querySelectorAll(".blog_row").forEach((row) => {
+    const match = !category || row.dataset.category === category;
+    row.style.display = match ? "grid" : "none";
   });
 }
 
 /* ── SMOOTH SCROLL FOR ANCHOR LINKS ── */
-/* Makes all links like href="#blog_section" scroll smoothly instead
-   of jumping. Also cleans the URL (removes the #hash) after scrolling
-   so the address bar stays tidy. */
+/* Makes all href="#section_id" links scroll smoothly.
+   Also cleans the URL hash after scrolling so it stays tidy. */
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
@@ -109,9 +110,8 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 });
 
 /* ── SCROLL TO HASH ON PAGE LOAD ── */
-/* If someone visits yoursite.com/#blog_section directly (e.g. from
-   a shared link), this scrolls them to that section on load.
-   The 100ms delay gives the page a moment to finish rendering first. */
+/* If someone visits yoursite.com/#blog_section directly,
+   this scrolls them there. 100ms delay for render to finish first. */
 window.addEventListener("load", () => {
   const hash = window.location.hash;
   if (hash) {
@@ -126,6 +126,6 @@ window.addEventListener("load", () => {
     history.replaceState(null, "", "/");
   }
 
-  /* Kick off the scroll reveal observer once the page is fully loaded. */
   init_reveal();
+  update_nav(); /* run once on load so the nav state is correct immediately */
 });

@@ -31,36 +31,33 @@
 }
 
 :root {
-  /* Palette — muted dark, warm grey ink, dusty red accent */
-  --bg: #111110;
-  --paper: #191918;
-  --warm: #222220;
-  --rule: #5a0a04; /* dark red — all unfilled borders */
-  --rule2: #8a1408; /* brighter red — emphasis borders */
+  --bg: #e8e4dc;
+  --paper: #dedad2;
+  --warm: #d0ccc4;
+  --rule: #c8200a;
+  --rule2: #e02010;
 
-  --ink: #d8d4cc;
-  --ink2: #b8b0a8;
-  --faint: #484440;
+  --ink: #141210;
+  --ink2: #3a3830;
+  --faint: #8a8680;
 
-  --accent: #b5200a;
-  --accent_d: #8f1808;
+  --accent: #d41a08;
+  --accent_d: #aa1406;
 
-  /* Blog category colours */
-  --personal: #b5200a;
-  --gaming: #3a5ab0;
-  --career: #3a7a3a;
-  --fitness: #3a7a3a;
-  --letter_bg: #131318;
+  --personal: #d41a08;
+  --gaming: #2a4ab0;
+  --career: #286028;
+  --fitness: #286028;
+  --letter_bg: #ccc8c0;
 
-  --personal_l: rgba(181, 32, 10, 0.1);
-  --gaming_l: rgba(58, 90, 176, 0.1);
-  --career_l: rgba(58, 122, 58, 0.1);
-  --letter_l: rgba(58, 58, 160, 0.08);
+  --personal_l: rgba(212, 26, 8, 0.1);
+  --gaming_l: rgba(42, 74, 176, 0.1);
+  --career_l: rgba(40, 96, 40, 0.1);
+  --letter_l: rgba(40, 40, 160, 0.08);
 
-  /* Project category colours */
-  --biomed: #b5200a;
-  --ai: #7048c8;
-  --web: #1a9eaa;
+  --biomed: #d41a08;
+  --ai: #6030b8;
+  --web: #0a7080;
 }
 
 /* ─── 2. BASE ─────────────────────────────────────────────────────────── */
@@ -115,7 +112,7 @@ img {
   font-family: "Bebas Neue", sans-serif;
   font-size: 28px;
   letter-spacing: 0.05em;
-  color: var(--ink);
+  color: #d8d4cc;
   text-decoration: none;
   line-height: 1;
 }
@@ -138,7 +135,7 @@ img {
   font-size: 0.62rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink2);
+  color: #888880;
   text-decoration: none;
   padding: 0.45rem 0.9rem;
   border-right: 1px solid var(--rule);
@@ -150,8 +147,8 @@ img {
   border-right: none;
 }
 .nav_link:hover {
-  color: var(--ink);
-  background: var(--warm);
+  color: #d8d4cc; /* was var(--ink) */
+  background: rgba(255, 255, 255, 0.08); /* was var(--warm) */
 }
 .nav_link.active {
   background: var(--accent);
@@ -164,10 +161,11 @@ img {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--bg);
+  color: #111110; /* was var(--bg) */
   text-decoration: none;
   padding: 0.5rem 1.1rem;
-  background: var(--ink);
+  background: #d8d4cc; /* was var(--ink) */
+  border-color: #d8d4cc;
   border: 1px solid var(--ink);
   transition:
     background 0.15s,
@@ -233,7 +231,7 @@ img {
   font-family: "Bebas Neue", sans-serif;
   font-size: clamp(0.9rem, 1.5vw, 1.15rem);
   letter-spacing: 0.14em;
-  color: var(--ink2);
+  color: #888880;
 }
 .ticker_dot {
   color: var(--accent) !important;
@@ -271,7 +269,7 @@ img {
 .hero_intro {
   font-size: 0.88rem;
   line-height: 1.85;
-  color: var(--ink2);
+  color: #888880;
 }
 .hero_right_label {
   font-family: "Barlow Condensed", sans-serif;
@@ -315,7 +313,7 @@ img {
 /* Outline alternating lines */
 .outline_line {
   color: transparent;
-  -webkit-text-stroke: 3px var(--ink);
+  -webkit-text-stroke: 3px #d8d4cc; /* was var(--ink) */
 }
 
 /* Cutout person — absolutely positioned centre-right, overlaps the name */
@@ -351,13 +349,13 @@ img {
   font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink2);
+  color: #888880;
 }
 .hero_coord {
   font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink2);
+  color: #606060;
 }
 .scroll_hint {
   display: flex;
@@ -366,7 +364,7 @@ img {
   font-size: 0.62rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink2);
+  color: #606060;
 }
 .scroll_arrow {
   animation: bounce_y 1.6s ease-in-out infinite;

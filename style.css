@@ -316,7 +316,6 @@ img {
 .outline_line {
   color: transparent;
   -webkit-text-stroke: 3px var(--ink);
-  text-stroke: 3px var(--ink);
 }
 
 /* Cutout person — absolutely positioned centre-right, overlaps the name */
@@ -393,7 +392,7 @@ img {
 /* Vertical section label — pinned to the right edge */
 .section_vert_label {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
   bottom: 0;
   width: 52px;
@@ -413,6 +412,8 @@ img {
 }
 /* Red-fill variant for alternate sections */
 .section_vert_label.red {
+  left: auto;
+  right: 0;
   background: var(--accent);
   color: #fff;
   border-color: var(--accent);
@@ -487,7 +488,7 @@ img {
   font-size: 0.62rem;
   padding: 0.2rem 0.55rem;
   border: 1px solid var(--rule);
-  color: var(--faint);
+  color: var(--accent_d);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -584,82 +585,6 @@ img {
 }
 
 /* ─── 7. TIMELINE (education + experience) ────────────────────────────── */
-
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border-left: 1px solid var(--rule2);
-  max-width: 800px;
-}
-
-.tl_item {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 2rem;
-  padding: 2.5rem 0 2.5rem 2.5rem;
-  border-bottom: 1px solid var(--rule);
-  position: relative;
-}
-/* The dot on the left rail */
-.tl_item::before {
-  content: "";
-  position: absolute;
-  left: -5px;
-  top: 2.75rem;
-  width: 9px;
-  height: 9px;
-  background: var(--accent);
-  border: 2px solid var(--bg);
-}
-.tl_item:last-child {
-  border-bottom: none;
-}
-
-.tl_year {
-  font-family: "DM Sans", sans-serif;
-  font-weight: 500;
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--faint);
-  padding-top: 0.2rem;
-}
-
-.tl_head {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.35rem;
-}
-.tl_role {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 1.3rem;
-  letter-spacing: 0.04em;
-  color: var(--ink);
-}
-.tl_badge {
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.2rem 0.55rem;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-}
-.tl_org {
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink2);
-  margin-bottom: 1rem;
-}
-.tl_desc {
-  font-size: 0.82rem;
-  line-height: 1.85;
-  color: var(--ink2);
-  margin-bottom: 1rem;
-}
 .tl_tags {
   display: flex;
   flex-wrap: wrap;
@@ -686,16 +611,6 @@ img {
   padding: 2rem 0;
 }
 
-/* The big red circle behind the photo */
-.edu_red_circle {
-  position: absolute;
-  width: clamp(260px, 38vw, 420px);
-  height: clamp(260px, 38vw, 420px);
-  background: var(--accent);
-  border-radius: 50%;
-  z-index: 0;
-}
-
 .edu_photo {
   position: relative;
   z-index: 1;
@@ -704,6 +619,8 @@ img {
   object-fit: cover;
   object-position: top center;
   display: block;
+  border: 4px solid var(--accent);
+  border-radius: 64px 0 64px 0;
 }
 
 /* The huge "MY EDUCATION" heading */
@@ -720,7 +637,7 @@ img {
 .edu_heading em {
   font-style: normal;
   color: var(
-    --ink
+    --accent
   ); /* same colour — no accent tint on heading, matches reference */
 }
 
@@ -819,10 +736,7 @@ img {
 }
 .exp_heading em {
   font-style: normal;
-  color: var(--ink);
-}
-#edu_section .edu_entries {
-  /* entries restore horizontal padding */
+  color: var(--accent);
 }
 
 /* ─── 8. PORTFOLIO GRID ───────────────────────────────────────────────── */
@@ -846,9 +760,6 @@ img {
 }
 .proj_card:hover {
   background: var(--warm);
-}
-.proj_card_wide {
-  /* already 2fr via grid */
 }
 .proj_card_img {
   width: 100%;
@@ -1345,9 +1256,6 @@ img {
   align-items: start;
 }
 /* Big contact heading fills the left column */
-.contact_heading_wrap {
-  /* grid column 1 implicitly */
-}
 .contact_heading {
   font-family: "Bebas Neue", sans-serif;
   font-size: clamp(5rem, 12vw, 10rem);

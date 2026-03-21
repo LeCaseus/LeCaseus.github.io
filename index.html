@@ -5,30 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chezter Vargas</title>
 
-    <!-- ======= FONTS ======= -->
-    <!-- Bebas Neue: display/hero headings -->
-    <!-- Barlow Condensed 700: section subheadings, bold editorial -->
-    <!-- DM Sans 300/400: body text, clean and minimal -->
+    <!-- Bebas Neue: display/hero headings | Barlow Condensed: section subheadings | DM Sans: body -->
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
 
-    <!-- ======= ICONS ======= -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       rel="stylesheet"
     />
 
-    <!-- ======= STYLES ======= -->
     <link rel="stylesheet" href="style.css" />
 
-    <!-- ======= FAVICON ======= -->
     <link rel="icon" type="image/svg+xml" href="assets/favicon_new.svg" />
   </head>
 
   <body>
-    <!-- ======= NAVIGATION BAR ======= -->
     <nav class="top_nav">
       <a href="#hero_section" class="nav_logo">CV<em>.</em></a>
       <div class="nav_links">
@@ -45,7 +38,6 @@
       >
     </nav>
 
-    <!-- ======= MAIN PAGE CONTENT ======= -->
     <main class="page_content">
       <!-- ============== HERO ============== -->
       <section id="hero_section" class="hero_section">
@@ -55,13 +47,6 @@
 
         <!-- Ticker at the top -->
         <div class="hero_ticker_wrap">
-          <div class="hero_ticker">
-            <span>MEDICAL DEVICES</span><span class="ticker_dot">✦</span>
-            <span>BIOMEDICAL ENGINEER</span><span class="ticker_dot">✦</span>
-            <span>HOBBYIST PROGRAMMER</span><span class="ticker_dot">✦</span>
-            <span>EMBEDDED SYSTEMS</span><span class="ticker_dot">✦</span>
-            <span>HEALTHCARE SYSTEMS</span><span class="ticker_dot">✦</span>
-          </div>
           <div class="hero_ticker">
             <span>MEDICAL DEVICES</span><span class="ticker_dot">✦</span>
             <span>BIOMEDICAL ENGINEER</span><span class="ticker_dot">✦</span>
@@ -335,11 +320,7 @@
 
         <!-- Brutalist cards — each project gets a raw bordered card -->
         <div class="brut_grid reveal reveal_delay_1">
-          <a
-            href="/portfolio/em-brace.html"
-            class="brut_card"
-            style="text-decoration: none"
-          >
+          <a href="/portfolio/em-brace.html" class="brut_card">
             <div class="brut_card_header">
               <span class="brut_card_num">01</span>
               <span class="proj_cat proj_cat_biomed">biomedical</span>
@@ -353,14 +334,16 @@
             <div class="brut_card_body">
               <h3 class="brut_card_title">eM-Brace</h3>
               <p class="brut_card_desc">
-                Autonomous wrist splint with massage system for Carpal Tunnel
-                Syndrome. Final year thesis.
+                Most wrist splints just hold you still. eM-Brace reads your
+                muscles, adapts to your movement, and delivers targeted massage
+                to heal you.
               </p>
               <div class="proj_tags">
-                <span class="tag">Arduino</span>
-                <span class="tag">Sensors</span>
-                <span class="tag">3D Printing</span>
-                <span class="tag">C++</span>
+                <span class="tag">Carpal Tunnel Syndrome</span>
+                <span class="tag">sEMG</span>
+                <span class="tag">Myofacsial Release</span>
+                <span class="tag">Wrist Splint</span>
+                <span class="tag">Rehabilitation</span>
               </div>
             </div>
             <div class="brut_card_footer">
@@ -368,40 +351,9 @@
             </div>
           </a>
 
-          <a
-            href="/portfolio/ch3sh1re.html"
-            class="brut_card"
-            style="text-decoration: none"
-          >
+          <a href="/portfolio/personal-website.html" class="brut_card">
             <div class="brut_card_header">
               <span class="brut_card_num">02</span>
-              <span class="proj_cat proj_cat_ai">AI / Python</span>
-            </div>
-            <div class="brut_card_img brut_card_emoji">🐱</div>
-            <div class="brut_card_body">
-              <h3 class="brut_card_title">CH3SH1RE</h3>
-              <p class="brut_card_desc">
-                A local AI assistant I'm building for fun. Early experiments and
-                notes on my GitHub.
-              </p>
-              <div class="proj_tags">
-                <span class="tag">Python</span>
-                <span class="tag">SQLite</span>
-                <span class="tag">LLM</span>
-              </div>
-            </div>
-            <div class="brut_card_footer">
-              <span>VIEW PROJECT</span><span>↗</span>
-            </div>
-          </a>
-
-          <a
-            href="/portfolio/personal-website.html"
-            class="brut_card"
-            style="text-decoration: none"
-          >
-            <div class="brut_card_header">
-              <span class="brut_card_num">03</span>
               <span class="proj_cat proj_cat_web">web</span>
             </div>
             <div class="brut_card_img">
@@ -413,13 +365,43 @@
             <div class="brut_card_body">
               <h3 class="brut_card_title">Personal Website</h3>
               <p class="brut_card_desc">
-                You're looking at it. Hardcoded HTML, CSS, and JavaScript. No
-                backend whatsoever.
+                Built from scratch in pure HTML, CSS, and JavaScript after
+                stripping out a backend I had vibe-coded but never actually
+                understood.
               </p>
               <div class="proj_tags">
                 <span class="tag">HTML</span>
                 <span class="tag">CSS</span>
-                <span class="tag">JS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">GitHub Pages</span>
+                <span class="tag">Static site</span>
+              </div>
+            </div>
+            <div class="brut_card_footer">
+              <span>VIEW PROJECT</span><span>↗</span>
+            </div>
+          </a>
+
+          <a href="/portfolio/ch3sh1re.html" class="brut_card">
+            <div class="brut_card_header">
+              <span class="brut_card_num">03</span>
+              <span class="proj_cat proj_cat_ai">AI / Python</span>
+            </div>
+            <div class="brut_card_img brut_card_emoji">🐱</div>
+            <div class="brut_card_body">
+              <h3 class="brut_card_title">CH3SH1RE</h3>
+              <p class="brut_card_desc">
+                A locally-run AI assistant I built in Python because my
+                conversations shouldn't live on someone else's server. Plus, I
+                don't have to worry about causing global warming.
+              </p>
+              <div class="proj_tags">
+                <span class="tag">Python</span>
+                <span class="tag">SQLite</span>
+                <span class="tag">llama.cpp</span>
+                <span class="tag">Qwen2.5</span>
+                <span class="tag">Local LLM</span>
+                <span class="tag">AI</span>
               </div>
             </div>
             <div class="brut_card_footer">
@@ -485,40 +467,6 @@
             >
             <span class="blog_row_arrow">↗</span>
           </a>
-
-          <a
-            href="blogs/building-your-own.html"
-            class="blog_row"
-            data-category="letter"
-          >
-            <span class="blog_row_date">Mar 12, 2026</span>
-            <span class="cat_tag cat_letter">letter</span>
-            <span class="blog_row_title"
-              >On to building your own instead of just using one</span
-            >
-            <span class="blog_row_excerpt"
-              >I want to talk about CH3SH1RE. Not because it's impressive right
-              now.</span
-            >
-            <span class="blog_row_arrow">↗</span>
-          </a>
-
-          <a
-            href="blogs/biomedical-students.html"
-            class="blog_row"
-            data-category="letter"
-          >
-            <span class="blog_row_date">Mar 12, 2026</span>
-            <span class="cat_tag cat_letter">letter</span>
-            <span class="blog_row_title"
-              >To all Biomedical Engineering students</span
-            >
-            <span class="blog_row_excerpt"
-              >If I could go back and tell myself one thing, it's to learn AI
-              development.</span
-            >
-            <span class="blog_row_arrow">↗</span>
-          </a>
         </div>
       </section>
 
@@ -573,7 +521,6 @@
       </section>
     </main>
 
-    <!-- ======= FOOTER ======= -->
     <footer class="site_footer">
       <span class="copyright_text">© 2026 Chezter Vargas</span>
       <span class="footer_handle">@LeCaseus</span>

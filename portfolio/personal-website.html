@@ -7,7 +7,7 @@
 
     <!-- ======= FONTS ======= -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap"
       rel="stylesheet"
     />
 
@@ -21,9 +21,15 @@
     <link rel="stylesheet" href="../style.css" />
 
     <!-- ======= FAVICON ======= -->
-    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon_new.svg" />
 
     <style>
+      .top_nav {
+        background: rgba(14, 14, 14, 0.95);
+        border-color: var(--rule);
+        backdrop-filter: blur(12px);
+      }
+
       .wrap {
         max-width: 1000px;
         margin: 0 auto;
@@ -63,15 +69,16 @@
       }
 
       .page_heading {
-        font-family: "Fraunces", serif;
-        font-size: clamp(2rem, 4vw, 3rem);
-        font-weight: 300;
-        letter-spacing: -0.02em;
-        line-height: 1.1;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        line-height: 1.05;
         margin-bottom: 1rem;
       }
       .page_heading em {
-        font-style: italic;
+        font-style: normal;
         color: var(--accent);
       }
 
@@ -81,6 +88,7 @@
         line-height: 1.7;
         max-width: 620px;
         margin-bottom: 1.75rem;
+        text-align: justify;
       }
 
       /* ── STATUS BADGE ── */
@@ -93,10 +101,9 @@
         text-transform: uppercase;
         font-weight: 500;
         padding: 0.3rem 0.75rem;
-        border-radius: 20px;
+        border: 1px solid rgba(193, 127, 74, 0.25);
         background: rgba(193, 127, 74, 0.1);
         color: var(--accent);
-        border: 1px solid rgba(193, 127, 74, 0.25);
         margin-bottom: 1.25rem;
       }
       .status_dot {
@@ -152,7 +159,6 @@
         font-size: 0.62rem;
         letter-spacing: 0.04em;
         padding: 0.15rem 0.55rem;
-        border-radius: 4px;
         background: var(--warm);
         color: var(--ink2);
       }
@@ -175,7 +181,6 @@
         font-size: 0.78rem;
         letter-spacing: 0.04em;
         padding: 0.55rem 1.1rem;
-        border-radius: 6px;
         font-family: "DM Sans", sans-serif;
         font-weight: 400;
         cursor: pointer;
@@ -226,7 +231,6 @@
         margin-bottom: 4rem;
       }
       .screenshot_wrap {
-        border-radius: 10px;
         overflow: hidden;
         border: 1px solid var(--rule);
         background: var(--warm);
@@ -271,7 +275,6 @@
         color: var(--faint);
         background: var(--warm);
         border: 1px solid var(--rule);
-        border-radius: 4px;
         padding: 0.15rem 0.75rem;
         letter-spacing: 0.02em;
       }
@@ -288,18 +291,14 @@
       .page_card {
         background: var(--paper);
         border: 1px solid var(--rule);
-        border-radius: 10px;
         padding: 1.25rem 1.35rem;
         text-decoration: none;
         color: inherit;
         display: block;
-        transition:
-          box-shadow 0.18s,
-          transform 0.18s;
+        transition: background 0.15s;
       }
       .page_card:hover {
-        box-shadow: 0 6px 24px rgba(42, 33, 24, 0.07);
-        transform: translateY(-2px);
+        background: var(--warm);
       }
       .page_card_top {
         display: flex;
@@ -325,9 +324,9 @@
         transform: translate(2px, -2px);
       }
       .page_card_title {
-        font-family: "Fraunces", serif;
+        font-family: "DM Sans", sans-serif;
         font-size: 0.95rem;
-        font-weight: 300;
+        font-weight: 500;
         color: var(--ink);
         margin-bottom: 0.3rem;
       }
@@ -352,7 +351,6 @@
         gap: 0.75rem;
         background: var(--paper);
         border: 1px solid var(--rule);
-        border-radius: 8px;
         padding: 0.9rem 1rem;
       }
       .stack_icon {
@@ -374,27 +372,6 @@
         letter-spacing: 0.02em;
       }
 
-      /* ── PHILOSOPHY ── */
-      .philosophy_section {
-        margin-bottom: 4.5rem;
-      }
-      .philosophy_box {
-        background: var(--paper);
-        border: 1px solid var(--rule);
-        border-left: 3px solid var(--accent);
-        border-radius: 0 10px 10px 0;
-        padding: 1.5rem 1.75rem;
-      }
-      .philosophy_box p {
-        font-size: 0.9rem;
-        color: var(--ink2);
-        line-height: 1.8;
-        margin-bottom: 0.85rem;
-      }
-      .philosophy_box p:last-child {
-        margin-bottom: 0;
-      }
-
       /* ── RESPONSIVE ── */
       @media (max-width: 600px) {
         .pages_grid {
@@ -410,16 +387,21 @@
   <body>
     <!-- ======= NAVIGATION BAR ======= -->
     <nav class="top_nav">
-      <a href="../index.html" class="nav_logo">chezter<em>vargas</em></a>
+      <a href="../index.html" class="nav_logo">CV<em>.</em></a>
       <div class="nav_links">
         <a href="../index.html" class="nav_link">home</a>
+        <a href="../index.html#about_section" class="nav_link">about</a>
+        <a href="../index.html#edu_section" class="nav_link">edu</a>
+        <a href="../index.html#exp_section" class="nav_link">work</a>
         <a href="../index.html#portfolio_section" class="nav_link active"
-          >portfolio</a
+          >proj</a
         >
         <a href="../index.html#blog_section" class="nav_link">blog</a>
-        <a href="../about.html" class="nav_link">about</a>
+        <a href="../index.html#contact_section" class="nav_link">contact</a>
       </div>
-      <a href="mailto:cheztervargas@outlook.com" class="nav_cta"
+      <a
+        href="/cdn-cgi/l/email-protection#46252e233c322334302734212735062933322a29292d6825292b"
+        class="nav_cta"
         >get in touch ↗</a
       >
     </nav>
@@ -437,10 +419,19 @@
         <p class="page_eyebrow">web · personal</p>
         <h1 class="page_heading">Personal <em>Website</em></h1>
         <p class="page_sub">
-          This site — rebuilt from scratch by me, after stripping out a backend
-          I didn't understand. Pure HTML, CSS, and JavaScript. No frameworks, no
-          templates, no shortcuts. A portfolio, blog, and personal playground
-          that grows as I do.
+          This site started as a microblogging/blogging platform I made for
+          myself to share my thoughts instead of scouring through different
+          platforms to find the right audience. The original version however,
+          had a bunch of backend like Node.js, Express, and a PostgreSQL
+          database, that was just part of my vibe-coding shenanigans, and I
+          never really understood what I did. So rather than carry forward with
+          code I couldn't explain, I stripped it all back to zero and rebuilt
+          using only HTML, CSS, and vanilla JavaScript. It's hosted on GitHub
+          Pages with no build step, no bundler, and no dependencies beyond
+          Google Fonts and Font Awesome. Each section is on one plain HTML file.
+          The philosophy is deliberate: complexity gets added back only once I
+          understand what it does and why it's needed. The site has now become a
+          portfolio, a blog, and a personal learning log, all in one.
         </p>
 
         <div class="meta_row">
@@ -459,8 +450,7 @@
           <span class="tag tag_mono">HTML</span>
           <span class="tag tag_mono">CSS</span>
           <span class="tag tag_mono">JavaScript</span>
-          <span class="tag">No frameworks</span>
-          <span class="tag">No templates</span>
+          <span class="tag">GitHub Pages</span>
           <span class="tag">Static site</span>
         </div>
 
@@ -499,7 +489,7 @@
 
       <!-- PAGES -->
       <div class="pages_section">
-        <div class="section_label">pages</div>
+        <div class="section_label">sections</div>
         <div class="pages_grid">
           <a href="../index.html" class="page_card">
             <div class="page_card_top">
@@ -508,41 +498,66 @@
             </div>
             <div class="page_card_title">Home</div>
             <p class="page_card_desc">
-              Hero section, portfolio bento grid, and blog post cards.
+              The first thing you see when visiting. A very cool hero section if
+              you ask me.
             </p>
           </a>
 
-          <a href="../about.html" class="page_card">
+          <a href="../#about_section" class="page_card">
             <div class="page_card_top">
-              <span class="page_card_name">about.html</span>
+              <span class="page_card_name">#about_section</span>
               <i class="fa-solid fa-arrow-up-right page_card_arrow"></i>
             </div>
             <div class="page_card_title">About</div>
             <p class="page_card_desc">
-              Background, interests, experience, and a bit of personality.
+              Here you'll get to know who I am, where I am, and what I am up to.
             </p>
           </a>
 
-          <a href="../posts/hello-real-world.html" class="page_card">
+          <a href="../#edu_section" class="page_card">
             <div class="page_card_top">
-              <span class="page_card_name">posts/</span>
+              <span class="page_card_name">#edu_section</span>
               <i class="fa-solid fa-arrow-up-right page_card_arrow"></i>
             </div>
-            <div class="page_card_title">Blog Posts</div>
+            <div class="page_card_title">Education</div>
             <p class="page_card_desc">
-              Each blog post is its own HTML file — simple, readable, no
-              database required.
+              Check out where I attended university but don't look me up on a
+              yearbook.
             </p>
           </a>
 
-          <a href="ch3sh1re.html" class="page_card">
+          <a href="../#exp_section" class="page_card">
             <div class="page_card_top">
-              <span class="page_card_name">portfolio/</span>
+              <span class="page_card_name">#exp_section/</span>
               <i class="fa-solid fa-arrow-up-right page_card_arrow"></i>
             </div>
-            <div class="page_card_title">Portfolio Pages</div>
+            <div class="page_card_title">Experience</div>
             <p class="page_card_desc">
-              Dedicated pages for each project. You're looking at one right now.
+              Hey don't judge me yet. I don't have much, I just graduated.
+            </p>
+          </a>
+
+          <a href="../#portfolio_section" class="page_card">
+            <div class="page_card_top">
+              <span class="page_card_name">#portfolio_section</span>
+              <i class="fa-solid fa-arrow-up-right page_card_arrow"></i>
+            </div>
+            <div class="page_card_title">Portfolio</div>
+            <p class="page_card_desc">
+              This is where my projects live. You have seen this on your way to
+              this page.
+            </p>
+          </a>
+
+          <a href="../#blog_section" class="page_card">
+            <div class="page_card_top">
+              <span class="page_card_name">#blog_section</span>
+              <i class="fa-solid fa-arrow-up-right page_card_arrow"></i>
+            </div>
+            <div class="page_card_title">Blog</div>
+            <p class="page_card_desc">
+              Now this is the main section! Kidding, it's just what's in my
+              brain.
             </p>
           </a>
         </div>
@@ -556,7 +571,7 @@
             <span class="stack_icon">🌐</span>
             <div>
               <div class="stack_name">HTML / CSS / JS</div>
-              <div class="stack_role">Frontend — no frameworks</div>
+              <div class="stack_role">Pure frontend, static</div>
             </div>
           </div>
           <div class="stack_item">
@@ -570,7 +585,7 @@
             <span class="stack_icon">🔤</span>
             <div>
               <div class="stack_name">Google Fonts</div>
-              <div class="stack_role">Fraunces + DM Sans</div>
+              <div class="stack_role">Bebas Neue + Barlow</div>
             </div>
           </div>
           <div class="stack_item">
@@ -582,31 +597,11 @@
           </div>
         </div>
       </div>
-
-      <!-- PHILOSOPHY -->
-      <div class="philosophy_section">
-        <div class="section_label">why from scratch?</div>
-        <div class="philosophy_box">
-          <p>
-            The original version of this site was built by pure vibe coding — a
-            backend with Node.js, Express, a Postgres database, and Cloudinary
-            for images. It worked, but I had no idea how. That felt wrong for
-            something that's supposed to represent me.
-          </p>
-          <p>
-            So I stripped it all back to what I actually understand: HTML, CSS,
-            and a small amount of JavaScript. From here, I'll add complexity
-            back one piece at a time — only when I've learned what that piece
-            does and why it's needed. The site will keep changing as I learn,
-            and that's kind of the point.
-          </p>
-        </div>
-      </div>
     </div>
 
     <!-- ======= FOOTER ======= -->
     <footer class="site_footer">
-      <span class="copyright_text">© 2025 Chezter Vargas</span>
+      <span class="copyright_text">© 2026 Chezter Vargas</span>
       <div class="social_links_footer">
         <a
           href="https://www.youtube.com/@LeCaseus"

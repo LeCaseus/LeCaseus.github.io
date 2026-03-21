@@ -5,28 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>print("Hello to the Real World!") — Chezter Vargas</title>
 
-    <!-- ======= FONTS ======= -->
+    <!-- Barlow Condensed: headings | DM Sans: body -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
 
-    <!-- ======= ICONS ======= -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       rel="stylesheet"
     />
 
-    <!-- ======= SHARED STYLES ======= -->
     <link rel="stylesheet" href="../style.css" />
 
-    <!-- ======= FAVICON ======= -->
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 
     <style>
-      /* ── POST PAGE LAYOUT ── */
-      /* All post pages use this same layout.
-         Copy this <style> block when creating new posts. */
+      /* Copy this <style> block when creating new posts. */
+
+      .top_nav {
+        background: rgba(14, 14, 14, 0.95);
+        border-color: var(--rule);
+        backdrop-filter: blur(12px);
+      }
 
       .post_wrap {
         max-width: 680px;
@@ -67,7 +68,6 @@
       .post_cover {
         width: 100%;
         aspect-ratio: 16/7;
-        border-radius: 10px;
         overflow: hidden;
         margin-bottom: 2.5rem;
         background: var(--warm);
@@ -80,13 +80,18 @@
       }
 
       .post_title {
-        font-family: "Fraunces", serif;
-        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-        font-weight: 300;
-        line-height: 1.15;
-        letter-spacing: -0.02em;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
         margin-bottom: 2rem;
         color: var(--ink);
+      }
+      .post_title em {
+        text-transform: lowercase;
+        font-style: normal;
       }
 
       .post_body {
@@ -102,9 +107,11 @@
         margin-bottom: 0;
       }
       .post_body h2 {
-        font-family: "Fraunces", serif;
-        font-size: 1.4rem;
-        font-weight: 300;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
         margin: 2rem 0 0.75rem;
         color: var(--ink);
       }
@@ -122,7 +129,6 @@
         justify-content: space-between;
       }
 
-      /* ── READ TIME ── */
       .read_time {
         font-size: 0.72rem;
         color: var(--faint);
@@ -132,16 +138,20 @@
   </head>
 
   <body>
-    <!-- ======= NAVIGATION BAR ======= -->
     <nav class="top_nav">
-      <a href="../index.html" class="nav_logo">chezter<em>vargas</em></a>
+      <a href="../index.html" class="nav_logo">CV<em>.</em></a>
       <div class="nav_links">
         <a href="../index.html" class="nav_link">home</a>
-        <a href="../index.html#portfolio_section" class="nav_link">portfolio</a>
+        <a href="../index.html#about_section" class="nav_link">about</a>
+        <a href="../index.html#edu_section" class="nav_link">edu</a>
+        <a href="../index.html#exp_section" class="nav_link">work</a>
+        <a href="../index.html#portfolio_section" class="nav_link">proj</a>
         <a href="../index.html#blog_section" class="nav_link active">blog</a>
-        <a href="../about.html" class="nav_link">about</a>
+        <a href="../index.html#contact_section" class="nav_link">contact</a>
       </div>
-      <a href="mailto:cheztervargas@outlook.com" class="nav_cta"
+      <a
+        href="/cdn-cgi/l/email-protection#a2c1cac7d8d6c7d0d4c3d0c5c3d1e2cdd7d6cecdcdc98cc1cdcf"
+        class="nav_cta"
         >get in touch ↗</a
       >
     </nav>
@@ -163,10 +173,10 @@
       <div class="post_meta_row">
         <span class="cat_tag cat_personal">personal</span>
         <span class="post_date">Jul 5, 2025</span>
-        <span class="read_time">· 2 min read</span>
+        <span class="read_time">· 3 min read</span>
       </div>
 
-      <h1 class="post_title">print("Hello to the Real World!")</h1>
+      <h1 class="post_title"><em>print </em>("Hello to the Real World!")</h1>
 
       <!-- Post body — add new paragraphs with <p> tags -->
       <div class="post_body" style="text-align: justify">
@@ -233,9 +243,8 @@
       </div>
     </div>
 
-    <!-- ======= FOOTER ======= -->
     <footer class="site_footer">
-      <span class="copyright_text">© 2025 Chezter Vargas</span>
+      <span class="copyright_text">© 2026 Chezter Vargas</span>
       <div class="social_links_footer">
         <a
           href="https://www.youtube.com/@LeCaseus"

@@ -7,7 +7,7 @@
 
     <!-- ======= FONTS ======= -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -21,9 +21,15 @@
     <link rel="stylesheet" href="../style.css" />
 
     <!-- ======= FAVICON ======= -->
-    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon_new.svg" />
 
     <style>
+      .top_nav {
+        background: rgba(14, 14, 14, 0.95);
+        border-color: var(--rule);
+        backdrop-filter: blur(12px);
+      }
+
       .wrap {
         max-width: 1000px;
         margin: 0 auto;
@@ -57,21 +63,22 @@
         font-size: 0.68rem;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        color: var(--rose);
+        color: var(--accent);
         font-weight: 500;
         margin-bottom: 0.6rem;
       }
 
       .page_heading {
-        font-family: "Fraunces", serif;
-        font-size: clamp(2rem, 4vw, 3rem);
-        font-weight: 300;
-        letter-spacing: -0.02em;
-        line-height: 1.1;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        line-height: 1.05;
         margin-bottom: 1rem;
       }
       .page_heading em {
-        font-style: italic;
+        font-style: normal;
         color: var(--accent);
       }
 
@@ -81,6 +88,7 @@
         line-height: 1.7;
         max-width: 620px;
         margin-bottom: 1.75rem;
+        text-align: justify;
       }
 
       /* ── META ROW ── */
@@ -116,7 +124,6 @@
         font-size: 0.62rem;
         letter-spacing: 0.04em;
         padding: 0.15rem 0.55rem;
-        border-radius: 4px;
         background: var(--warm);
         color: var(--ink2);
       }
@@ -135,7 +142,6 @@
         font-size: 0.78rem;
         letter-spacing: 0.04em;
         padding: 0.55rem 1.1rem;
-        border-radius: 6px;
         font-family: "DM Sans", sans-serif;
         font-weight: 400;
         cursor: pointer;
@@ -197,7 +203,6 @@
         background: var(--paper);
         border: 1px solid var(--rule);
         border-bottom: none;
-        border-radius: 8px 8px 0 0;
         padding: 0.65rem 1rem;
       }
 
@@ -210,7 +215,6 @@
       .reader_btn {
         width: 30px;
         height: 30px;
-        border-radius: 5px;
         border: 1px solid var(--rule);
         background: transparent;
         color: var(--ink2);
@@ -256,7 +260,6 @@
       .reader_canvas_wrap {
         background: #3a3530;
         border: 1px solid var(--rule);
-        border-radius: 0 0 8px 8px;
         overflow: auto;
         display: flex;
         justify-content: center;
@@ -268,7 +271,6 @@
 
       #pdf_canvas {
         box-shadow: 0 4px 32px rgba(0, 0, 0, 0.35);
-        border-radius: 2px;
         display: block;
         max-width: 100%;
         height: auto;
@@ -315,16 +317,21 @@
   <body>
     <!-- ======= NAVIGATION BAR ======= -->
     <nav class="top_nav">
-      <a href="../index.html" class="nav_logo">chezter<em>vargas</em></a>
+      <a href="../index.html" class="nav_logo">CV<em>.</em></a>
       <div class="nav_links">
         <a href="../index.html" class="nav_link">home</a>
+        <a href="../index.html#about_section" class="nav_link">about</a>
+        <a href="../index.html#edu_section" class="nav_link">edu</a>
+        <a href="../index.html#exp_section" class="nav_link">work</a>
         <a href="../index.html#portfolio_section" class="nav_link active"
-          >portfolio</a
+          >proj</a
         >
         <a href="../index.html#blog_section" class="nav_link">blog</a>
-        <a href="../about.html" class="nav_link">about</a>
+        <a href="../index.html#contact_section" class="nav_link">contact</a>
       </div>
-      <a href="mailto:cheztervargas@outlook.com" class="nav_cta"
+      <a
+        href="/cdn-cgi/l/email-protection#2c4f44495658495e5a4d5e4b4d5f6c43595840434347024f4341"
+        class="nav_cta"
         >get in touch ↗</a
       >
     </nav>
@@ -338,10 +345,25 @@
         <p class="page_eyebrow">biomedical · thesis</p>
         <h1 class="page_heading">eM-<em>Brace</em></h1>
         <p class="page_sub">
-          An autonomous wrist splint with an integrated massage system for
-          alleviating muscle weakness related to Carpal Tunnel Syndrome.
-          Developed as a final year thesis project at Ateneo de Zamboanga
-          University.
+          Carpal Tunnel Syndrome (CTS) is a prevalent musculoskeletal disorder
+          caused by median nerve compression, leading to pain, numbness, and
+          weakened grip strength. Conventional wrist splints often restrict
+          wrist motion and lack therapeutic functions that promote recovery.
+          This study introduces the eM-Brace, an autonomous wrist splint that
+          integrates a surface electromyography (sEMG)-activated myofascial
+          release massage system. sEMG sensors positioned on the Abductor
+          Pollicis Brevis muscle detect rest conditions, triggering the massage
+          mechanism only when the wrist is inactive. The device includes an
+          Integrated Massager calibrated to deliver 1.36 kPa of therapeutic
+          pressure, an Auto-Fit Module maintaining consistent support pressure
+          of approximately 3.68 kPa, and a Motion Support Module that loosens
+          during activity, allowing up to 10° flexion and 30° extension.
+          Functional testing verified 100 % accuracy in classifying muscle
+          states and 80 % accuracy in delivering target pressure. In beta
+          testing with 15 participants subjected to induced CTS symptoms, 73 %
+          showed grip strength improvements exceeding 2.2 kg, and mean pain
+          scores dropped from 3.27 to 0.33. The eM-Brace demonstrates a
+          lightweight, noninvasive, and adaptive alternative to static splints.
         </p>
 
         <div class="meta_row">
@@ -358,12 +380,11 @@
         </div>
 
         <div class="tag_row">
-          <span class="tag">Arduino</span>
-          <span class="tag">Sensors</span>
-          <span class="tag">3D Printing</span>
-          <span class="tag">C++</span>
-          <span class="tag">CAD</span>
-          <span class="tag">Biomedical</span>
+          <span class="tag">Carpal Tunnel Syndrome</span>
+          <span class="tag">sEMG</span>
+          <span class="tag">Myofacsial Release</span>
+          <span class="tag">Wrist Splint</span>
+          <span class="tag">Rehabilitation</span>
         </div>
 
         <div class="action_row">
@@ -442,7 +463,7 @@
 
     <!-- ======= FOOTER ======= -->
     <footer class="site_footer">
-      <span class="copyright_text">© 2025 Chezter Vargas</span>
+      <span class="copyright_text">© 2026 Chezter Vargas</span>
       <div class="social_links_footer">
         <a
           href="https://www.youtube.com/@LeCaseus"
@@ -472,6 +493,10 @@
     </footer>
 
     <!-- PDF.js library — renders PDF files onto a <canvas> element -->
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
       pdfjsLib.GlobalWorkerOptions.workerSrc =

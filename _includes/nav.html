@@ -1,0 +1,11 @@
+<nav class="site-nav">
+  <a class="nav-logo" href="/">CV.</a>
+  <div class="nav-links">
+    <a href="/"          {% if page.url == '/'          %}class="active"{% endif %}>home</a>
+    <a href="/about"     {% if page.url == '/about'     %}class="active"{% endif %}>about</a>
+    <a href="/work"      {% if page.url contains '/work'%}class="active"{% endif %}>work</a>
+    <a href="/projects"  {% if page.url contains '/proj'%}class="active"{% endif %}>proj</a>
+    <a href="/blog"      {% if page.url contains '/blog'%}class="active"{% endif %}>blog</a>
+  </div>
+  <a class="nav-cta" href="mailto:cheztervargas@outlook.com">get in touch ↗</a>
+</nav>

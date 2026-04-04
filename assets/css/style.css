@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+
 :root {
   --bg: #080c10;
   --text: #c8d8e8;
@@ -6,6 +8,13 @@
   --accent-dim: rgba(78, 203, 160, 0.35);
   --font-mono: 'Space Mono', monospace;
   --font-body: 'DM Sans', sans-serif;
+  --text-bright: #e8f2f8;                   /* post titles, hero name */
+  --text-faint: rgba(200, 216, 232, 0.2);   /* coords, footer, ghost labels */
+  --accent-faint: rgba(78, 203, 160, 0.08); /* tag backgrounds */
+  --accent-mid: rgba(78, 203, 160, 0.6);    /* active labels, tag borders */
+  --border: 0.5px solid var(--accent-dim);    /* the hairline — used everywhere */
+  --radius-sm: 2px;                           /* tag pill radius */
+  --radius-md: 3px; 
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -23,7 +32,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 18px 32px;
-  border-bottom: 0.5px solid var(--accent-dim);
+  border-bottom: var(--border);
 }
 
 .nav-logo {
@@ -53,9 +62,9 @@ body {
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--accent);
-  border: 0.5px solid var(--accent-dim);
+  border: var(--border);
   padding: 7px 14px;
-  border-radius: 3px;
+  border-radius: var(--radius-md);
   text-decoration: none;
   letter-spacing: 0.08em;
 }
@@ -70,7 +79,7 @@ body {
 .post-back a {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--accent-dim);
+  color: var(--accent-mid);
   text-decoration: none;
   letter-spacing: 0.12em;
 }
@@ -85,10 +94,11 @@ body {
 .post-tag {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: rgba(78,203,160,0.7);
-  border: 0.5px solid var(--accent-dim);
+  color: var(--accent-mid);
+  background: var(--accent-faint);
+  border: var(--border);
   padding: 3px 8px;
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   letter-spacing: 0.1em;
 }
 
@@ -103,7 +113,7 @@ body {
   font-family: var(--font-mono);
   font-size: 26px;
   font-weight: 700;
-  color: #e8f2f8;
+  color: var(--text-bright);
   line-height: 1.25;
   letter-spacing: -0.01em;
 }
@@ -113,13 +123,13 @@ body {
 /* Post prose — styles markdown output */
 .post-content p {
   font-size: 15px;
-  color: rgba(200,216,232,0.65);
+  color: var(--text-dim);
   line-height: 1.85;
   font-weight: 300;
   margin-bottom: 20px;
 }
 
-.post-content em { color: rgba(200,216,232,0.85); }
+.post-content em { color: var(--text); }
 
 .post-content blockquote {
   border-left: 1.5px solid var(--accent-dim);
@@ -127,7 +137,7 @@ body {
   margin: 28px 0;
   font-family: var(--font-mono);
   font-size: 12px;
-  color: rgba(78,203,160,0.6);
+  color: var(--accent-mid);
   line-height: 1.7;
   font-style: italic;
 }
@@ -137,9 +147,9 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 20px 32px;
-  border-top: 0.5px solid var(--accent-dim);
+  border-top: var(--border);
   font-family: var(--font-mono);
   font-size: 10px;
-  color: rgba(200,216,232,0.2);
+  color: var(--text-faint);
   letter-spacing: 0.1em;
 }

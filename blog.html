@@ -1,0 +1,31 @@
+---
+layout: default
+title: Readings
+---
+
+<section class="blog-header">
+    <p class="blog-eyebrow">TRANSMISSIONS / READINGS</p>
+    <h1 class="blog-title">THINGS I<br><span>WROTE.</span></h1>
+</section>
+
+<section class="blog-list">
+    <div class="blog-filters">
+    <button class="filter-btn active" data-filter="all">all</button>
+    <button class="filter-btn" data-filter="personal">personal</button>
+    <button class="filter-btn" data-filter="coding">coding</button>
+    <button class="filter-btn" data-filter="biomed">biomed</button>
+    <button class="filter-btn" data-filter="gaming">gaming</button>
+    <button class="filter-btn" data-filter="fitness">fitness</button>
+    </div>
+
+    <div class="blog-feed">
+        {% for post in site.posts %}
+        <a href="{{ post.url | relative_url }}" class="reading-row" data-category="{{ post.category }}">
+        <span class="reading-date">{{ post.date | date: "%b %-d" }}</span>
+        <span class="reading-tag">{{ post.category }}</span>
+        <span class="reading-title">{{ post.title }}</span>
+        <span class="reading-arrow">↗</span>
+        </a>
+        {% endfor %}
+    </div>
+</section>

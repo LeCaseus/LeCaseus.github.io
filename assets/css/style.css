@@ -26,6 +26,40 @@ body {
   min-height: 100vh;
 }
 
+/* boot sequence — all sections start hidden */
+.hero-status,
+.hero-name,
+.hero-tagline,
+.hero-waveform,
+.hero-bio,
+.label-tag,
+.readings-label,
+.reading-row {
+  opacity: 0;
+}
+
+/* generic fade-up used by most elements */
+@keyframes fade_up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* waveform draws in via stroke offset */
+@keyframes draw_line {
+  from { stroke-dashoffset: 800; }
+  to   { stroke-dashoffset: 0; }
+}
+
+.boot-visible {
+  animation: fade_up 0.5s ease forwards;
+}
+
+.cv-waveform-divider.boot-visible polyline {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: draw_line 0.6s ease forwards;
+}
+
 /* Nav */
 .site-nav {
   display: flex;

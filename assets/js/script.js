@@ -96,3 +96,23 @@ function waveform_ambience() {
 }
 
 document.addEventListener('DOMContentLoaded', waveform_ambience);
+
+function scroll_triggers() {
+  const rows = document.querySelectorAll('.reading-row');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('scroll-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  rows.forEach((row, i) => {
+    row.style.transitionDelay = `${i * 80}ms`;
+    observer.observe(row);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', scroll_triggers);

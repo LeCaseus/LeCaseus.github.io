@@ -32,15 +32,17 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 18px 32px;
-  border-bottom: var(--border);
+  border-bottom: 0.5px solid rgba(78, 203, 160, 0.2);
+  position: relative;
+  z-index: 10;
 }
 
 .nav-logo {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--accent);
-  text-decoration: none;
   letter-spacing: 0.05em;
+  text-decoration: none;
 }
 
 .nav-links {
@@ -51,22 +53,34 @@ body {
 .nav-links a {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--text-dim);
-  text-decoration: none;
+  color: rgba(200, 216, 232, 0.45);
   letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.nav-links a.active { color: var(--accent); }
+.nav-links a:hover {
+  color: rgba(200, 216, 232, 0.75);
+}
+
+.nav-links a.active {
+  color: var(--accent);
+}
 
 .nav-cta {
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--accent);
-  border: var(--border);
+  border: 0.5px solid rgba(78, 203, 160, 0.4);
   padding: 7px 14px;
-  border-radius: var(--radius-md);
-  text-decoration: none;
+  border-radius: 3px;
   letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.nav-cta:hover {
+  background: rgba(78, 203, 160, 0.08);
 }
 
 /* Post layout */

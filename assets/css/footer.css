@@ -7,14 +7,6 @@
   padding: 20px 32px 32px;
 }
 
-.footer-coords
-{
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-faint);
-  letter-spacing: 0.1em;
-}
-
 .footer-signal
 {
   font-family: var(--font-mono);

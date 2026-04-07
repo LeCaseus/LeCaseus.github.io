@@ -6,81 +6,109 @@ title: Chezter Vargas
   <section class="hero">
     <svg class="hero-signal-bg" viewBox="0 0 900 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <polyline points="0,300 60,300 80,220 100,380 120,300 180,300 200,260 210,160 220,340 240,420 260,300 320,300 340,280 360,200 370,400 390,300 450,300 470,270 490,230 500,330 520,300 580,300 600,290 610,240 620,350 640,300 700,300 720,270 730,180 750,380 770,300 830,300 860,310 900,300" fill="none" stroke="#4ecba0" stroke-width="1.5"/>
+
       <polyline points="0,480 80,480 100,460 120,500 140,480 200,480 220,465 240,450 260,490 280,480 360,480 380,470 390,445 410,495 430,480 500,480 540,475 560,455 580,490 600,480 680,480 700,472 720,458 730,488 760,480 840,480 880,483 900,480" fill="none" stroke="#4ecba0" stroke-width="0.8" opacity="0.5"/>
     </svg>
+
     <div class="hero-scanline"></div>
+
     <div class="hero-content">
       <div class="hero-status">
         <div class="status-dot"></div>
-        <span class="status-text">SIGNAL ACTIVE — WELLINGTON, NZ</span>
+
+        <span class="status-text">ELECTRODES CONNECTED</span>
       </div>
+
       <h1 class="hero-name">CHEZTER<br><span>VARGAS</span></h1>
-      <p class="hero-tagline">BIOMEDICAL ENGINEER · HOBBYIST PROGRAMMER · PC GAMER</p>
+
+      <p class="hero-tagline">BIOMEDICAL ENGINEER · HOBBYIST C/C++ PROGRAMMER · PC GAMER</p>
+
       <svg class="hero-waveform" width="320" height="28" viewBox="0 0 320 28" xmlns="http://www.w3.org/2000/svg">
         <polyline points="0,14 20,14 30,4 38,24 46,14 80,14 88,8 94,2 100,22 108,14 140,14 148,10 154,18 162,14 200,14 208,6 214,20 222,14 260,14 268,9 274,19 282,14 320,14" fill="none" stroke="#4ecba0" stroke-width="1.2"/>
       </svg>
-      <p class="hero-bio">Everyone's online. Nobody's present. I'd rather have one real corner of the internet than a thousand followers watching nothing.</p>
+
+      <p class="hero-bio">Social media isn't social anymore. Its just media fighting for your attention span. If you want to get your life back, stay here for but a moment, and lets get to know each other better.
+      </p>
+
       <div class="hero-tags">
-        <span class="label-tag">medical devices</span>
-        <span class="label-tag">C/C++</span>
-        <span class="label-tag">embedded systems</span>
-        <span class="label-tag">biomed</span>
+        <span class="label-tag">2025 Graduate</span>
+        <span class="label-tag">Self-Taught</span>
+        <span class="label-tag">Building CH3SH1RE</span>
+        <span class="label-tag">Learning C/C++</span>
       </div>
     </div>
   </section>
+
   <section class="latest-readings">
     <div class="readings-header">
       <p class="readings-label">LATEST READINGS</p>
+
       <a href="{{ '/blog' | relative_url }}" class="readings-jump">show all readings →</a>
     </div>
+
     {% for post in site.posts limit:5 %}
+
     <a href="{{ post.url | relative_url }}" class="reading-row">
       <span class="reading-date">{{ post.date | date: "%b %-d" }}</span>
       <span class="reading-tag">{{ post.category }}</span>
       <span class="reading-title">{{ post.title }}</span>
       <span class="reading-arrow">↗</span>
     </a>
+
     {% endfor %}
+
   </section>
+
   <section class="about">
     <div class="readings-header">
       <p class="readings-label">ABOUT</p>
     </div>
+
     <p class="about-bio">
       Hi, I'm Chezter, and I like to build things, both hardware and software, to understand how they work.
     </p>
+
     <p class="about-bio">
       I recently graduated as a biomedical engineer at the end of 2025, and since then I've been on a sabbatical to explore the world and figure out what I want to do next. I recently built this website, which is <a href="https://github.com/LeCaseus/LeCaseus.github.io" class="about-link">open source</a> by the way, and I'm tinkering with a few side projects that I'll probably never finish. I also write about whatever's on my mind at my <a href="/blog" class="about-link">blog</a> when I feel like it.
     </p>
+
     <p class="about-bio">
       If you want to know more about my skills, <a href="/assets/CVargas_CV.pdf" class="about-link">download</a> my CV or connect with me on <a href="https://www.linkedin.com/in/lecaseus/" class="about-link">LinkedIn</a>.
     </p>
   </section>
+
   <section class="projects">
     <div class="readings-header">
       <p class="readings-label">PROJECTS</p>
     </div>
+
     <div class="project-grid">
       <a href="{{ '/projects/em-brace' | relative_url }}" class="project-card">
         <div class="project-card-img">
           <img src="{{ '/assets/portfolio_media/em-brace-snapshot.jpeg' | relative_url }}" alt="eM-Brace">
         </div>
+
         <p class="project-card-title">eM-Brace</p>
       </a>
+
       <a href="{{ '/projects/ch3sh1re' | relative_url }}" class="project-card">
         <div class="project-card-img">
           <img src="{{ '/assets/portfolio_media/cheshire_snapshot.png' | relative_url }}" alt="CH3SH1RE">
         </div>
+
         <p class="project-card-title">CH3SH1RE</p>
       </a>
+
       <a href="{{ '/projects/personal-website' | relative_url }}" class="project-card">
         <div class="project-card-img">
           <img src="{{ '/assets/portfolio_media/website-snapshot.png' | relative_url }}" alt="lecaseus.github.io">
         </div>
+
         <p class="project-card-title">lecaseus.github.io</p>
       </a>
     </div>
   </section>
+  
   <section class="contact">
     <p class="contact-line">
       want to talk? reach out at <a href="mailto:cheztervargas353@outlook.com" class="about-link">cheztervargas353@outlook.com</a>

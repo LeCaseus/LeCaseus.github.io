@@ -1,8 +1,4 @@
-.about
-{
-  padding: 40px 0;
-  border-top: var(--border);
-}
+.about { padding: 40px 32px; }
 
 .about-bio
 {
@@ -25,11 +21,7 @@
 
 .about-link:hover { border-bottom-color: var(--accent); }
 
-.contact
-{
-  padding: 40px 0 80px;
-  border-top: var(--border);
-}
+.contact { padding: 40px 32px 80px; }
 
 .contact-line
 {

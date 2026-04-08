@@ -1,9 +1,5 @@
 /* homepage project grid */
-.projects
-{
-  padding: 40px 0;
-  border-top: var(--border);
-}
+.projects { padding: 40px 32px; }
 
 .projects-header
 {

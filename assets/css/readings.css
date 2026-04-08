@@ -1,8 +1,4 @@
-.latest-readings
-{
-  padding: 40px 32px 56px;
-  border-top: var(--border);
-}
+.latest-readings{ padding: 40px 32px 56px; }
 
 .readings-header
 {

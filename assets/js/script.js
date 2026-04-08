@@ -32,6 +32,9 @@ function init_blog_filter() {
 
 /* Boot sequence */
 function boot_sequence() {
+  window.scrollTo(0, 0);
+  document.body.style.overflow = 'hidden';
+
   const status_text = document.querySelector('.status-text');
   const full_text = status_text.textContent.trim();
   status_text.textContent = '';
@@ -90,6 +93,8 @@ function boot_sequence() {
 
   /* step 4 — sections slide in after hero completes */
   const sections = rest + 800 + 500;
+
+  setTimeout(() => { document.body.style.overflow = 'visible'; }, sections - 200);
 
   reveal('.latest-readings', sections);
   reveal('.about',           sections + 300);

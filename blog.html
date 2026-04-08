@@ -2,16 +2,14 @@
 layout: default
 title: Readings
 ---
-<div class="page-col">
-    <section class="blog-header">
-        <div class="readings-header">
-        <p class="blog-eyebrow">TRANSMISSIONS / READINGS</p>
+<div class="blog-shell">
+
+    <aside class="blog-sidebar">
+        <div class="sidebar-header">
+        <span class="blog-eyebrow">READINGS</span>
         <a href="{{ '/' | relative_url }}" class="readings-jump">← home</a>
         </div>
-        <h1 class="blog-title">THINGS I<br><span>WROTE.</span></h1>
-    </section>
 
-    <section class="blog-list">
         <div class="blog-filters">
         <button class="filter-btn active" data-filter="all">all</button>
         <button class="filter-btn" data-filter="personal">personal</button>
@@ -22,14 +20,26 @@ title: Readings
         </div>
 
         <div class="blog-feed">
-            {% for post in site.posts %}
-            <a href="{{ post.url | relative_url }}" class="reading-row" data-category="{{ post.category }}">
+        {% for post in site.posts %}
+        <a href="{{ post.url | relative_url }}"
+            class="reading-row scroll-visible"
+            data-category="{{ post.category }}"
+            data-url="{{ post.url | relative_url }}">
             <span class="reading-date">{{ post.date | date: "%b %-d" }}</span>
             <span class="reading-tag">{{ post.category }}</span>
             <span class="reading-title">{{ post.title }}</span>
-            <span class="reading-arrow">↗</span>
-            </a>
-            {% endfor %}
+        </a>
+        {% endfor %}
         </div>
-    </section>
+    </aside>
+
+    <main class="blog-content" id="blog-content">
+        <div class="blog-content-empty">
+        <svg width="200" height="18" viewBox="0 0 200 18" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="0,9 14,9 20,2 26,16 34,9 56,9 62,5 68,13 76,9 100,9 106,5 112,13 120,9 144,9 150,3 158,15 166,9 186,9 192,7 198,11 200,9" fill="none" stroke="#4ecba0" stroke-width="1.1"/>
+        </svg>
+        <p class="empty-label">SELECT A READING</p>
+        </div>
+    </main>
+
 </div>

@@ -1,48 +1,58 @@
-.blog-header
+/* ── Two-panel shell ─────────────────────────────────────── */
+.blog-shell
 {
-  padding: 52px 32px 32px;
+  display: flex;
+  height: calc(100vh - var(--nav-height, 57px));
+  overflow: hidden;
+}
+
+/* ── Left sidebar ────────────────────────────────────────── */
+.blog-sidebar
+{
+  width: 280px;
+  flex-shrink: 0;
+  border-right: var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-header
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 14px;
   border-bottom: var(--border);
+  flex-shrink: 0;
 }
 
 .blog-eyebrow
 {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   color: var(--accent-mid);
   letter-spacing: 0.18em;
-  margin-bottom: 16px;
 }
-
-.blog-title
-{
-  font-family: var(--font-mono);
-  font-size: 42px;
-  font-weight: 700;
-  color: var(--text-bright);
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-}
-
-.blog-title span { color: var(--accent); }
-
-.blog-list { padding: 32px 32px 80px; }
 
 .blog-filters
 {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 32px;
+  padding: 12px 16px;
+  border-bottom: var(--border);
+  flex-shrink: 0;
 }
 
 .filter-btn
 {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   color: var(--text-dim);
   background: transparent;
   border: var(--border);
-  padding: 5px 12px;
+  padding: 4px 10px;
   border-radius: var(--radius-sm);
   letter-spacing: 0.1em;
   cursor: pointer;
@@ -62,19 +72,165 @@
   background: var(--accent-faint);
 }
 
-.blog-feed .reading-row
+/* Scrollable post list */
+.blog-feed
 {
-  /* display: flex;
-  align-items: baseline;
-  gap: 16px; */
-  padding: 14px 0;
-  /* border-bottom: 0.5px solid rgba(100, 160, 140, 0.1);
-  text-decoration: none;
-  transition: background 0.15s ease; */
+  overflow-y: auto;
+  flex: 1;
 }
 
-/* .blog-feed .reading-row:last-child { border-bottom: none; }
+/* Sidebar reading rows — tighter than homepage version */
+.blog-feed .reading-row
+{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px;
+  border-bottom: 0.5px solid rgba(100, 160, 140, 0.08);
+  text-decoration: none;
+  transition: background 0.15s ease;
+  cursor: pointer;
+}
 
-.blog-feed .reading-row:hover .reading-title { color: var(--text-bright); }
+.blog-feed .reading-row:last-child { border-bottom: none; }
 
-.blog-feed .reading-row:hover .reading-arrow { color: var(--accent); } */
+.blog-feed .reading-row:hover { background: rgba(78, 203, 160, 0.04); }
+
+.blog-feed .reading-row.active
+{
+  background: rgba(78, 203, 160, 0.06);
+  border-left: 1.5px solid var(--accent);
+  padding-left: 14.5px;
+}
+
+/* Inside sidebar rows the arrow is hidden — title wraps instead */
+.blog-feed .reading-row .reading-arrow { display: none; }
+
+.blog-feed .reading-date
+{
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(78, 203, 160, 0.4);
+  letter-spacing: 0.06em;
+}
+
+.blog-feed .reading-tag
+{
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--accent-mid);
+  border: 0.5px solid rgba(78, 203, 160, 0.25);
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+
+.blog-feed .reading-title
+{
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 400;
+  line-height: 1.45;
+  transition: color 0.15s ease;
+}
+
+.blog-feed .reading-row:hover .reading-title,
+.blog-feed .reading-row.active .reading-title
+{
+  color: var(--text-bright);
+}
+
+/* ── Right content pane ──────────────────────────────────── */
+.blog-content
+{
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Empty state — shown before any post is selected */
+.blog-content-empty
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 100%;
+  opacity: 0.3;
+}
+
+.empty-label
+{
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--accent-mid);
+  letter-spacing: 0.22em;
+}
+
+/* When a post is loaded, the injected .post-body renders naturally */
+#blog-content .post-body
+{
+  /* post.css handles the inner layout — only override positioning here */
+  position: relative;
+}
+
+/* Loading shimmer while fetch is in-flight */
+.blog-content.loading::after
+{
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(78, 203, 160, 0.03) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer
+{
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* ── Mobile: stack panels ────────────────────────────────── */
+@media (max-width: 700px)
+{
+  .blog-shell
+  {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  .blog-sidebar
+  {
+    width: 100%;
+    border-right: none;
+    border-bottom: var(--border);
+    max-height: 50vh;
+    overflow: hidden;
+  }
+
+  .blog-sidebar.post-open
+  {
+    display: none;
+  }
+
+  .blog-content
+  {
+    min-height: 60vh;
+  }
+
+  .blog-content-empty
+  {
+    display: none;
+  }
+}

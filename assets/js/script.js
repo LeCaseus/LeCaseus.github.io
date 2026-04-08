@@ -32,6 +32,7 @@ function init_blog_filter() {
 
 /* Boot sequence */
 function boot_sequence() {
+  if (!document.querySelector('.hero-status')) return;
   window.scrollTo(0, 0);
   document.body.style.overflow = 'hidden';
 
@@ -153,3 +154,108 @@ function scroll_triggers() {
 }
 
 document.addEventListener('DOMContentLoaded', scroll_triggers);
+
+function init_blog_reader() {
+  const feed    = document.querySelector('.blog-feed');
+  const content = document.getElementById('blog-content');
+
+  if (!feed || !content) return;
+
+  /* Filter buttons */
+  const filter_btns = document.querySelectorAll('.filter-btn');
+
+  filter_btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filter_btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const chosen = btn.dataset.filter;
+      document.querySelectorAll('.blog-feed .reading-row').forEach(row => {
+        const match = chosen === 'all' || row.dataset.category === chosen;
+        row.style.display = match ? '' : 'none';
+      });
+    });
+  });
+
+  /* Click-to-load */
+  feed.addEventListener('click', e => {
+    const row = e.target.closest('.reading-row');
+    if (!row) return;
+
+    e.preventDefault();
+
+    /* Mark active row */
+    document.querySelectorAll('.blog-feed .reading-row').forEach(r => r.classList.remove('active'));
+    row.classList.add('active');
+
+    /* On mobile, hide sidebar once a post is opened */
+    const sidebar = document.querySelector('.blog-sidebar');
+    if (sidebar) sidebar.classList.add('post-open');
+
+    const url = row.dataset.url;
+    if (!url) return;
+
+    content.classList.add('loading');
+
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error('fetch failed');
+        return res.text();
+      })
+      .then(html => {
+        /* Parse the response and extract the rendered post body */
+        const parser  = new DOMParser();
+        const doc     = parser.parseFromString(html, 'text/html');
+        const body    = doc.querySelector('.post-body');
+
+        if (!body) {
+          content.innerHTML = '<p class="post-load-error">Could not load this reading.</p>';
+          return;
+        }
+
+        /* Replace content pane — keep the scroll position at top */
+        content.innerHTML = '';
+        content.appendChild(body);
+        content.scrollTop = 0;
+
+        /* Update browser URL so back/forward work as expected */
+        history.pushState({ url }, '', url);
+      })
+      .catch(() => {
+        content.innerHTML = '<p class="post-load-error">Could not load this reading.</p>';
+      })
+      .finally(() => {
+        content.classList.remove('loading');
+      });
+  });
+
+  /* Handle browser back/forward */
+  window.addEventListener('popstate', e => {
+    if (e.state?.url) {
+      /* Re-fetch the previous post */
+      const matching_row = feed.querySelector(`[data-url="${e.state.url}"]`);
+      if (matching_row) matching_row.click();
+    } else {
+      /* Back to bare /blog — restore empty state */
+      content.innerHTML = `
+        <div class="blog-content-empty">
+          <svg width="200" height="18" viewBox="0 0 200 18" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="0,9 14,9 20,2 26,16 34,9 56,9 62,5 68,13 76,9 100,9 106,5 112,13 120,9 144,9 150,3 158,15 166,9 186,9 192,7 198,11 200,9" fill="none" stroke="#4ecba0" stroke-width="1.1"/>
+          </svg>
+          <p class="empty-label">SELECT A READING</p>
+        </div>`;
+      document.querySelectorAll('.blog-feed .reading-row').forEach(r => r.classList.remove('active'));
+      const sidebar = document.querySelector('.blog-sidebar');
+      if (sidebar) sidebar.classList.remove('post-open');
+    }
+  });
+
+  /* Auto-load post from URL hash (e.g. arriving from homepage) */
+  const hash = decodeURIComponent(window.location.hash.slice(1));
+  if (hash.startsWith('/readings/')) {
+    const matching_row = feed.querySelector(`[data-url="${hash}"]`);
+    if (matching_row) matching_row.click();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init_blog_reader);

@@ -106,31 +106,116 @@ function boot_sequence() {
 document.addEventListener('DOMContentLoaded', boot_sequence);
 
 function waveform_ambience() {
-  const primary = document.querySelector('.hero-signal-bg polyline:first-child');
-  const secondary = document.querySelector('.hero-signal-bg polyline:last-child');
+  const canvas = document.getElementById('hero-signal-bg');
+  if (!canvas) return;
 
-  const base = [300,220,380,300,300,260,160,340,420,300,300,280,200,400,300,300,270,230,330,300,300,290,240,350,300,300,270,180,380,300,300,310,300];
-  const alt  = [300,200,400,300,300,240,140,360,440,300,300,260,180,420,300,300,250,210,350,300,300,270,220,370,300,300,250,160,400,300,300,330,300];
+  const ctx = canvas.getContext('2d');
 
-  const x_coords = [0,60,80,100,120,180,200,210,220,240,260,320,340,360,370,390,450,470,490,500,520,580,600,610,620,640,700,720,730,750,770,830,860,900];
+  function resize() {
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
 
-  let progress = 0;
-  let direction = 1;
+  const W = () => canvas.width;
+  const H = () => canvas.height;
 
-  function build_points(y_vals) {
-    return x_coords.map((x, i) => `${x},${y_vals[i] ?? 300}`).join(' ');
+  let buf1 = [], buf2 = [];
+  let queue1 = [], queue2 = [];
+  let spont_timer = 0;
+  const SPONT_INTERVAL = 200;
+
+  function noise() { return (Math.random() - 0.5) * 1.4; }
+
+  function muap(amplitude) {
+    const dur = 28;
+    const pts = [];
+    for (let i = 0; i < dur; i++) {
+      const t = i / dur;
+      let v = 0;
+      if      (t < 0.15) v = -amplitude * 0.4  * Math.sin(t / 0.15 * Math.PI);
+      else if (t < 0.45) v =  amplitude         * Math.sin((t - 0.15) / 0.3 * Math.PI);
+      else if (t < 0.75) v = -amplitude * 0.35  * Math.sin((t - 0.45) / 0.3 * Math.PI);
+      else               v =  amplitude * 0.08  * Math.sin((t - 0.75) / 0.25 * Math.PI);
+      pts.push(v + (Math.random() - 0.5) * amplitude * 0.08);
+    }
+    return pts;
+  }
+
+  function trigger_burst(queue, units, base_amp) {
+    for (let u = 0; u < units; u++) {
+      queue.push({
+        delay:   Math.floor(u * (8 + Math.random() * 16)),
+        samples: muap(base_amp * (0.6 + Math.random() * 0.8))
+      });
+    }
+  }
+
+  function init_buffers() {
+    buf1 = new Array(W()).fill(0);
+    buf2 = new Array(W()).fill(0);
+  }
+  init_buffers();
+  window.addEventListener('resize', init_buffers);
+
+  function advance(buf, queue) {
+    let v = noise();
+    for (let i = queue.length - 1; i >= 0; i--) {
+      const e = queue[i];
+      if (e.delay <= 0 && e.samples.length > 0) {
+        v += e.samples.shift();
+        if (!e.samples.length) queue.splice(i, 1);
+      } else {
+        e.delay--;
+      }
+    }
+    buf.shift();
+    buf.push(v);
+  }
+
+  function draw_trace(buf, mid_y, alpha, lw) {
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(93,217,173,${alpha})`;
+    ctx.lineWidth = lw;
+    const len = buf.length;
+    for (let i = 0; i < len; i++) {
+      const x = (i / len) * W();
+      const y = mid_y + buf[i];
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
   }
 
   function tick() {
-    progress += 0.003 * direction;
-    if (progress >= 1 || progress <= 0) direction *= -1;
+    spont_timer++;
+    if (spont_timer >= SPONT_INTERVAL) {
+      spont_timer = 0;
+      const q = Math.random() > 0.5 ? queue1 : queue2;
+      trigger_burst(q, 1, 4 + Math.random() * 3);
+    }
 
-    const interpolated = base.map((b, i) => b + (alt[i] - b) * progress);
-    primary.setAttribute('points', build_points(interpolated));
+    advance(buf1, queue1);
+    advance(buf2, queue2);
+
+    ctx.clearRect(0, 0, W(), H());
+    draw_trace(buf1, H() * 0.35, 0.85, 1.4);
+    draw_trace(buf2, H() * 0.72, 0.45, 0.9);
+
     requestAnimationFrame(tick);
   }
 
   tick();
+
+  function on_interaction() {
+    trigger_burst(queue1, 3 + Math.floor(Math.random() * 3), 12 + Math.random() * 6);
+    trigger_burst(queue2, 2 + Math.floor(Math.random() * 3),  7 + Math.random() * 5);
+  }
+
+  window.addEventListener('keydown',   on_interaction);
+  window.addEventListener('mousedown', on_interaction);
+  window.addEventListener('touchstart', on_interaction, { passive: true });
+  window.addEventListener('scroll',     on_interaction, { passive: true });
 }
 
 document.addEventListener('DOMContentLoaded', waveform_ambience);

@@ -36,6 +36,7 @@ function boot_sequence() {
   setTimeout(() => {
     if (!bio_el) return;
     const bio_text = bio_el.textContent.trim();
+    bio_el.style.minHeight = bio_el.offsetHeight + 'px';
     bio_el.textContent = '';
     bio_el.style.opacity = '1';
 

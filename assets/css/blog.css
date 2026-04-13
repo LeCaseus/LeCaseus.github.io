@@ -234,3 +234,5 @@
     display: none;
   }
 }
+
+.blog-shell { height: calc(100vh - var(--nav-height, 57px) - 10px); }

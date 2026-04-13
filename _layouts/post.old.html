@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<article class="post-body">
+  <div class="post-back">
+    <a href="/blog">← back to readings</a>
+  </div>
+
+  <div class="post-meta-row">
+    {% if page.category %}<span class="post-tag">{{ page.category | upcase }}</span>{% endif %}
+    <span class="post-date">{{ page.date | date: "%b %d, %Y" }}</span>
+    {% if page.read_time %}<span class="post-read">· {{ page.read_time }} min read</span>{% endif %}
+  </div>
+
+  <h1 class="post-title">{{ page.title }}</h1>
+
+  <svg class="post-wave" width="280" height="22" viewBox="0 0 280 22" xmlns="http://www.w3.org/2000/svg">
+    <polyline points="0,11 18,11 26,3 32,19 40,11 70,11 76,6 82,16 90,11 120,11 126,7 132,15 140,11 170,11 176,4 184,18 192,11 220,11 228,8 236,14 244,11 280,11" fill="none" stroke="#4ecba0" stroke-width="1.2"/>
+  </svg>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+  
+  <span class="post-signal-label">READING IN PROGRESS</span>
+</article>

@@ -176,8 +176,8 @@ function waveform_ambience() {
 }
 
 
-function ecg_waveform() {
-  const canvas = document.getElementById('hero-waveform');
+function ecg_waveform(canvas_id) {
+  const canvas = document.getElementById(canvas_id);
   if (!canvas) return;
 
   const ctx  = canvas.getContext('2d');
@@ -356,7 +356,8 @@ function init_blog_reader() {
 document.addEventListener('DOMContentLoaded', () => {
   boot_sequence();
   waveform_ambience();
-  ecg_waveform();
+  ecg_waveform('hero-waveform');
+  ecg_waveform('post-waveform');
   scroll_triggers();
   init_blog_reader();
 });

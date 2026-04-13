@@ -1,26 +1,47 @@
 ---
 layout: default
 ---
-<article class="post-body">
-  <div class="post-back">
-    <a href="/blog">← back to readings</a>
-  </div>
+<div class="blog-shell">
+  <aside class="blog-sidebar">
+    <div class="sidebar-header">
+      <span class="blog-eyebrow">READINGS</span>
+      <a href="{{ '/' | relative_url }}" class="readings-jump">← home</a>
+    </div>
+    <div class="blog-filters">
+      <button class="filter-btn active" data-filter="all">all</button>
+      <button class="filter-btn" data-filter="personal">personal</button>
+      <button class="filter-btn" data-filter="coding">coding</button>
+      <button class="filter-btn" data-filter="biomed">biomed</button>
+      <button class="filter-btn" data-filter="gaming">gaming</button>
+      <button class="filter-btn" data-filter="fitness">fitness</button>
+    </div>
+    <div class="blog-feed">
+      {% for post in site.posts %}
+      <a href="{{ post.url | relative_url }}"
+         class="reading-row scroll-visible{% if post.url == page.url %} active{% endif %}"
+         data-category="{{ post.category }}"
+         data-url="{{ post.url | relative_url }}">
+        <span class="reading-date">{{ post.date | date: "%b %-d" }}</span>
+        <span class="reading-tag">{{ post.category }}</span>
+        <span class="reading-title">{{ post.title }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </aside>
 
-  <div class="post-meta-row">
-    {% if page.category %}<span class="post-tag">{{ page.category | upcase }}</span>{% endif %}
-    <span class="post-date">{{ page.date | date: "%b %d, %Y" }}</span>
-    {% if page.read_time %}<span class="post-read">· {{ page.read_time }} min read</span>{% endif %}
-  </div>
-
-  <h1 class="post-title">{{ page.title }}</h1>
-
-  <svg class="post-wave" width="280" height="22" viewBox="0 0 280 22" xmlns="http://www.w3.org/2000/svg">
-    <polyline points="0,11 18,11 26,3 32,19 40,11 70,11 76,6 82,16 90,11 120,11 126,7 132,15 140,11 170,11 176,4 184,18 192,11 220,11 228,8 236,14 244,11 280,11" fill="none" stroke="#4ecba0" stroke-width="1.2"/>
-  </svg>
-
-  <div class="post-content">
-    {{ content }}
-  </div>
-  
-  <span class="post-signal-label">READING IN PROGRESS</span>
-</article>
+  <main class="blog-content" id="blog-content">
+    <article class="post-body">
+      <div class="post-meta-row">
+        {% if page.category %}<span class="post-tag">{{ page.category | upcase }}</span>{% endif %}
+        <span class="post-date">{{ page.date | date: "%b %d, %Y" }}</span>
+        {% if page.read_time %}<span class="post-read">· {{ page.read_time }} min read</span>{% endif %}
+      </div>
+      <h1 class="post-title">{{ page.title }}</h1>
+      <canvas class="post-wave" id="post-waveform" width="280" height="28"></canvas>
+      <div class="post-content">
+        {{ content }}
+      </div>
+      <span class="post-signal-label">READING IN PROGRESS</span>
+    </article>
+  </main>
+</div>

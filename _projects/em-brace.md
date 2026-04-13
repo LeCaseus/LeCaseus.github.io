@@ -4,12 +4,13 @@ title: eM-Brace
 eyebrow: biomedical · thesis
 status: none
 description: "Carpal Tunnel Syndrome (CTS) is a prevalent musculoskeletal disorder caused by median nerve compression, leading to pain, numbness, and weakened grip strength. Conventional wrist splints often restrict wrist motion and lack therapeutic functions that promote recovery. This study introduces the eM-Brace, an autonomous wrist splint that integrates a surface electromyography (sEMG)-activated myofascial release massage system. sEMG sensors positioned on the Abductor Pollicis Brevis muscle detect rest conditions, triggering the massage mechanism only when the wrist is inactive. The device includes an Integrated Massager calibrated to deliver 1.36 kPa of therapeutic pressure, an Auto-Fit Module maintaining consistent support pressure of approximately 3.68 kPa, and a Motion Support Module that loosens during activity, allowing up to 10° flexion and 30° extension. Functional testing verified 100% accuracy in classifying muscle states and 80% accuracy in delivering target pressure. In beta testing with 15 participants subjected to induced CTS symptoms, 73% showed grip strength improvements exceeding 2.2 kg, and mean pain scores dropped from 3.27 to 0.33. The eM-Brace demonstrates a lightweight, noninvasive, and adaptive alternative to static splints."
+thumbnail: /assets/portfolio_media/em-brace-snapshot.jpeg
 date_range: 2024 – 2025
 institution: Ateneo de Zamboanga University
 type: Vargas & Salupado
 pdf: /assets/em-brace-thesis.pdf
 github: https://github.com/LeCaseus/eM-Brace_Codes
-tags: [Carpal Tunnel Syndrome, sEMG, Myofascial Release, Wrist Splint, Rehabilitation]
+tags: [Carpal Tunnel Syndrome, sEMG, Myofascial Release, Wrist Splint]
 ---
 
 <div class="project-section">

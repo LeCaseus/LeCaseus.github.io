@@ -75,33 +75,39 @@ title: Chezter Vargas
       <p class="readings-label">PROJECTS</p>
     </div>
 
-    <div class="project-grid">
-      <a href="{{ '/projects/em-brace' | relative_url }}" class="project-card">
-        <div class="project-card-img">
-          <img src="{{ '/assets/portfolio_media/em-brace-snapshot.jpeg' | relative_url }}" alt="eM-Brace">
+    <div class="stack-outer">
+      {% for project in site.projects %}
+      <article class="project-card">
+        <div class="project-card-header">
+          <h3>{{ project.title }}</h3>
         </div>
-
-        <p class="project-card-title">eM-Brace</p>
-      </a>
-
-      <a href="{{ '/projects/ch3sh1re' | relative_url }}" class="project-card">
-        <div class="project-card-img">
-          <img src="{{ '/assets/portfolio_media/cheshire_snapshot.png' | relative_url }}" alt="CH3SH1RE">
+        <div class="project-card-body">
+          {% if project.thumbnail %}
+          <div class="project-card-img">
+            <img src="{{ project.thumbnail | relative_url }}" alt="{{ project.title }}">
+          </div>
+          {% endif %}
+          <div class="project-card-text">
+            <span class="project-card-eyebrow">{{ project.eyebrow }}{% if project.date_range %} · {{ project.date_range }}{% endif %}</span>
+            <span class="project-card-title">{{ project.title }}</span>
+            <p class="project-card-desc">{{ project.description | truncatewords: 20 }}</p>
+            {% if project.tags %}
+            <div class="project-card-tags">
+              {% for tag in project.tags %}
+              <span class="label-tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <a href="{{ project.url | relative_url }}" class="project-card-link">view project ↗</a>
+          </div>
         </div>
-
-        <p class="project-card-title">CH3SH1RE</p>
-      </a>
-
-      <a href="{{ '/projects/personal-website' | relative_url }}" class="project-card">
-        <div class="project-card-img">
-          <img src="{{ '/assets/portfolio_media/website-snapshot.png' | relative_url }}" alt="lecaseus.github.io">
-        </div>
-
-        <p class="project-card-title">lecaseus.github.io</p>
-      </a>
+      </article>
+      {% endfor %}
     </div>
+
+    <p class="stack-hint">↓ scroll to explore</p>
   </section>
-  
+
   <section class="contact">
     <p class="contact-line">
       want to talk? reach out at <a href="mailto:{{ site.email }}" class="about-link">cheztervargas353@outlook.com</a>

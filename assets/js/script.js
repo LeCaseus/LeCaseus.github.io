@@ -1,6 +1,17 @@
 function boot_sequence() {
   if (!document.querySelector('.hero-status')) return;
 
+  if (sessionStorage.getItem('booted')) {
+    // skip — make everything visible immediately
+    document.querySelectorAll(
+      '.hero-status, .hero-name, .hero-tagline, .hero-waveform, .hero-bio, ' +
+      '.hero-signal-bg, .label-tag, .latest-readings, .about, .projects, .contact, .reading-row'
+    ).forEach(el => el.classList.add('boot-visible'));
+    waveform_ambience();
+    return;
+  }
+  sessionStorage.setItem('booted', '1');
+
   window.scrollTo(0, 0);
   document.body.style.overflow = 'hidden';
 
@@ -31,7 +42,13 @@ function boot_sequence() {
   const bio_length   = bio_el ? bio_el.textContent.trim().length : 0;
   const bio_duration = bio_length * 28;
 
-  reveal('.hero-signal-bg', typing_duration + 200);
+  setTimeout(() => {
+    const bg = document.querySelector('.hero-signal-bg');
+    if (bg) {
+      bg.classList.add('boot-visible');
+      waveform_ambience(); // start animation now that canvas has real dimensions
+    }
+  }, typing_duration + 200);
 
   setTimeout(() => {
     if (!bio_el) return;
@@ -329,6 +346,7 @@ function init_blog_reader() {
         content.appendChild(body);
         content.scrollTop = 0;
         history.pushState({ url }, '', url);
+        ecg_waveform('post-waveform');
       })
       .catch(() => {
         content.innerHTML = '<p class="post-load-error">could not load this reading.</p>';
@@ -355,7 +373,6 @@ function init_blog_reader() {
 
 document.addEventListener('DOMContentLoaded', () => {
   boot_sequence();
-  waveform_ambience();
   ecg_waveform('hero-waveform');
   ecg_waveform('post-waveform');
   scroll_triggers();

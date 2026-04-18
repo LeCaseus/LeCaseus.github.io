@@ -1,0 +1,171 @@
+/* ─────────────────────────────────────────────
+   Mobile layout  ·  ≤ 700px
+   Imported last in style.css — overrides only
+───────────────────────────────────────────── */
+
+@media (max-width: 700px)
+{
+
+  /* ── Tokens / global ──────────────────────── */
+
+  .page-col { padding: 0 16px; }
+
+
+  /* ── Hero ─────────────────────────────────── */
+
+  .hero { padding: 40px 16px 32px; }
+
+  .hero-name
+  {
+    font-size: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-tagline
+  {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+  }
+
+  /* Canvas width is set by JS — constrain it so it
+     never exceeds the viewport on narrow screens.  */
+  .hero-waveform
+  {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .hero-signal-bg { opacity: 0.35; }
+
+  .hero-bio { font-size: 14px; }
+
+  .hero-tags { gap: 0; }
+
+
+  /* ── Latest readings (homepage rows) ─────── */
+
+  /* On narrow screens the four-column flex row
+     (date · tag · title · arrow) doesn't fit.
+     Switch to a two-line card instead.          */
+  .reading-row
+  {
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    padding: 10px 0;
+  }
+
+  .reading-date { min-width: unset; }
+
+  .reading-title
+  {
+    flex-basis: 100%;   /* title drops to its own line */
+    font-size: 13px;
+  }
+
+  .reading-arrow { margin-left: auto; }
+
+
+  /* ── About ────────────────────────────────── */
+
+  .about { padding: 32px 16px; }
+
+  .about-bio { font-size: 14px; }
+
+  .contact { padding: 32px 16px 64px; }
+
+
+  /* ── Projects (stacked cards) ─────────────── */
+
+  .projects { padding: 32px 16px; }
+
+  /* The stacked card layout uses absolute positioning
+     for behind-1 / behind-2 cards. This depth effect
+     looks fine on mobile — just reduce the peek gap. */
+  .stack-outer .project-card.behind-1 { translate: 0 10px; }
+  .stack-outer .project-card.behind-2 { translate: 0 18px; }
+
+  .project-card-body
+  {
+    grid-template-columns: 64px 1fr;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .project-card-img { width: 64px; }
+
+  .project-card-title { font-size: 14px; }
+
+  .project-card-desc { font-size: 12px; }
+
+
+  /* ── Blog two-panel shell ─────────────────── */
+
+  /* Already declared in blog.css — additions only */
+
+  .blog-sidebar { max-height: 40vh; }
+
+  /* When a post is open on mobile, the sidebar is
+     hidden and a back button becomes the only way
+     back. That button is injected by script.js.   */
+  .blog-back-btn
+  {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent-mid);
+    letter-spacing: 0.1em;
+    border-bottom: var(--border);
+    background: transparent;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+  }
+
+  .blog-back-btn:hover { color: var(--accent); }
+
+
+  /* ── Post body ────────────────────────────── */
+
+  .post-body { padding: 32px 16px 64px; }
+
+  .post-title { font-size: 20px; }
+
+  .post-signal-label { display: none; }  /* vertical label has no room */
+
+  .post-content p,
+  .post-content li { font-size: 14px; }
+
+  .post-content h2 { font-size: 14px; }
+
+  .post-content h3 { font-size: 12px; }
+
+  .post-content pre { padding: 12px 14px; }
+
+
+  /* ── Project page ─────────────────────────── */
+
+  .project { padding: 0 16px 64px; }
+
+  .project-header { padding: 32px 0 28px; }
+
+  .project-title { font-size: 26px; }
+
+  .features-grid { grid-template-columns: 1fr; }
+
+  .stack-grid { grid-template-columns: 1fr; }
+
+  .pages-grid { grid-template-columns: 1fr; }
+
+
+  /* ── Footer ───────────────────────────────── */
+
+  .site-footer { padding: 10px 16px 14px; }
+
+}

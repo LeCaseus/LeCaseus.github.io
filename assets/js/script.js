@@ -92,7 +92,7 @@ function waveform_ambience() {
     canvas.height = canvas.offsetHeight;
   }
   resize();
-  window.addEventListener('resize', resize);
+  // window.addEventListener('resize', resize);
 
   const W = () => canvas.width;
   const H = () => canvas.height;
@@ -132,7 +132,15 @@ function waveform_ambience() {
     buf2 = new Array(W()).fill(0);
   }
   init_buffers();
-  window.addEventListener('resize', init_buffers);
+  // window.addEventListener('resize', init_buffers);
+  let resize_timer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resize_timer);
+    resize_timer = setTimeout(() => {
+      resize();
+      init_buffers();
+    }, 150);
+  });
 
   function advance(buf, queue) {
     let v = noise();
@@ -189,7 +197,7 @@ function waveform_ambience() {
   window.addEventListener('keydown',    on_interaction);
   window.addEventListener('mousedown',  on_interaction);
   window.addEventListener('touchstart', on_interaction, { passive: true });
-  window.addEventListener('scroll',     on_interaction, { passive: true });
+  window.addEventListener('scroll', on_interaction, { passive: true });
 }
 
 
@@ -290,16 +298,90 @@ function init_blog_reader() {
   const content = document.getElementById('blog-content');
   if (!feed || !content) return;
 
-  const empty = document.getElementById('blog-empty');
+  const empty   = document.getElementById('blog-empty');
+  const sidebar = document.querySelector('.blog-sidebar');
+  const is_mobile = () => window.innerWidth <= 700;
 
+  // ── Hamburger (mobile only) ──────────────────────────────
+  let hamburger = null;
+
+  function create_hamburger() {
+    if (hamburger) return;
+    hamburger = document.createElement('button');
+    hamburger.className = 'blog-hamburger';
+    hamburger.setAttribute('aria-label', 'toggle post list');
+    hamburger.innerHTML = `
+      <span></span>
+      <span></span>
+      <span></span>
+    `;
+    hamburger.addEventListener('click', toggle_sidebar);
+
+    // insert before the blog-shell
+    const shell = document.querySelector('.blog-shell');
+    shell.parentNode.insertBefore(hamburger, shell);
+  }
+
+  function remove_hamburger() {
+    if (hamburger) { hamburger.remove(); hamburger = null; }
+  }
+
+  function open_sidebar() {
+    if (sidebar) sidebar.classList.add('sidebar-open');
+    const shell = document.querySelector('.blog-shell');
+    if (shell) shell.classList.add('sidebar-open');
+    if (hamburger) hamburger.classList.add('active');
+  }
+
+
+  function close_sidebar() {
+    if (sidebar) sidebar.classList.remove('sidebar-open');
+    const shell = document.querySelector('.blog-shell');
+    if (shell) shell.classList.remove('sidebar-open');
+    if (hamburger) hamburger.classList.remove('active');
+  }
+
+  function toggle_sidebar() {
+    if (sidebar && sidebar.classList.contains('sidebar-open')) {
+      close_sidebar();
+    } else {
+      open_sidebar();
+    }
+  }
+
+  function sync_hamburger() {
+    if (is_mobile()) {
+      create_hamburger();
+      // open by default when no post is loaded
+      if (!content.querySelector('.post-body')) open_sidebar();
+    } else {
+      remove_hamburger();
+      // desktop: sidebar always visible
+      if (sidebar) {
+        sidebar.classList.remove('sidebar-open');
+        sidebar.classList.remove('post-open');
+      }
+    }
+  }
+
+  document.querySelector('.blog-shell').addEventListener('click', e => {
+    if (is_mobile() && sidebar.classList.contains('sidebar-open') && !sidebar.contains(e.target) && e.target !== hamburger) {
+      close_sidebar();
+    }
+  });
+
+  window.addEventListener('resize', sync_hamburger);
+  sync_hamburger();
+
+  // ── Empty state ──────────────────────────────────────────
   function show_empty() {
     content.innerHTML = '';
     if (empty) content.appendChild(empty);
     feed.querySelectorAll('.reading-row').forEach(r => r.classList.remove('active'));
-    const sidebar = document.querySelector('.blog-sidebar');
-    if (sidebar) sidebar.classList.remove('post-open');
+    if (is_mobile()) open_sidebar();
   }
 
+  // ── Filters ──────────────────────────────────────────────
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -311,6 +393,7 @@ function init_blog_reader() {
     });
   });
 
+  // ── Post loading ─────────────────────────────────────────
   feed.addEventListener('click', e => {
     const row = e.target.closest('.reading-row');
     if (!row) return;
@@ -319,13 +402,13 @@ function init_blog_reader() {
     feed.querySelectorAll('.reading-row').forEach(r => r.classList.remove('active'));
     row.classList.add('active');
 
-    const sidebar = document.querySelector('.blog-sidebar');
-    if (sidebar) sidebar.classList.add('post-open');
-
     const url = row.dataset.url;
     if (!url) return;
 
     content.classList.add('loading');
+
+    // close sidebar on mobile when a post is selected
+    if (is_mobile()) close_sidebar();
 
     fetch(url)
       .then(res => {

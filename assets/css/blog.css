@@ -206,33 +206,119 @@
   .blog-shell
   {
     flex-direction: column;
-    height: auto;
-    overflow: visible;
+    height: calc(100vh - var(--nav-height, 57px));
+    overflow: hidden;
+    position: relative;
   }
 
+  /* Sidebar is hidden off-screen by default on mobile.
+     JS adds .sidebar-open to show it as an overlay.    */
+  /* new — slides from left */
   .blog-sidebar
   {
-    width: 100%;
-    border-right: none;
-    border-bottom: var(--border);
-    max-height: 50vh;
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    z-index: 10;
+    width: 280px;
+    border-right: var(--border);
+    border-bottom: none;
+    background: var(--bg);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
     overflow: hidden;
   }
 
-  .blog-sidebar.post-open
+  .blog-sidebar.sidebar-open { transform: translateX(0); }
+
+  /* overlay behind sidebar when open */
+  .blog-shell::before
   {
-    display: none;
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 12, 16, 0.6);
+    z-index: 9;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .blog-shell.sidebar-open::before
+  {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .blog-content
   {
-    min-height: 60vh;
+    flex: 1;
+    overflow-y: auto;
+    /* always full height — sidebar overlays on top */
   }
 
-  .blog-content-empty
+  .blog-content-empty { display: flex; }
+}
+
+/* Hamburger button — mobile only, inserted by JS */
+.blog-hamburger
+{
+  display: none;
+}
+
+@media (max-width: 700px)
+{
+  .blog-hamburger
   {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    padding: 8px;
+    /* positioned in the top-right of the blog-shell */
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    right: auto;
+    z-index: 20;
+  }
+
+  .blog-hamburger span
+  {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--accent-mid);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  /* X state when active */
+  .blog-hamburger.active span:nth-child(1)
+  {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .blog-hamburger.active span:nth-child(2)
+  {
+    opacity: 0;
+  }
+
+  .blog-hamburger.active span:nth-child(3)
+  {
+    transform: translateY(-6px) rotate(-45deg);
   }
 }
 
-.blog-shell { height: calc(100vh - var(--nav-height, 57px) - 10px); }
+.blog-shell
+{
+  display: flex;
+  height: calc(100vh - var(--nav-height, 57px));
+  overflow: hidden;
+  position: relative; /* add this */
+}

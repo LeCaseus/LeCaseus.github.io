@@ -3,22 +3,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 12px 32px 16px;
+  gap: 0;
+  padding: 0 32px 14px;
+  position: relative;
 }
 
-.footer-signal
+.footer-trace
 {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--accent-mid);
-  letter-spacing: 0.15em;
+  display: block;
+  width: 100%;
+  height: 24px;
+  margin-bottom: 10px;
+  opacity: 0.5;
 }
 
-.footer-copy
+.footer-readout
 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--text-faint);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
 }
+
+.footer-status
+{
+  color: var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.footer-sep { color: var(--accent-dim); }
+
+.footer-name { color: var(--text-faint); }
+
+.footer-utc { color: var(--accent-mid); }

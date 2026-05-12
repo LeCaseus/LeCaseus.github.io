@@ -1,140 +1,58 @@
-# CV. — lecaseus.github.io
+# lecaseus.github.io
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  SIGNAL ACTIVE — WELLINGTON, NZ  ●  41°17'S 174°46'E        │
-│  SUBJECT: CHEZTER VARGAS                                    │
-│  STATUS: ONLINE                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+This is the repository for my personal site at [lecaseus.github.io](https://lecaseus.github.io). Feel free to poke around, borrow what you want, or just read this for fun.
 
-Hello and welcome to my website's official repository. Feel free to explore my files if you wanna see how I built this site or go check out my commit history or something. Also feel free to use this code for your own stuff.
+---
 
-> *"Everyone's online. Nobody's present."*
+## The story
+
+This site has actually been rebuilt four times because each version was an honest reflection of where I was at. (but mainly because I was bored and couldn't decide on one theme)
+
+**v1** started as a Node.js/Express app with a PostgreSQL database hosted on Vercel and Neon. I had no business building a backend at the time and I knew it, but I did it anyway. I wanted to make my own micro-blogging/blogging platform which was basically me refusing to use Twitter. It worked, barely, but I wasn't proud of it.
+
+I realized that I had built something that I don't really understand, and couldn't maintain in the long run so, I stripped the backend entirely. Went fully static. The database was overkill for a personal site and I was just worried about getting hacked not knowing how the network works.
+
+**v2** was the editorial brutalist era. Big red type, my photo against a dark city backdrop, aggressive layout. I just saw this on Pinterest and was fixated on getting noticed by employers and I let that show a little too much. It looked cool. It didn't feel like me.
+
+**v3** was the Jekyll diagnostic redesign. I went for a Jekyll SSG because I wanted something to modularize my source code and make things easier to navigate. The site had a dark background, phosphor green accent, biosignal waveforms everywhere, posts called *readings*. The whole site read like a piece of medical equipment. I was happy with the direction. But now I've come to realize that jumping across Jekyll files, especially since I'v moved to helix, was just a hassle really, and jumping across files just to change one line isn't really it.
+
+So, **v4** is this. Plain HTML, CSS, and JS. No build step, no SSG, no framework. I know I went full circle back to the start. Nevertheless, I've improved the visual direction from v3, same design language, same waveforms, but now all in one place. The kind of thing you can open, read, and change without switching files. It made sense to go back to basics.
+
+The plan is to eventually wire up my own C++ backend for the blog and notes, so new posts don't require editing a JS array. But that's a near future project. For now, this is it.
 
 ---
 
 ## Stack
 
-| Layer | What |
+| | |
 |---|---|
-| Generator | Jekyll (GitHub Pages native) |
 | Hosting | GitHub Pages |
-| Fonts | Space Mono · DM Sans |
+| Fonts | Instrument Serif · Inter Tight · Fira Code |
 | Styling | Vanilla CSS |
 | JS | Vanilla JS |
-| Backend | N/A yet. |
-
-I do not have yet the knowledge to build a website's backend and I feel like I'd get hacked if I do so...
+| Backend | coming soon! |
 
 ---
 
-## Structure
+## Past designs
 
-```
-.
-├── _config.yml
-├── _layouts/
-│   ├── default.html        # base shell
-│   ├── post.html           # blog post layout
-│   └── project.html        # project page layout
-├── _includes/
-│   └── nav.html
-├── _posts/                 # blog posts as Markdown
-├── _projects/              # my showcase collection
-├── assets/
-│   ├── css/style.css
-│   └── js/script.js
-├── index.html
-├── blog.html
-└── portfolio.md            # I think this is a dead placeholder
-```
-
-Posts live at `/readings/:year/:month/:day/:title/`.  
-Projects live at `/projects/:name/`.
+| Version | Look |
+|---|---|
+| v1 | warm beige, editorial, photo-forward |
+| v2 | brutalist red/black, huge type, dark city |
+| v3 | Jekyll, dark diagnostic, phosphor green |
+| v4 | plain stack, same diagnostic direction, simpler |
 
 ---
 
-## JS Functions
-
-```js
-init_reveal()        // intersection observer, staggered entry
-init_blog_filter()   // tag filtering on blog index
-boot_sequence()      // diagnostic boot animation on load
-waveform_ambience()  // ambient SVG biosignal animation
-scroll_triggers()    // scroll-linked effects
-```
-
-Everything lives in `assets/js/script.js`. UI behaviour only.
-
----
-
-## Design Language
-
-**Palette**
-
-```
-Background  #080c10   near-black
-Accent      #4ecba0   phosphor green
-Text        #c8d8e8   cool light
-```
-
-**Motifs**  
-Biosignal waveforms as dividers. Diagnostic interface copy. Coordinates in the footer.  
-Posts are called *readings*. You get the point.
-
-**Typography**  
-Space Mono for everything structural i.e. headings, labels, UI chrome.  
-DM Sans (300 weight) for prose. The contrast does the work.
-
----
-
-## Writing
-
-New post:
+## Running locally
 
 ```bash
-_posts/YYYY-MM-DD-title-here.md
+python -m http.server 8080
 ```
 
-Front matter:
-
-```yaml
----
-layout: post
-title: "Your Title Here"
-date: YYYY-MM-DD
-tag: career          # or: biomedical / misc / tech
----
-```
-
-Write in Markdown. Jekyll handles the rest.
+Visit `localhost:8080`. That's it.
 
 ---
 
-## Running Locally
-
-```bash
-gem install bundler jekyll
-bundle exec jekyll serve
-```
-
-Visit `localhost:4000`. Changes hot-reload.
-
----
-
-## Philosophy
-
-I originally wanted to make a hybrid micro-blogging and blogging platform because I quit using socials like Twitter, BlueSky, and Threads. Too many platforms to get my point across. So I made version 1 as a way to dump my thoughts somewhere in the internet.
-
-Version 2 ended up more of a creative portfolio because I was so fixated on getting potential employers to notice me and to channel my professional side of things but in the end I lost its original purpose in version 1.
-
-This latest rendition I came up with I believe is a best of both worlds kind of situation. The focus is now back to my blogs, but if people want to get to know more of what I can do, I also showcase my projects and have a downloadable CV in my about section.
-
----
-
-```
-▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░  SIGNAL MAINTAINED
-```
-
-*LeCaseus / Chezter Vargas*
+*Chezter Vargas — [lecaseus.github.io](https://lecaseus.github.io)*
